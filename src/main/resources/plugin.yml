@@ -1,0 +1,7 @@
+name: labyrinth
+main: chalkinshmeal.labyrinth.Plugin
+version: ${project.version}
+api-version: 1.21
+author: chalkinshmeal
+commands:
+  labyrinth:
