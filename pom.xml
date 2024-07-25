@@ -5,10 +5,10 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>chalkinshmeal</groupId>
-	<artifactId>labyrinth</artifactId>
+	<artifactId>lockout</artifactId>
 	<version>1.0</version>
 	<packaging>jar</packaging>
-	<name>Labyrinth</name>
+	<name>Lockout</name>
 	<properties>
         <api.version>1.21</api.version> <!-- Define your API version here -->
 		<java.version>17</java.version>
@@ -47,7 +47,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.3.1</version>
                 <configuration>
-                <outputDirectory>C:\Users\Charles\Desktop\test_server\plugins</outputDirectory>
+                <outputDirectory>C:\Users\Charles\Desktop\MC Servers\Lockout Server\plugins</outputDirectory>
                 </configuration>
             </plugin>
 		</plugins>

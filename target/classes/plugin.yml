@@ -1,7 +1,7 @@
-name: labyrinth
-main: chalkinshmeal.labyrinth.Plugin
+name: Lockout
+main: chalkinshmeal.lockout.Plugin
 version: 1.0
 api-version: 1.21
 author: chalkinshmeal
 commands:
-  labyrinth:
+  lockout:
