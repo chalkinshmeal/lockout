@@ -3,6 +3,7 @@ package chalkinshmeal.lockout.data;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -26,7 +27,7 @@ import java.util.Set;
 public class ConfigHandler {
     private final JavaPlugin plugin;
     private final FileConfiguration config;
-    private final File file;
+    private File file;
 
     // Constructor
     public ConfigHandler(JavaPlugin plugin) {
@@ -35,7 +36,11 @@ public class ConfigHandler {
     public ConfigHandler(JavaPlugin plugin, String configPath) {
         this.plugin = plugin;
 
+        // Create file + directories, if necessary
         this.file = new File(configPath);
+        this.file.getParentFile().mkdirs();
+        this.plugin.saveDefaultConfig();
+
         this.config = new YamlConfiguration();
         try {
             this.config.load(this.file);
@@ -51,6 +56,10 @@ public class ConfigHandler {
     }
 
     /** Special getters */
+    public List<String> getListFromKey(String key) {
+        return this.config.getStringList(key);
+    }
+
     public Material getMaterialFromKey(String key) {
         try {
             String material_str = (String) this.getValue(key);

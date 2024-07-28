@@ -1,98 +1,74 @@
 package chalkinshmeal.lockout;
 
-import static chalkinshmeal.lockout.utils.Book.*;
-
-import org.bukkit.ChatColor;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import chalkinshmeal.lockout.artifacts.compass.LockoutCompass;
 import chalkinshmeal.lockout.artifacts.game.GameHandler;
-import chalkinshmeal.lockout.artifacts.server.ServerEventHandler;
+import chalkinshmeal.lockout.artifacts.tasks.LockoutTaskHandler;
+import chalkinshmeal.lockout.commands.CompassCommand;
 import chalkinshmeal.lockout.commands.HelpCommand;
-import chalkinshmeal.lockout.commands.game.*;
+import chalkinshmeal.lockout.commands.StartCommand;
+import chalkinshmeal.lockout.commands.StopCommand;
 import chalkinshmeal.lockout.data.ConfigHandler;
+import chalkinshmeal.lockout.listeners.server.InventoryClickListener;
+import chalkinshmeal.lockout.listeners.server.PlayerInteractListener;
 import chalkinshmeal.lockout.listeners.server.PlayerJoinListener;
 import chalkinshmeal.lockout.utils.cmdframework.command.ParentCommand;
 import chalkinshmeal.lockout.utils.cmdframework.handler.CommandHandler;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 
-@SuppressWarnings("deprecation")
 public class Plugin extends JavaPlugin implements Listener {
 	private CommandHandler cmdHandler;
-	//private ConfigHandler configHandler;
-	private GameHandler gameHandler;
-	private ServerEventHandler serverEventHandler;
-    private Component welcomeMsg = Component.text()
-        .append(Component.text("Lockout successfully loaded", NamedTextColor.GOLD))
-        .build();
+    private ConfigHandler configHandler;
+    private GameHandler gameHandler;
+    private LockoutTaskHandler lockoutTaskHandler;
+    private LockoutCompass lockoutCompass;
+
 
 	@Override
 	public void onEnable() {
 		super.onEnable();
 		this.cmdHandler = new CommandHandler(this);
-		//this.configHandler = new ConfigHandler(this);
-		this.gameHandler = new GameHandler(this);
-		this.serverEventHandler = new ServerEventHandler();
+        this.configHandler = new ConfigHandler(this);
+        this.lockoutCompass = new LockoutCompass(this.configHandler);
+        this.lockoutTaskHandler = new LockoutTaskHandler(this, this.configHandler, this.lockoutCompass);
+        this.gameHandler = new GameHandler(this, this.lockoutCompass, this.lockoutTaskHandler);
 
 		// Register commands + listeners
 		registerCommands();
 		registerListeners();
 
 		// Log some debug information
-		this.getServer().getConsoleSender().sendMessage(this.welcomeMsg);
+        Component welcomeMsg = Component.text()
+            .append(Component.text("Lockout successfully loaded", NamedTextColor.GOLD))
+            .build();
+		this.getServer().getConsoleSender().sendMessage(welcomeMsg);
 	}
 
 	/** Register all commands within the /command directory */
 	private void registerCommands() {
 		// Create command
-		ParentCommand labyrinthCmd = new ParentCommand("labyrinth");
+		ParentCommand lockoutCmd = new ParentCommand("lockout");
 
-		// Game commands
-		labyrinthCmd.addChild(new ListGameCommand(this, gameHandler));
-
-		// Others
-		labyrinthCmd.addChild(new HelpCommand(this, cmdHandler));
+        lockoutCmd.addChild(new CompassCommand(this, cmdHandler, lockoutCompass));
+        lockoutCmd.addChild(new StartCommand(this, cmdHandler, gameHandler));
+        lockoutCmd.addChild(new StopCommand(this, cmdHandler, gameHandler));
+		lockoutCmd.addChild(new HelpCommand(this, cmdHandler));
 
 		// Register command -> command handler
-		this.cmdHandler.registerCommand(labyrinthCmd);
+		this.cmdHandler.registerCommand(lockoutCmd);
 	}
 
-	/** Register all listeners within the /listeners directory */
+    //---------------------------------------------------------------------------------------------
+	// Register all server-wide listeners
+    //---------------------------------------------------------------------------------------------
 	private void registerListeners() {
-		// Register listener -> server
 		PluginManager manager = this.getServer().getPluginManager();
-		manager.registerEvents(new PlayerJoinListener(), this);
-	}
-
-	public void sendUpdate(PlayerJoinEvent event) {
-		ItemStack book = createBook();
-		book = addText(book, 1, "  --- Changelog ---\n", ChatColor.GOLD);
-		book = addText(book, 1, "+ ", ChatColor.DARK_GREEN);
-		book = addText(book,1, "Upgraded to 1.20.4\n", ChatColor.BLACK);
-		book = addText(book, 1, "+ ", ChatColor.DARK_GREEN);
-		book = addText(book,1, "Added 2s of on-death dmg immunity\n", ChatColor.BLACK);
-		book = addText(book, 1, "+ ", ChatColor.DARK_GREEN);
-		book = addText(book, 1,"Added Bat class\n", ChatColor.BLACK);
-		book = addText(book, 1, "+ ", ChatColor.DARK_GREEN);
-		book = addText(book, 1,"Added Piglin abilities\n", ChatColor.BLACK);
-		book = addText(book, 1, "+ ", ChatColor.DARK_GREEN);
-		book = addText(book, 1,"Added Spider abilities\n", ChatColor.BLACK);
-		book = addText(book, 1, "+ ", ChatColor.DARK_GREEN);
-		book = addText(book, 1,"Added changelog\n", ChatColor.BLACK);
-		book = addText(book, 1, "- ", ChatColor.DARK_RED);
-		book = addText(book, 1,"Added Spider web duration\n", ChatColor.BLACK);
-		book = addText(book, 1, "- ", ChatColor.DARK_RED);
-		book = addText(book, 1,"Spawn went missing\n", ChatColor.BLACK);
-		book = addText(book, 1, "o ", ChatColor.AQUA);
-		book = addText(book, 1,"Fixed Allay\n", ChatColor.BLACK);
-		book = setTitle(book, ChatColor.GOLD + "Changelog");
-		book = setAuthor(book, ChatColor.DARK_PURPLE + "Spoingus");
-
-		event.getPlayer().getInventory().clear();
-		event.getPlayer().getInventory().setItem(0, book);
+		manager.registerEvents(new InventoryClickListener(this.gameHandler), this);
+		manager.registerEvents(new PlayerInteractListener(this.lockoutCompass), this);
+		manager.registerEvents(new PlayerJoinListener(this.lockoutCompass), this);
 	}
 }

@@ -4,6 +4,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import net.kyori.adventure.text.TextComponent;
+
 import java.util.*;
 
 /**
@@ -16,7 +18,7 @@ public abstract class BaseCommand {
     private ParentCommand parent;
     private String permission;
     private boolean isPlayerRequired;
-    private String helpMsg;
+    private TextComponent helpMsg;
 
     public BaseCommand(String name) {
         this.name = name.toLowerCase();
@@ -32,7 +34,7 @@ public abstract class BaseCommand {
     protected ParentCommand getParent() { return parent; }
     public boolean isPlayerRequired() { return isPlayerRequired; }
     public String getPermission() { return permission; }
-    public String getHelpMsg() { return helpMsg; }
+    public TextComponent getHelpMsg() { return helpMsg; }
     public List<String> getTabList(String[] arguments) { return new LinkedList<>(); }
     protected UUID getSenderId(CommandSender sender) { return sender instanceof Player ? ((Player) sender).getUniqueId() : CONSOLE_ID; }
     public String getUsage() {
@@ -45,10 +47,8 @@ public abstract class BaseCommand {
     public void setPlayerRequired(boolean playerRequired) { isPlayerRequired = playerRequired; }
     public void setPermission(String permission) { this.permission = permission; }
     public void addAlias(String alias) { aliases.add(alias.toLowerCase()); }
-    public void setHelpMsg(String helpMsg) {
-        if (getParent() != null) helpMsg = getParent().getName() + " " + helpMsg;
-        this.helpMsg = helpMsg;
-    }
+    public void setHelpMsg(TextComponent helpMsg) { this.helpMsg = helpMsg; }
+
 
     /** Usage */
     public void sendUsage(CommandSender sender) { sender.sendMessage(getUsage()); }

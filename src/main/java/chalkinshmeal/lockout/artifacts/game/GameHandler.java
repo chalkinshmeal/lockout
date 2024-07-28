@@ -1,139 +1,127 @@
 package chalkinshmeal.lockout.artifacts.game;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerItemConsumeEvent;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import chalkinshmeal.lockout.artifacts.compass.LockoutCompass;
+import chalkinshmeal.lockout.artifacts.tasks.LockoutTaskHandler;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 public class GameHandler {
     private final JavaPlugin plugin;
-    private List<Game> games;
+    private final LockoutCompass lockoutCompass;
+    private final LockoutTaskHandler lockoutTaskHandler;
+    private final int maxTeams = 9;
+    private boolean isActive = false;
+    private Map<Integer, HashSet<UUID>> teams;
 
-    public GameHandler(JavaPlugin plugin) {
+    //---------------------------------------------------------------------------------------------
+    // Constructor
+    //---------------------------------------------------------------------------------------------
+    public GameHandler(JavaPlugin plugin, LockoutCompass lockoutCompass, LockoutTaskHandler lockoutTaskHandler) {
         this.plugin = plugin;
-        this.games = new ArrayList<>();
+        this.lockoutCompass = lockoutCompass;
+        this.lockoutTaskHandler = lockoutTaskHandler;
+        this.teams = new HashMap<Integer, HashSet<UUID>>();
+        for (int i = 0; i < this.maxTeams; i++) this.teams.put(i, new HashSet<UUID>());
     }
 
-    //-------------------------------------------------------------------------
-    // Getters
-    //-------------------------------------------------------------------------
-    //public int getNumGames() { return this.games.size(); }
-    //public List<Game> getGames() { return this.games; }
-    //public Game getGameByName(String name) {
-    //    for (Game g : this.games) { if (g.getName().equalsIgnoreCase(name)) return g; }
-    //    return null;
-    //}
-    //public Game getGameByPlayer(Player player) {
-    //    for (Game g : this.games) { if (g.isPlayerInGame(player)) { return g; } }
-    //    return null;
-    //}
+    //---------------------------------------------------------------------------------------------
+    // Accessor/Mutator methods
+    //---------------------------------------------------------------------------------------------
+    public int GetPlayerCount(int teamIndex) { return this.teams.get(teamIndex).size(); }
+    public List<String> GetPlayerNames(int teamIndex) {
+        List<String> playerNames = new ArrayList<>();
+        HashSet<UUID> team = this.teams.get(teamIndex);
+        if (team == null) return playerNames;
 
-    //-------------------------------------------------------------------------
-    // Game Operations
-    //-------------------------------------------------------------------------
-    //public String createGame(Player player, String labyrinthName) {
-    //    Labyrinth labyrinth = this.labyrinthHandler.getLabyrinthByName(labyrinthName);
-    //    if (labyrinth == null) return null;
+        List<UUID> teamList = new ArrayList<UUID>(team);
+        for (int i = 0; i < teamList.size(); i++) {
+            playerNames.add(Bukkit.getPlayer(teamList.get(i)).getName());
+        }
+        System.out.println(playerNames);
+        return playerNames;
 
-    //    // Check if labyrinth is valid
-    //    if (labyrinth.getQueueCount() == 0) {
-    //        player.sendMessage(ChatColor.RED + "Could not create game: Labyrinth '" + labyrinthName + "' has no queues");
-    //        return null;
-    //    }
-    //    if (labyrinth.getSpawnCount() == 0) {
-    //        player.sendMessage(ChatColor.RED + "Could not create game: Labyrinth '" + labyrinthName + "' has no spawns");
-    //        return null;
-    //    }
+    }
+    public Integer GetTeam(UUID uuid) {
+        for (int i = 0; i < this.teams.size(); i++) {
+            if (this.teams.get(i).contains(uuid)) return i;
+        }
+        return null;
+    }
 
-    //    Game game = new Game(this.plugin, labyrinth);
-    //    this.games.add(game);
+    public void AddPlayer(UUID uuid, int teamIndex) {
+        HashSet<UUID> team = this.teams.getOrDefault(teamIndex, null);
+        if (team == null) return;
 
-    //    return game.getName();
-    //}
-    //public void joinGame(Player player, String labyrinthName) {
-    //    // Clear empty games
-    //    List<Game> games = new ArrayList<>();
-    //    for (Game game : this.games) {
-    //        if (!game.getGameState().equals(GameState.DONE)) games.add(game);
-    //    }
-    //    this.games = games;
+        team.add(uuid);
+        this.lockoutCompass.updateTeamsInventory(this);
+    }
 
-    //    // If player in a game, do not join
-    //    if (this.getGameByPlayer(player) != null) {
-    //        player.sendMessage(ChatColor.RED + "You are already part of a game! Leave it first.");
-    //        return;
-    //    }
+    public void RemovePlayer(UUID uuid) {
+        Integer teamIndex = this.GetTeam(uuid);
+        if (teamIndex == null) return;
 
-    //    Game game = this.getGameByName(labyrinthName);
+        this.teams.get(teamIndex).remove(uuid);
+        this.lockoutCompass.updateTeamsInventory(this);
+    }
 
-    //    // If game not created already, create it
-    //    if (game == null) {
-    //        String gameName = this.createGame(player, labyrinthName);
-    //        game = this.getGameByName(gameName);
-    //        if (game == null) {
-    //            player.sendMessage(ChatColor.RED + "Labyrinth '" + ChatColor.GOLD + labyrinthName + ChatColor.RED + "' does not exist!");
-    //            return;
-    //        }
-    //    }
+    //---------------------------------------------------------------------------------------------
+    // Game methods
+    //---------------------------------------------------------------------------------------------
+    public void start() {
+        this.isActive = true;
+        this.lockoutCompass.SetIsActive(true);
+        
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            player.sendMessage("Starting game!");
+        }
 
-    //    // Add player to game
-    //    game.joinGame(player);
-    //}
-    //public void readyUp(Player player) {
-    //    Game game = this.getGameByPlayer(player);
-    //    if (game == null) {
-    //        player.sendMessage(ChatColor.RED + "You are not part of a game!");
-    //        return;
-    //    }
-    //    game.readyUp(player);
-    //}
-    //public void toggleAreItemsEnabled(Player player) {
-    //    Game game = this.getGameByPlayer(player);
-    //    if (game == null) {
-    //        player.sendMessage(ChatColor.RED + "You are not part of a game!");
-    //        return;
-    //    }
-    //    game.toggleIsItemModeEnabled();
-    //}
-    //public void startGame(Player player) {
-    //    Game game = this.getGameByPlayer(player);
-    //    if (game == null) {
-    //        player.sendMessage(ChatColor.RED + "You are not part of a game!");
-    //        return;
-    //    }
-    //    game.startGame();
-    //}
-    //public void leaveGame(Player player) {
-    //    Game game = this.getGameByPlayer(player);
-    //    if (game == null) {
-    //        player.sendMessage(ChatColor.RED + "You are not part of a game!");
-    //        return;
-    //    }
+        this.lockoutCompass.updateTasksInventory(this.lockoutTaskHandler);
+        this.lockoutTaskHandler.registerListeners();
+    }
 
-    //    game.leaveGame(player);
-    //    if (game.getPlayerCount() == 0) {
-    //        this.games.remove(game);
-    //        game.removeSummonsFromLabyrinth();
-    //    }
-    //}
+    public void stop() {
+        this.isActive = false;
+        this.lockoutCompass.SetIsActive(false);
+        
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            player.sendMessage("Stopping game!");
+        }
 
-    ////-------------------------------------------------------------------------
-    //// Utilities
-    ////-------------------------------------------------------------------------
-    //public void setClassSelection(Player player, String className) {
-    //    Game game = this.getGameByPlayer(player);
-    //    if (game == null) {
-    //        player.sendMessage(ChatColor.RED + "You are not part of a game!");
-    //        return;
-    //    }
-    //    game.setClassSelection(player, className);
-    //}
-    //public void leaveGameOnQuit(PlayerQuitEvent event) {
-    //    Game game = this.getGameByPlayer(event.getPlayer());
-    //    if (game == null) return;
-    //    game.leaveGame(event.getPlayer());
-    //}
+        this.lockoutTaskHandler.unRegisterListeners();
+    }
+
+    //---------------------------------------------------------------------------------------------
+    // Listener methods
+    //---------------------------------------------------------------------------------------------
+    public void onInventoryClickEvent(InventoryClickEvent event) {
+        String invName = ChatColor.stripColor(event.getView().getTitle());
+        if (!invName.equals(this.lockoutCompass.GetTeamInvName())) return;
+        int slot = event.getRawSlot();
+        if (slot < 0) return;
+
+        event.setCancelled(true);
+
+        Player player = (Player) event.getWhoClicked();
+        if (this.GetTeam(player.getUniqueId()) != null)
+            this.RemovePlayer(player.getUniqueId());
+        this.AddPlayer(player.getUniqueId(), slot);
+        player.updateInventory();
+
+        for (int i = 0; i < this.maxTeams; i++) {
+            System.out.println("Team " + i + ": " + this.teams.get(i).size());
+        }
+    }
 }

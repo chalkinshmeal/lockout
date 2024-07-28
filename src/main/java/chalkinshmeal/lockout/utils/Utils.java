@@ -33,7 +33,10 @@ import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
-import chalkinshmeal.lockout.artifacts.game.Game;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +61,10 @@ public class Utils {
         }
 
         return random.nextInt((hi-lo)+1) + lo;
+    }
+    // Returns the highest multiple (Ex: num=25, mult=9, returns 18)
+    public static int getHighestMultiple(int num, int mult) {
+        return ((int) num / mult) * mult;
     }
     public static Color getColorFromStr(String colorStr) {
         if (colorStr.equals("AQUA")) { return Color.AQUA; }
@@ -571,34 +578,11 @@ public class Utils {
         return item;
     }
 
-    // Scheduled Tasks
-    public static void experienceCountdown(JavaPlugin plugin, Game game, Player player, float secs) {
-        new BukkitRunnable() {
-            float secsLeft = secs;
-            float secsMax = secs;
-            @Override
-            public void run() {
-                //if (secsLeft <= 0 || game.isGameDone()) { this.cancel(); return; }
-                //secsLeft -= 1;
-
-                //player.sendExperienceChange(secsLeft / secsMax, (int) secsLeft);
-            }
-        }.runTaskTimer(plugin, 20L*0L, 20L*1L);
-    }
-    public static void setUltimateDone(JavaPlugin plugin, Game game, Player player, float duration) {
-        new BukkitRunnable() {
-            int timeLeft = (int) duration;
-            // Save previous armor state
-            @Override
-            public void run() {
-                // End condition
-                timeLeft -= 1;
-                //if (timeLeft < 0 || !game.isPlayerInPlay(player)) {
-                //    game.setUltimateInactive(player);
-                //    this.cancel();
-                //}
-            }
-        }.runTaskTimer(plugin, (long) (20L*0L), 20L*1L);
+    public static ItemStack setDisplayName(ItemStack item, TextComponent displayName) {
+        ItemMeta meta = item.getItemMeta();
+        meta.displayName(displayName);
+        item.setItemMeta(meta);
+        return item;
     }
 
     // Blocks
@@ -608,5 +592,12 @@ public class Utils {
     }
     public static boolean isMaterial(Block b, Material m) {
         return b.getType().equals(m);
+    }
+
+    //---------------------------------------------------------------------------------------------
+    // TextComponent
+    //---------------------------------------------------------------------------------------------
+    public static String ComponentToString(TextComponent textComponent) {
+        return PlainTextComponentSerializer.plainText().serialize(textComponent);
     }
 }
