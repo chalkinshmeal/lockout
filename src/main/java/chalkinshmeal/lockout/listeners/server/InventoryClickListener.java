@@ -4,18 +4,18 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
-import chalkinshmeal.lockout.artifacts.game.GameHandler;
+import chalkinshmeal.lockout.artifacts.compass.LockoutCompass;
 
 public class InventoryClickListener implements Listener {
-    private final GameHandler gameHandler;
+    private final LockoutCompass lockoutCompass;
 
-    public InventoryClickListener(GameHandler gameHandler) {
-        this.gameHandler = gameHandler;
+    public InventoryClickListener(LockoutCompass lockoutCompass) {
+        this.lockoutCompass = lockoutCompass;
     }
 
     /** Event Handler */
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
-        this.gameHandler.onInventoryClickEvent(event);
+        this.lockoutCompass.onInventoryClickEvent(event);
     }
 }

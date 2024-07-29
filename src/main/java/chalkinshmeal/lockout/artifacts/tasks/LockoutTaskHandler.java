@@ -6,44 +6,46 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-import org.bukkit.event.HandlerList;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerItemConsumeEvent;
-import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import chalkinshmeal.lockout.artifacts.compass.LockoutCompass;
-import chalkinshmeal.lockout.artifacts.tasks.types.EatAnItem;
+import chalkinshmeal.lockout.artifacts.scoreboard.LockoutScoreboard;
+import chalkinshmeal.lockout.artifacts.tasks.types.EatAnItemTask;
 import chalkinshmeal.lockout.data.ConfigHandler;
-import chalkinshmeal.lockout.listeners.game.PlayerItemConsumeListener;
+import chalkinshmeal.lockout.utils.Utils;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 
 public class LockoutTaskHandler {
     private final JavaPlugin plugin;
     private final ConfigHandler configHandler;
     private final LockoutCompass lockoutCompass;
+    private final LockoutScoreboard lockoutScoreboard;
+    private final int maxLockoutTasks;
     private List<LockoutTask> tasks;
-    private List<Listener> listeners;
 
-    public LockoutTaskHandler(JavaPlugin plugin, ConfigHandler configHandler, LockoutCompass lockoutCompass) {
+    public LockoutTaskHandler(JavaPlugin plugin, ConfigHandler configHandler, LockoutCompass lockoutCompass, LockoutScoreboard lockoutScoreboard) {
         this.plugin = plugin;
         this.configHandler = configHandler;
         this.lockoutCompass = lockoutCompass;
+        this.lockoutScoreboard = lockoutScoreboard;
         this.tasks = new ArrayList<>();
-        this.listeners = new ArrayList<>();
-
-        this.CreateTaskList();
+        this.maxLockoutTasks = this.configHandler.getInt("taskCount", 27);
     }
 
     public void CreateTaskList() {
-        this.tasks = new ArrayList<>();
+        List<LockoutTask> allTasks = new ArrayList<>();
 
         // EatAnItem task
         for (String materialStr : this.configHandler.getListFromKey("eatAnItemItems")) {
             Material material = Material.valueOf(materialStr.toUpperCase());
-            this.tasks.add(new EatAnItem(this.configHandler, this, material));
-            System.out.println("Adding task: " + this.tasks.get(this.tasks.size() - 1).name);
+            allTasks.add(new EatAnItemTask(this.plugin, this.configHandler, this, material));
         }
+
+        // Randomly get items
+        this.tasks = Utils.getRandomItems(allTasks, Math.min(this.maxLockoutTasks, allTasks.size()));
     }
 
     //---------------------------------------------------------------------------------------------
@@ -54,32 +56,32 @@ public class LockoutTaskHandler {
     //---------------------------------------------------------------------------------------------
 	// Task methods
     //---------------------------------------------------------------------------------------------
-    public void complete(LockoutTask task, UUID uuid) {
-        Player completedPlayer = this.plugin.getServer().getPlayer(uuid);
-
+    public void complete(LockoutTask task, Player completedPlayer) {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            player.sendMessage(completedPlayer.getName() + " completed task " + task.name);
+            player.sendMessage(Component.text()
+                .append(Component.text(completedPlayer.getName(), NamedTextColor.GOLD))
+                .append(Component.text(" has completed the task ", NamedTextColor.GRAY))
+                .append(Component.text(task.name, NamedTextColor.BLUE)));
+            player.sendMessage(Component.text()
+                .append(Component.text("  Reward: ", NamedTextColor.GRAY))
+                .append(Component.text(task.rewardStr, NamedTextColor.LIGHT_PURPLE)));
+            Utils.playSound(player, Sound.BLOCK_NOTE_BLOCK_BELL);
         }
 
         this.lockoutCompass.updateTasksInventory(this);
+        this.lockoutScoreboard.addScore(completedPlayer, task.value);
     }
-
-    //---------------------------------------------------------------------------------------------
-	// Iterators for all tasks' event listeners
-    //---------------------------------------------------------------------------------------------
-    public void onPlayerItemConsumeEvent(PlayerItemConsumeEvent event) { for (LockoutTask task : this.tasks) if (!task.isComplete()) task.onPlayerItemConsumeEvent(event); }
 
     //---------------------------------------------------------------------------------------------
 	// Register all server-wide listeners
     //---------------------------------------------------------------------------------------------
 	public void registerListeners() {
-		PluginManager manager = this.plugin.getServer().getPluginManager();
-		this.listeners.add(new PlayerItemConsumeListener(this));
-
-        for (Listener l : this.listeners) { manager.registerEvents(l, this.plugin); }
+        for (LockoutTask task : this.tasks) {
+            task.registerListeners();
+        }
 	}
 
     public void unRegisterListeners() {
-        for (Listener l : this.listeners) { HandlerList.unregisterAll(l); }
+        for (LockoutTask task : this.tasks) { task.unRegisterListeners(); }
     }
 }

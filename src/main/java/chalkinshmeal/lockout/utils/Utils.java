@@ -1,5 +1,33 @@
 package chalkinshmeal.lockout.utils;
 
+import static org.bukkit.Material.AIR;
+import static org.bukkit.enchantments.Enchantment.BANE_OF_ARTHROPODS;
+import static org.bukkit.enchantments.Enchantment.BLAST_PROTECTION;
+import static org.bukkit.enchantments.Enchantment.FEATHER_FALLING;
+import static org.bukkit.enchantments.Enchantment.FIRE_ASPECT;
+import static org.bukkit.enchantments.Enchantment.FIRE_PROTECTION;
+import static org.bukkit.enchantments.Enchantment.KNOCKBACK;
+import static org.bukkit.enchantments.Enchantment.PROJECTILE_PROTECTION;
+import static org.bukkit.enchantments.Enchantment.PROTECTION;
+import static org.bukkit.enchantments.Enchantment.RESPIRATION;
+import static org.bukkit.enchantments.Enchantment.SHARPNESS;
+import static org.bukkit.enchantments.Enchantment.SMITE;
+import static org.bukkit.enchantments.Enchantment.SOUL_SPEED;
+import static org.bukkit.enchantments.Enchantment.SWEEPING_EDGE;
+import static org.bukkit.enchantments.Enchantment.SWIFT_SNEAK;
+import static org.bukkit.enchantments.Enchantment.THORNS;
+import static org.bukkit.entity.EntityType.POTION;
+import static org.bukkit.event.block.Action.RIGHT_CLICK_AIR;
+import static org.bukkit.event.block.Action.RIGHT_CLICK_BLOCK;
+import static org.bukkit.event.entity.EntityPotionEffectEvent.Cause.AREA_EFFECT_CLOUD;
+import static org.bukkit.event.entity.EntityRegainHealthEvent.RegainReason.CUSTOM;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+import java.util.UUID;
+
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -8,7 +36,18 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.*;
+import org.bukkit.entity.AreaEffectCloud;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
+import org.bukkit.entity.ThrowableProjectile;
+import org.bukkit.entity.ThrownPotion;
+import org.bukkit.entity.Trident;
+import org.bukkit.entity.WitherSkull;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -30,29 +69,23 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.projectiles.ProjectileSource;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.TextComponent;
-import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
-import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
-
-import static org.bukkit.Material.AIR;
-import static org.bukkit.enchantments.Enchantment.*;
-import static org.bukkit.entity.EntityType.POTION;
-import static org.bukkit.event.block.Action.RIGHT_CLICK_AIR;
-import static org.bukkit.event.block.Action.RIGHT_CLICK_BLOCK;
-import static org.bukkit.event.entity.EntityPotionEffectEvent.Cause.AREA_EFFECT_CLOUD;
-import static org.bukkit.event.entity.EntityRegainHealthEvent.RegainReason.CUSTOM;
 
 public class Utils {
+    //---------------------------------------------------------------------------------------------
     // General
+    //---------------------------------------------------------------------------------------------
+    public static <T> List<T> getRandomItems(List<T> list, int n) {
+        if (n > list.size()) {
+            throw new IllegalArgumentException("n cannot be greater than the size of the list");
+        }
+
+        List<T> copy = new ArrayList<>(list);
+        Collections.shuffle(copy, new Random()); // Shuffle the list
+        return copy.subList(0, n); // Get the first N items
+    }
     public static int roundToNearestMultiple(int num, int multiple) { return ((int) num/multiple) * multiple; }
     public static int getRandNum(int lo, int hi) {
         Random random = new Random();
@@ -62,9 +95,9 @@ public class Utils {
 
         return random.nextInt((hi-lo)+1) + lo;
     }
-    // Returns the highest multiple (Ex: num=25, mult=9, returns 18)
+    // Returns the highest multiple (Ex: num=25, mult=9, returns 27)
     public static int getHighestMultiple(int num, int mult) {
-        return ((int) num / mult) * mult;
+        return ((num + mult - 1) / mult) * mult;
     }
     public static Color getColorFromStr(String colorStr) {
         if (colorStr.equals("AQUA")) { return Color.AQUA; }
@@ -570,7 +603,20 @@ public class Utils {
         return as;
     }
 
-    // Items
+    //---------------------------------------------------------------------------------------------
+    // Items 
+    //---------------------------------------------------------------------------------------------
+    public static ItemStack addLore(ItemStack item, Component lore) {
+        ItemMeta meta = item.getItemMeta();
+        List<Component> loreList = meta.lore();
+        if (loreList == null) loreList = new ArrayList<>();
+
+        loreList.add(lore);
+        meta.lore(loreList);
+        item.setItemMeta(meta);
+        return item;
+    }
+
     public static ItemStack hideEnchants(ItemStack item) {
         ItemMeta meta = item.getItemMeta();
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
@@ -578,11 +624,17 @@ public class Utils {
         return item;
     }
 
-    public static ItemStack setDisplayName(ItemStack item, TextComponent displayName) {
+    public static ItemStack setDisplayName(ItemStack item, Component displayName) {
         ItemMeta meta = item.getItemMeta();
         meta.displayName(displayName);
         item.setItemMeta(meta);
         return item;
+    }
+
+    public static ItemStack setMaterial(ItemStack item, Material material) {
+        ItemStack newItem = new ItemStack(material);
+        newItem.setItemMeta(item.getItemMeta());
+        return newItem;
     }
 
     // Blocks
@@ -597,7 +649,15 @@ public class Utils {
     //---------------------------------------------------------------------------------------------
     // TextComponent
     //---------------------------------------------------------------------------------------------
-    public static String ComponentToString(TextComponent textComponent) {
-        return PlainTextComponentSerializer.plainText().serialize(textComponent);
+    public static String stripColor(String string) {
+        String COLOR_CODE_REGEX = "§[0-9a-fk-or]";
+        return string.replaceAll(COLOR_CODE_REGEX, "");
+    }
+
+    //---------------------------------------------------------------------------------------------
+    // Materials 
+    //---------------------------------------------------------------------------------------------
+    public static String getReadableMaterialName(Material material) {
+        return material.name().replace("_", " ").toLowerCase();
     }
 }

@@ -1,127 +1,232 @@
 package chalkinshmeal.lockout.artifacts.game;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.lang3.NotImplementedException;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
+import org.bukkit.Sound;
+import org.bukkit.World;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.PlayerItemConsumeEvent;
-import org.bukkit.plugin.PluginManager;
+import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import chalkinshmeal.lockout.artifacts.compass.LockoutCompass;
+import chalkinshmeal.lockout.artifacts.countdown.CountdownBossBar;
+import chalkinshmeal.lockout.artifacts.scoreboard.LockoutScoreboard;
 import chalkinshmeal.lockout.artifacts.tasks.LockoutTaskHandler;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import chalkinshmeal.lockout.artifacts.team.LockoutTeamHandler;
+import chalkinshmeal.lockout.data.ConfigHandler;
+import chalkinshmeal.lockout.utils.Utils;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.title.Title;
 
 public class GameHandler {
     private final JavaPlugin plugin;
+    private final ConfigHandler configHandler;
     private final LockoutCompass lockoutCompass;
     private final LockoutTaskHandler lockoutTaskHandler;
-    private final int maxTeams = 9;
-    private boolean isActive = false;
-    private Map<Integer, HashSet<UUID>> teams;
+    private final CountdownBossBar countdownBossBar;
+    private final LockoutScoreboard lockoutScoreboard;
+    private final LockoutTeamHandler lockoutTeamHandler;
+    private final int queueTime;
+    private final int gameTime;
+
+    // Temporary status
+    private List<Player> frozenPlayers = new ArrayList<>();
+    public boolean isActive = false;
 
     //---------------------------------------------------------------------------------------------
     // Constructor
     //---------------------------------------------------------------------------------------------
-    public GameHandler(JavaPlugin plugin, LockoutCompass lockoutCompass, LockoutTaskHandler lockoutTaskHandler) {
+    public GameHandler(JavaPlugin plugin, ConfigHandler configHandler, LockoutCompass lockoutCompass, LockoutTaskHandler lockoutTaskHandler, LockoutScoreboard lockoutScoreboard, LockoutTeamHandler lockoutTeamHandler) {
         this.plugin = plugin;
+        this.configHandler = configHandler;
         this.lockoutCompass = lockoutCompass;
         this.lockoutTaskHandler = lockoutTaskHandler;
-        this.teams = new HashMap<Integer, HashSet<UUID>>();
-        for (int i = 0; i < this.maxTeams; i++) this.teams.put(i, new HashSet<UUID>());
+        this.lockoutScoreboard = lockoutScoreboard;
+        this.lockoutTeamHandler = lockoutTeamHandler;
+        this.queueTime = this.configHandler.getInt("queueTime", 120);
+        this.gameTime = this.configHandler.getInt("timeLimit", 600);
+        this.countdownBossBar = new CountdownBossBar(this.plugin, this.configHandler, this.gameTime);
     }
 
     //---------------------------------------------------------------------------------------------
     // Accessor/Mutator methods
     //---------------------------------------------------------------------------------------------
-    public int GetPlayerCount(int teamIndex) { return this.teams.get(teamIndex).size(); }
-    public List<String> GetPlayerNames(int teamIndex) {
-        List<String> playerNames = new ArrayList<>();
-        HashSet<UUID> team = this.teams.get(teamIndex);
-        if (team == null) return playerNames;
-
-        List<UUID> teamList = new ArrayList<UUID>(team);
-        for (int i = 0; i < teamList.size(); i++) {
-            playerNames.add(Bukkit.getPlayer(teamList.get(i)).getName());
-        }
-        System.out.println(playerNames);
-        return playerNames;
-
-    }
-    public Integer GetTeam(UUID uuid) {
-        for (int i = 0; i < this.teams.size(); i++) {
-            if (this.teams.get(i).contains(uuid)) return i;
-        }
-        return null;
-    }
-
-    public void AddPlayer(UUID uuid, int teamIndex) {
-        HashSet<UUID> team = this.teams.getOrDefault(teamIndex, null);
-        if (team == null) return;
-
-        team.add(uuid);
-        this.lockoutCompass.updateTeamsInventory(this);
-    }
-
-    public void RemovePlayer(UUID uuid) {
-        Integer teamIndex = this.GetTeam(uuid);
-        if (teamIndex == null) return;
-
-        this.teams.get(teamIndex).remove(uuid);
-        this.lockoutCompass.updateTeamsInventory(this);
-    }
+    public int getNumTeams() { return this.lockoutTeamHandler.getNumTeams(); }
 
     //---------------------------------------------------------------------------------------------
     // Game methods
     //---------------------------------------------------------------------------------------------
-    public void start() {
-        this.isActive = true;
-        this.lockoutCompass.SetIsActive(true);
-        
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            player.sendMessage("Starting game!");
+    public void queue() {
+        for (Player player : this.lockoutTeamHandler.getAllPlayers()) {
+            this.frozenPlayers.add(player);
+            this.resetPlayerState(player);
+            this.lockoutCompass.giveCompass(player);
+            this.DisplayCountdownTask(plugin, player, this.queueTime);
         }
 
+        this.resetWorldState();
+        this.lockoutTaskHandler.CreateTaskList();
+        this.lockoutCompass.SetIsActive(true);
         this.lockoutCompass.updateTasksInventory(this.lockoutTaskHandler);
         this.lockoutTaskHandler.registerListeners();
+        this.delayStartTask(this.plugin, this, this.queueTime);
+    }
+
+    public void start() {
+        // Global operations
+        this.isActive = true;
+        this.frozenPlayers.clear();
+        this.countdownBossBar.start();
+        this.lockoutScoreboard.init(this.lockoutTeamHandler);
+        this.delayStopTask(this.plugin, this, this.gameTime);
+
+        // Per-player operations
+        for (Player player : this.lockoutTeamHandler.getAllPlayers()) {
+            player.sendMessage(Component.text("Lockout game starting.", NamedTextColor.GOLD));
+            this.lockoutScoreboard.setScore(this.lockoutTeamHandler.getTeamName(player), 0);
+            this.lockoutScoreboard.showToPlayer(player);
+        }
     }
 
     public void stop() {
-        this.isActive = false;
-        this.lockoutCompass.SetIsActive(false);
-        
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            player.sendMessage("Stopping game!");
+        // Get winner
+        List<String> winningTeams = new ArrayList<>();
+        int maxPoints = -100;
+        for (String teamName : this.lockoutTeamHandler.getTeamNames()) {
+            int teamPoints = this.lockoutScoreboard.getScore(teamName);
+            if (teamPoints == maxPoints) {
+                winningTeams.add(teamName);
+            }
+            else if (teamPoints > maxPoints) {
+                maxPoints = teamPoints;
+                winningTeams.clear();
+                winningTeams.add(teamName);
+            }
         }
 
+        if (winningTeams.size() > 1) {
+            this.suddenDeath(winningTeams);
+            return;
+        }
+
+        // Global operations
+        this.isActive = false;
+        this.lockoutCompass.SetIsActive(false);
         this.lockoutTaskHandler.unRegisterListeners();
+        this.countdownBossBar.stop();
+
+        // Per-player operations
+        for (Player player : this.lockoutTeamHandler.getAllPlayers()) {
+            player.sendMessage(Component.text("Lockout game ended.", NamedTextColor.GOLD));
+            player.showTitle(Title.title(
+                Component.text(winningTeams.get(0) + " won!", NamedTextColor.GOLD),
+                Component.empty(), // No subtitle
+                Title.Times.of(java.time.Duration.ZERO, java.time.Duration.ofSeconds(5), java.time.Duration.ofSeconds(1))
+            ));
+            this.lockoutScoreboard.hideFromPlayer(player);
+        }
+    }
+
+    public void suddenDeath(List<String> winningTeams) {
+        // Sudden death
+        throw new NotImplementedException("Sudden death not implemented");
     }
 
     //---------------------------------------------------------------------------------------------
     // Listener methods
     //---------------------------------------------------------------------------------------------
-    public void onInventoryClickEvent(InventoryClickEvent event) {
-        String invName = ChatColor.stripColor(event.getView().getTitle());
-        if (!invName.equals(this.lockoutCompass.GetTeamInvName())) return;
-        int slot = event.getRawSlot();
-        if (slot < 0) return;
+    public void onPlayerMoveEvent(PlayerMoveEvent event) {
+        if (!this.frozenPlayers.contains(event.getPlayer())) return;
 
         event.setCancelled(true);
+    }
 
-        Player player = (Player) event.getWhoClicked();
-        if (this.GetTeam(player.getUniqueId()) != null)
-            this.RemovePlayer(player.getUniqueId());
-        this.AddPlayer(player.getUniqueId(), slot);
-        player.updateInventory();
+    //---------------------------------------------------------------------------------------------
+    // Utility methods
+    //---------------------------------------------------------------------------------------------
+    private void resetPlayerState(Player player) {
+        player.setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
+        player.setFoodLevel(20);
+        player.setSaturation(5);
+        player.setFireTicks(0);
+        player.setExp(0);
+        player.setLevel(0);
+        player.setGlowing(false);
+        player.getInventory().clear();
+        player.getInventory().setArmorContents(new ItemStack[4]);
+        player.setGameMode(GameMode.SURVIVAL);
+        for (PotionEffect effect : player.getActivePotionEffects()) player.removePotionEffect(effect.getType());
 
-        for (int i = 0; i < this.maxTeams; i++) {
-            System.out.println("Team " + i + ": " + this.teams.get(i).size());
-        }
+        player.teleport(Bukkit.getWorld("world").getSpawnLocation());
+    }
+
+    private void resetWorldState() {
+        World world = Bukkit.getWorld("world");
+        world.setTime(1000);
+    }
+
+    //---------------------------------------------------------------------------------------------
+    // Task methods
+    //---------------------------------------------------------------------------------------------
+    private void delayStartTask(JavaPlugin plugin, GameHandler gameHandler, int delaySeconds) {
+        int delayTicks = delaySeconds * 20;
+ 
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                gameHandler.start();
+            }
+        }.runTaskLater(plugin, delayTicks);
+    }
+
+    private void delayStopTask(JavaPlugin plugin, GameHandler gameHandler, int delaySeconds) {
+        int delayTicks = delaySeconds * 20;
+ 
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                gameHandler.stop();
+            }
+        }.runTaskLater(plugin, delayTicks);
+    }
+
+    private void DisplayCountdownTask(JavaPlugin plugin, Player player, int durationSeconds) {
+        new BukkitRunnable() {
+            private int remainingSeconds = durationSeconds;
+
+            @Override
+            public void run() {
+                if (remainingSeconds <= 0) {
+                    player.clearTitle();
+                    this.cancel(); // Stop the task when the timer ends
+                    return;
+                }
+
+                // Sound
+                if (remainingSeconds <= 5) {
+                    Utils.playSound(player, Sound.BLOCK_NOTE_BLOCK_PLING);
+                }
+                else {
+                    Utils.playSound(player, Sound.BLOCK_NOTE_BLOCK_HAT);
+                }
+
+                // Display the remaining time in the center of the screen
+                player.showTitle(Title.title(
+                    Component.text(remainingSeconds, NamedTextColor.GOLD),
+                    Component.empty(), // No subtitle
+                    Title.Times.of(java.time.Duration.ZERO, java.time.Duration.ofSeconds(1), java.time.Duration.ofSeconds(5))
+                ));
+                remainingSeconds--;
+            }
+        }.runTaskTimer(plugin, 0, 20); // Run the task every 20 ticks (1 second)
     }
 }

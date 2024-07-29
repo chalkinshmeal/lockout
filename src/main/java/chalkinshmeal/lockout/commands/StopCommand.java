@@ -26,6 +26,13 @@ public class StopCommand extends BaseCommand {
 
     @Override
     protected void onCommand(CommandSender sender, String[] args) {
+        if (!this.gameHandler.isActive) {
+            sender.sendMessage(
+                Component.text("No ", NamedTextColor.GRAY)
+                    .append(Component.text("Lockout ", NamedTextColor.GOLD))
+                    .append(Component.text("game in progress", NamedTextColor.GRAY)));
+            return;
+        }
         this.gameHandler.stop();
     }
 }

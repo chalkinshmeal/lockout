@@ -26,6 +26,19 @@ public class StartCommand extends BaseCommand {
 
     @Override
     protected void onCommand(CommandSender sender, String[] args) {
-        this.gameHandler.start();
+        if (this.gameHandler.isActive) {
+            sender.sendMessage(
+                Component.text("Lockout ", NamedTextColor.GOLD)
+                    .append(Component.text("game is already in progress", NamedTextColor.GRAY)));
+            return;
+        }
+        if (this.gameHandler.getNumTeams() <= 0) {
+            sender.sendMessage(
+                Component.text("Create at least 1 team to start a ", NamedTextColor.GRAY)
+                    .append(Component.text("Lockout ", NamedTextColor.GOLD))
+                    .append(Component.text("game", NamedTextColor.GRAY)));
+            return;
+        }
+        this.gameHandler.queue();
     }
 }

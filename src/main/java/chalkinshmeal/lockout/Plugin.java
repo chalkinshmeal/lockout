@@ -6,15 +6,19 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import chalkinshmeal.lockout.artifacts.compass.LockoutCompass;
 import chalkinshmeal.lockout.artifacts.game.GameHandler;
+import chalkinshmeal.lockout.artifacts.scoreboard.LockoutScoreboard;
 import chalkinshmeal.lockout.artifacts.tasks.LockoutTaskHandler;
+import chalkinshmeal.lockout.artifacts.team.LockoutTeamHandler;
 import chalkinshmeal.lockout.commands.CompassCommand;
 import chalkinshmeal.lockout.commands.HelpCommand;
 import chalkinshmeal.lockout.commands.StartCommand;
 import chalkinshmeal.lockout.commands.StopCommand;
+import chalkinshmeal.lockout.commands.TeamCommand;
 import chalkinshmeal.lockout.data.ConfigHandler;
 import chalkinshmeal.lockout.listeners.server.InventoryClickListener;
 import chalkinshmeal.lockout.listeners.server.PlayerInteractListener;
 import chalkinshmeal.lockout.listeners.server.PlayerJoinListener;
+import chalkinshmeal.lockout.listeners.server.PlayerMoveListener;
 import chalkinshmeal.lockout.utils.cmdframework.command.ParentCommand;
 import chalkinshmeal.lockout.utils.cmdframework.handler.CommandHandler;
 import net.kyori.adventure.text.Component;
@@ -25,7 +29,9 @@ public class Plugin extends JavaPlugin implements Listener {
     private ConfigHandler configHandler;
     private GameHandler gameHandler;
     private LockoutTaskHandler lockoutTaskHandler;
+    private LockoutTeamHandler lockoutTeamHandler;
     private LockoutCompass lockoutCompass;
+    private LockoutScoreboard lockoutScoreboard;
 
 
 	@Override
@@ -33,9 +39,11 @@ public class Plugin extends JavaPlugin implements Listener {
 		super.onEnable();
 		this.cmdHandler = new CommandHandler(this);
         this.configHandler = new ConfigHandler(this);
-        this.lockoutCompass = new LockoutCompass(this.configHandler);
-        this.lockoutTaskHandler = new LockoutTaskHandler(this, this.configHandler, this.lockoutCompass);
-        this.gameHandler = new GameHandler(this, this.lockoutCompass, this.lockoutTaskHandler);
+        this.lockoutTeamHandler = new LockoutTeamHandler();
+        this.lockoutScoreboard = new LockoutScoreboard();
+        this.lockoutCompass = new LockoutCompass(this.configHandler, this.lockoutTeamHandler);
+        this.lockoutTaskHandler = new LockoutTaskHandler(this, this.configHandler, this.lockoutCompass, this.lockoutScoreboard);
+        this.gameHandler = new GameHandler(this, this.configHandler, this.lockoutCompass, this.lockoutTaskHandler, this.lockoutScoreboard, this.lockoutTeamHandler);
 
 		// Register commands + listeners
 		registerCommands();
@@ -56,6 +64,7 @@ public class Plugin extends JavaPlugin implements Listener {
         lockoutCmd.addChild(new CompassCommand(this, cmdHandler, lockoutCompass));
         lockoutCmd.addChild(new StartCommand(this, cmdHandler, gameHandler));
         lockoutCmd.addChild(new StopCommand(this, cmdHandler, gameHandler));
+        lockoutCmd.addChild(new TeamCommand(this, cmdHandler, lockoutTeamHandler));
 		lockoutCmd.addChild(new HelpCommand(this, cmdHandler));
 
 		// Register command -> command handler
@@ -67,8 +76,9 @@ public class Plugin extends JavaPlugin implements Listener {
     //---------------------------------------------------------------------------------------------
 	private void registerListeners() {
 		PluginManager manager = this.getServer().getPluginManager();
-		manager.registerEvents(new InventoryClickListener(this.gameHandler), this);
-		manager.registerEvents(new PlayerInteractListener(this.lockoutCompass), this);
+		manager.registerEvents(new InventoryClickListener(this.lockoutCompass), this);
 		manager.registerEvents(new PlayerJoinListener(this.lockoutCompass), this);
+		manager.registerEvents(new PlayerInteractListener(this.lockoutCompass), this);
+		manager.registerEvents(new PlayerMoveListener(this.gameHandler), this);
 	}
 }
