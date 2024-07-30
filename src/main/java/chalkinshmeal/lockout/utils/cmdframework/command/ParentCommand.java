@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 /**
  * A command that can have other commands as arguments/children.
  */
+@SuppressWarnings("deprecation")
 public class ParentCommand extends BaseCommand {
 	
 	private final Set<BaseCommand> children;

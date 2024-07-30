@@ -32,8 +32,6 @@ import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.attribute.Attribute;
-import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.AreaEffectCloud;
@@ -83,16 +81,15 @@ public class Utils {
         }
 
         List<T> copy = new ArrayList<>(list);
-        Collections.shuffle(copy, new Random()); // Shuffle the list
+        Collections.shuffle(copy, new Random(System.currentTimeMillis())); // Shuffle the list
         return copy.subList(0, n); // Get the first N items
     }
     public static int roundToNearestMultiple(int num, int multiple) { return ((int) num/multiple) * multiple; }
     public static int getRandNum(int lo, int hi) {
-        Random random = new Random();
+        Random random = new Random(System.currentTimeMillis());
         if (hi < lo) {
             int temp = lo; lo = hi; hi = temp;
         }
-
         return random.nextInt((hi-lo)+1) + lo;
     }
     // Returns the highest multiple (Ex: num=25, mult=9, returns 27)
@@ -265,6 +262,7 @@ public class Utils {
     public static void addHealth(LivingEntity e, int health) {
         addHealth(e, health, CUSTOM);
     }
+    @SuppressWarnings("deprecation")
     public static void addHealth(LivingEntity e, int health, EntityRegainHealthEvent.RegainReason reason) {
         //EntityRegainHealthEvent event = new EntityRegainHealthEvent(e, health, reason);
         //Bukkit.getPluginManager().callEvent(event);
@@ -326,6 +324,7 @@ public class Utils {
         p.getInventory().remove(item);
         return item;
     }
+    @SuppressWarnings("deprecation")
     public static boolean isItemInInventory(Entity e, Material m, String name) {
         if (!(e instanceof Player)) return false;
         Player player = (Player) e;
@@ -347,12 +346,6 @@ public class Utils {
             if (item != null)
                 p.setCooldown(item.getType(), 0);
         }
-    }
-    public static void setAttribute(ItemStack item, Attribute attribute, String attributeName, float val) {
-        ItemMeta itemMeta = item.getItemMeta();
-        itemMeta.removeAttributeModifier(attribute);
-        itemMeta.addAttributeModifier(attribute, new AttributeModifier(attributeName, val, AttributeModifier.Operation.ADD_NUMBER));
-        item.setItemMeta(itemMeta);
     }
 
     // Inventory
@@ -481,7 +474,6 @@ public class Utils {
 
     // Vectors
     public static Vector getVectorFromPlayerToEntity(Player player, Entity entity) {
-        Vector playerLookDir = player.getEyeLocation().getDirection();
         Vector playerEyeLoc = player.getEyeLocation().toVector();
         return entity.getLocation().toVector().subtract(playerEyeLoc).normalize();
     }
@@ -644,6 +636,13 @@ public class Utils {
     }
     public static boolean isMaterial(Block b, Material m) {
         return b.getType().equals(m);
+    }
+
+    //---------------------------------------------------------------------------------------------
+    // Entities 
+    //---------------------------------------------------------------------------------------------
+    public static String getReadableEntityTypeName(EntityType entityType) {
+        return entityType.name().replace("_", " ").toLowerCase();
     }
 
     //---------------------------------------------------------------------------------------------

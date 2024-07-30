@@ -15,7 +15,6 @@ import net.kyori.adventure.text.format.NamedTextColor;
 
 public class CountdownBossBar {
     private final JavaPlugin plugin;
-    private final ConfigHandler configHandler;
     private final BossBar bossBar;
     private final Map<Player, BossBar> playerBossBars;
     private int totalTime; // Total time in seconds
@@ -25,7 +24,6 @@ public class CountdownBossBar {
     //---------------------------------------------------------------------------------------------
     public CountdownBossBar(JavaPlugin plugin, ConfigHandler configHandler, int totalTime) {
         this.plugin = plugin;
-        this.configHandler = configHandler;
         this.totalTime = totalTime;
         this.bossBar = BossBar.bossBar(Component.text("Initializing...", NamedTextColor.WHITE), (float) 1.0, BossBar.Color.BLUE, BossBar.Overlay.PROGRESS);
         this.playerBossBars = new HashMap<>();

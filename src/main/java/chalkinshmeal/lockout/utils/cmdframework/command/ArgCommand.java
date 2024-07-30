@@ -11,6 +11,7 @@ import java.util.*;
 /**
  * A command with specifiable arguments
  */
+@SuppressWarnings("deprecation")
 public abstract class ArgCommand extends BaseCommand {
 	
 	protected final List<Argument> arguments;

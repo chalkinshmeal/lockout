@@ -22,6 +22,7 @@ public class LockoutScoreboard {
     private final Map<String, Score> teamScores;
     private LockoutTeamHandler lockoutTeamHandler;
 
+    @SuppressWarnings("deprecation")
     public LockoutScoreboard() {
         ScoreboardManager manager = Bukkit.getScoreboardManager();
         if (manager == null) {

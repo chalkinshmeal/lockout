@@ -6,10 +6,10 @@
 taskCount: 25
 
 # The number of seconds players are frozen before starting a game
-queueTime: 120
+queueTime: 5
 
 # The number of seconds to countdown for a game before sudden death
-timeLimit: 600
+timeLimit: 60
 
 #--------------------------------------------------------------------------------------------------
 # Task-Specific Settings
@@ -28,3 +28,12 @@ eatAnItemItems:
 - PUMPKIN_PIE
 - RABBIT_STEW
 - HONEY_BOTTLE
+
+# Task: Ride an animal. List of possible animals to ride
+rideAnAnimalMounts:
+- CAMEL
+- DONKEY
+- HORSE
+- PIG
+- MULE
+- STRIDER

@@ -8,9 +8,9 @@ import org.bukkit.ChatColor;
  * This has getters (getInt(), getDouble(), getBool(), get()) and
  * This has setters (setValue(value, type))
  */
+@SuppressWarnings("deprecation")
 public class ArgValue {
-	
-	private static final String exceptionText = ChatColor.RED + "'%value%' is not a %type%.";
+    private static final String exceptionText = ChatColor.RED + "'%value%' is not a %type%.";
 	
 	private int intVal;
 	private double decimalVal;

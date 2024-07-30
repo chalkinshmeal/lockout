@@ -1,12 +1,1 @@
-chalkinshmeal\lockout\utils\Particles.class
 chalkinshmeal\lockout\utils\cmdframework\argument\ArgValue$1.class
-chalkinshmeal\lockout\data\ConfigHandler.class
-chalkinshmeal\lockout\utils\LabyrinthEffect.class
-chalkinshmeal\lockout\utils\SpawnUtils.class
-chalkinshmeal\lockout\data\LootConfig.class
-chalkinshmeal\lockout\utils\LabyrinthPotion.class
-chalkinshmeal\lockout\utils\Book.class
-chalkinshmeal\lockout\artifacts\game\GameState.class
-chalkinshmeal\lockout\utils\Utils.class
-chalkinshmeal\lockout\artifacts\game\GameHandler.class
-chalkinshmeal\lockout\commands\HelpCommand.class

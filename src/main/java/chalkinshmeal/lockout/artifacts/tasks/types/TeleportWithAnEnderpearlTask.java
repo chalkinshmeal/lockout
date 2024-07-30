@@ -3,7 +3,7 @@ package chalkinshmeal.lockout.artifacts.tasks.types;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerItemConsumeEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -11,34 +11,30 @@ import chalkinshmeal.lockout.artifacts.rewards.LockoutRewardHandler;
 import chalkinshmeal.lockout.artifacts.tasks.LockoutTask;
 import chalkinshmeal.lockout.artifacts.tasks.LockoutTaskHandler;
 import chalkinshmeal.lockout.data.ConfigHandler;
-import chalkinshmeal.lockout.utils.Utils;
 
-public class EatAnItemTask extends LockoutTask {
-    private final Material material;
-
+public class TeleportWithAnEnderpearlTask extends LockoutTask {
     //---------------------------------------------------------------------------------------------
     // Constructor, which takes lockouttaskhandler
     //---------------------------------------------------------------------------------------------
-    public EatAnItemTask(JavaPlugin plugin, ConfigHandler configHandler, LockoutTaskHandler lockoutTaskHandler, LockoutRewardHandler lockoutRewardHandler, Material material) {
+    public TeleportWithAnEnderpearlTask(JavaPlugin plugin, ConfigHandler configHandler, LockoutTaskHandler lockoutTaskHandler, LockoutRewardHandler lockoutRewardHandler) {
         super(plugin, configHandler, lockoutTaskHandler, lockoutRewardHandler);
-        this.material = material;
-        this.name = "Eat a " + Utils.getReadableMaterialName(material);
-        this.item = new ItemStack(this.material);
+        this.name = "Teleport with an enderpearl";
+        this.item = new ItemStack(Material.ENDER_PEARL);
+        this.value = 1;
     }
 
     //---------------------------------------------------------------------------------------------
     // Abstract methods
     //---------------------------------------------------------------------------------------------
     public void addListeners() {
-		this.listeners.add(new EatAnItemTaskPlayerItemConsumeListener(this));
+		this.listeners.add(new TeleportWithAnEnderpearlTaskPlayerInteractListener(this));
     }
 
     //---------------------------------------------------------------------------------------------
     // Any listeners. Upon completion, LockoutTaskHandler.CompleteTask(player);
     //---------------------------------------------------------------------------------------------
-    public void onPlayerItemConsumeEvent(PlayerItemConsumeEvent event) {
-        if (!event.getItem().getType().equals(this.material)) return;
-
+    public void onPlayerTeleportEvent(PlayerTeleportEvent event) {
+        if (event.getCause() != PlayerTeleportEvent.TeleportCause.ENDER_PEARL) return;
         this.complete(event.getPlayer());
     }
 }
@@ -46,18 +42,17 @@ public class EatAnItemTask extends LockoutTask {
 //---------------------------------------------------------------------------------------------
 // Private classes - any listeners that this task requires
 //---------------------------------------------------------------------------------------------
-class EatAnItemTaskPlayerItemConsumeListener implements Listener {
-    private final EatAnItemTask task;
+class TeleportWithAnEnderpearlTaskPlayerInteractListener implements Listener {
+    private final TeleportWithAnEnderpearlTask task;
 
-    public EatAnItemTaskPlayerItemConsumeListener(EatAnItemTask task) {
+    public TeleportWithAnEnderpearlTaskPlayerInteractListener(TeleportWithAnEnderpearlTask task) {
         this.task = task;
     }
 
     /** Event Handler */
     @EventHandler
-    public void onPlayerItemConsumeEvent(PlayerItemConsumeEvent event) {
+    public void onPlayerTeleportEvent(PlayerTeleportEvent event) {
         if (this.task.isComplete()) return;
-        this.task.onPlayerItemConsumeEvent(event);
+        this.task.onPlayerTeleportEvent(event);
     }
 }
-

@@ -1,7 +1,5 @@
 package chalkinshmeal.lockout.artifacts.compass;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -14,7 +12,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import chalkinshmeal.lockout.artifacts.game.GameHandler;
 import chalkinshmeal.lockout.artifacts.tasks.LockoutTask;
 import chalkinshmeal.lockout.artifacts.tasks.LockoutTaskHandler;
 import chalkinshmeal.lockout.artifacts.team.LockoutTeamHandler;

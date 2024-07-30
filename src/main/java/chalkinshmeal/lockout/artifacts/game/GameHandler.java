@@ -97,6 +97,7 @@ public class GameHandler {
         }
     }
 
+    @SuppressWarnings("deprecation")
     public void stop() {
         // Get winner
         List<String> winningTeams = new ArrayList<>();
@@ -203,6 +204,7 @@ public class GameHandler {
         new BukkitRunnable() {
             private int remainingSeconds = durationSeconds;
 
+            @SuppressWarnings("deprecation")
             @Override
             public void run() {
                 if (remainingSeconds <= 0) {

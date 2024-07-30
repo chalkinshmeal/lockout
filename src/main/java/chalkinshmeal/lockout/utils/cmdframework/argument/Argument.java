@@ -14,6 +14,7 @@ import java.util.List;
  * setters - setDefault()
  * getters - getDefault(), getName(), getType(), getTabList()
  */
+@SuppressWarnings("deprecation")
 public class Argument {
 	
 	private final String name;

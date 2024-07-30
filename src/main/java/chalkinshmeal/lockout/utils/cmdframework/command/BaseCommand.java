@@ -11,6 +11,7 @@ import java.util.*;
 /**
  * A command with no defined way of execution (not arguments or sub commands)
  */
+@SuppressWarnings("deprecation")
 public abstract class BaseCommand {
     public static final UUID CONSOLE_ID = UUID.randomUUID();
     private final String name;
