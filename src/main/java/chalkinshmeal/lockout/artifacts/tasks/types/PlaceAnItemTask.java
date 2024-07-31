@@ -1,11 +1,10 @@
 package chalkinshmeal.lockout.artifacts.tasks.types;
 
 import org.bukkit.Material;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityMountEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -15,52 +14,52 @@ import chalkinshmeal.lockout.artifacts.tasks.LockoutTaskHandler;
 import chalkinshmeal.lockout.data.ConfigHandler;
 import chalkinshmeal.lockout.utils.Utils;
 
-public class RideAnAnimalTask extends LockoutTask {
-    private final EntityType mountType;
+public class PlaceAnItemTask extends LockoutTask {
+    private final Material material;
 
     //---------------------------------------------------------------------------------------------
     // Constructor, which takes lockouttaskhandler
     //---------------------------------------------------------------------------------------------
-    public RideAnAnimalTask(JavaPlugin plugin, ConfigHandler configHandler, LockoutTaskHandler lockoutTaskHandler, LockoutRewardHandler lockoutRewardHandler, EntityType mountType) {
+    public PlaceAnItemTask(JavaPlugin plugin, ConfigHandler configHandler, LockoutTaskHandler lockoutTaskHandler, LockoutRewardHandler lockoutRewardHandler, Material material) {
         super(plugin, configHandler, lockoutTaskHandler, lockoutRewardHandler);
-        this.mountType = mountType;
-        this.name = "Ride a " + Utils.getReadableEntityTypeName(this.mountType);
-        this.item = new ItemStack(Material.SADDLE);
-        this.value = 1;
+        this.material = material;
+        this.name = "Place a " + Utils.getReadableMaterialName(material);
+        this.item = new ItemStack(this.material);
     }
 
     //---------------------------------------------------------------------------------------------
     // Abstract methods
     //---------------------------------------------------------------------------------------------
     public void addListeners() {
-		this.listeners.add(new RideAnAnimalTaskListener(this));
+		this.listeners.add(new PlaceAnItemTaskBlockPlaceEventListener(this));
     }
 
     //---------------------------------------------------------------------------------------------
     // Any listeners. Upon completion, LockoutTaskHandler.CompleteTask(player);
     //---------------------------------------------------------------------------------------------
-    public void onEntityMountEvent(EntityMountEvent event) {
-        if (!(event.getEntity() instanceof Player)) return;
-        if (event.getMount().getType() != this.mountType) return;
-        this.complete((Player) event.getEntity());
+    public void onBlockPlaceEvent(BlockPlaceEvent event) {
+        Player player = event.getPlayer();
+        Material itemType = event.getBlock().getType();
+        if (itemType != this.material) return;
+
+        this.complete(player);
     }
 }
 
 //---------------------------------------------------------------------------------------------
 // Private classes - any listeners that this task requires
 //---------------------------------------------------------------------------------------------
-class RideAnAnimalTaskListener implements Listener {
-    private final RideAnAnimalTask task;
+class PlaceAnItemTaskBlockPlaceEventListener implements Listener {
+    private final PlaceAnItemTask task;
 
-    public RideAnAnimalTaskListener(RideAnAnimalTask task) {
+    public PlaceAnItemTaskBlockPlaceEventListener(PlaceAnItemTask task) {
         this.task = task;
     }
 
     /** Event Handler */
     @EventHandler
-    public void onEntityMountEvent(EntityMountEvent event) {
+    public void onBlockPlaceEvent(BlockPlaceEvent event) {
         if (this.task.isComplete()) return;
-        this.task.onEntityMountEvent(event);
+        this.task.onBlockPlaceEvent(event);
     }
 }
-

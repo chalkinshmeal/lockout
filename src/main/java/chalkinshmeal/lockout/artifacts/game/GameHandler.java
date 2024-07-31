@@ -3,9 +3,9 @@ package chalkinshmeal.lockout.artifacts.game;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.NotImplementedException;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.GameRule;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
@@ -119,12 +119,6 @@ public class GameHandler {
             return;
         }
 
-        // Global operations
-        this.isActive = false;
-        this.lockoutCompass.SetIsActive(false);
-        this.lockoutTaskHandler.unRegisterListeners();
-        this.countdownBossBar.stop();
-
         // Per-player operations
         for (Player player : this.lockoutTeamHandler.getAllPlayers()) {
             player.sendMessage(Component.text("Lockout game ended.", NamedTextColor.GOLD));
@@ -133,13 +127,34 @@ public class GameHandler {
                 Component.empty(), // No subtitle
                 Title.Times.of(java.time.Duration.ZERO, java.time.Duration.ofSeconds(5), java.time.Duration.ofSeconds(1))
             ));
-            this.lockoutScoreboard.hideFromPlayer(player);
         }
+
+        this.end();
     }
 
+    @SuppressWarnings("deprecation")
     public void suddenDeath(List<String> winningTeams) {
         // Sudden death
-        throw new NotImplementedException("Sudden death not implemented");
+        for (Player player : this.lockoutTeamHandler.getAllPlayers()) {
+            player.sendMessage(Component.text("Lockout game ended.", NamedTextColor.GOLD));
+            player.showTitle(Title.title(
+                Component.text("No winners - draw!", NamedTextColor.GOLD),
+                Component.empty(), // No subtitle
+                Title.Times.of(java.time.Duration.ZERO, java.time.Duration.ofSeconds(5), java.time.Duration.ofSeconds(1))
+            ));
+        }
+        this.end();
+    }
+
+    public void end() {
+        this.isActive = false;
+        this.lockoutCompass.SetIsActive(false);
+        this.lockoutTaskHandler.unRegisterListeners();
+        this.countdownBossBar.stop();
+
+        for (Player player : this.lockoutTeamHandler.getAllPlayers()) {
+            this.lockoutScoreboard.hideFromPlayer(player);
+        }
     }
 
     //---------------------------------------------------------------------------------------------
@@ -172,7 +187,13 @@ public class GameHandler {
 
     private void resetWorldState() {
         World world = Bukkit.getWorld("world");
+        World nether = Bukkit.getWorld("world_nether");
+        World theend = Bukkit.getWorld("world_the_end");
         world.setTime(1000);
+
+        world.setGameRule(GameRule.KEEP_INVENTORY, true);
+        nether.setGameRule(GameRule.KEEP_INVENTORY, true);
+        theend.setGameRule(GameRule.KEEP_INVENTORY, true);
     }
 
     //---------------------------------------------------------------------------------------------
