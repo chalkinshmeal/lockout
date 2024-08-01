@@ -66,6 +66,9 @@ public class GameHandler {
     // Game methods
     //---------------------------------------------------------------------------------------------
     public void queue() {
+        // Create task list first, in case there are any problems with the config
+        if (!this.lockoutTaskHandler.CreateTaskList()) return;
+
         for (Player player : this.lockoutTeamHandler.getAllPlayers()) {
             this.frozenPlayers.add(player);
             this.resetPlayerState(player);
@@ -74,7 +77,6 @@ public class GameHandler {
         }
 
         this.resetWorldState();
-        this.lockoutTaskHandler.CreateTaskList();
         this.lockoutCompass.SetIsActive(true);
         this.lockoutCompass.updateTasksInventory(this.lockoutTaskHandler);
         this.lockoutTaskHandler.registerListeners();

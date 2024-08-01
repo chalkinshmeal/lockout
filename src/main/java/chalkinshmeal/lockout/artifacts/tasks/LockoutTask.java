@@ -22,6 +22,7 @@ import net.kyori.adventure.text.format.TextDecoration;
 
 public abstract class LockoutTask {
     protected final JavaPlugin plugin;
+    protected final ConfigHandler configHandler;
     private final LockoutTaskHandler lockoutTaskHandler;
     private final LockoutRewardHandler lockoutRewardHandler;
     protected List<Listener> listeners;
@@ -38,6 +39,7 @@ public abstract class LockoutTask {
     //---------------------------------------------------------------------------------------------
     public LockoutTask(JavaPlugin plugin, ConfigHandler configHandler, LockoutTaskHandler lockoutTaskHandler, LockoutRewardHandler lockoutRewardHandler) {
         this.plugin = plugin;
+        this.configHandler = configHandler;
         this.lockoutTaskHandler = lockoutTaskHandler;
         this.lockoutRewardHandler = lockoutRewardHandler;
         this.completed = false;
@@ -47,6 +49,8 @@ public abstract class LockoutTask {
         this.value = 1;
         this.reward = null;
         Utils.setDisplayName(item, this.itemDisplayName);
+
+        this.validateConfig();
     }
 
     //---------------------------------------------------------------------------------------------
@@ -86,7 +90,6 @@ public abstract class LockoutTask {
     //---------------------------------------------------------------------------------------------
     // Listener methods
     //---------------------------------------------------------------------------------------------
-    public abstract void addListeners();
     public void registerListeners() {
 		PluginManager manager = this.plugin.getServer().getPluginManager();
         for (Listener l : this.listeners) { manager.registerEvents(l, this.plugin); }
@@ -94,4 +97,10 @@ public abstract class LockoutTask {
     public void unRegisterListeners() {
         for (Listener l : this.listeners) { HandlerList.unregisterAll(l); }
     }
+
+    //---------------------------------------------------------------------------------------------
+    // Abstract methods
+    //---------------------------------------------------------------------------------------------
+    public abstract void addListeners();
+    public abstract void validateConfig();
 }

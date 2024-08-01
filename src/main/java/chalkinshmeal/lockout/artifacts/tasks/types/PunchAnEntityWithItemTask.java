@@ -34,6 +34,8 @@ public class PunchAnEntityWithItemTask extends LockoutTask {
     //---------------------------------------------------------------------------------------------
     // Abstract methods
     //---------------------------------------------------------------------------------------------
+    public void validateConfig() {}
+
     public void addListeners() {
 		this.listeners.add(new PunchAnEntityWithItemTaskPlayerInteractListener(this));
     }

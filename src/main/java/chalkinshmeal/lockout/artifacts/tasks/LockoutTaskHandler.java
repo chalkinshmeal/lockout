@@ -1,6 +1,7 @@
 package chalkinshmeal.lockout.artifacts.tasks;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -13,12 +14,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 import chalkinshmeal.lockout.artifacts.compass.LockoutCompass;
 import chalkinshmeal.lockout.artifacts.rewards.LockoutRewardHandler;
 import chalkinshmeal.lockout.artifacts.scoreboard.LockoutScoreboard;
+import chalkinshmeal.lockout.artifacts.tasks.types.BreakItemsTask;
 import chalkinshmeal.lockout.artifacts.tasks.types.DrinkMilkToCurePoisonTask;
 import chalkinshmeal.lockout.artifacts.tasks.types.EatAnItemTask;
 import chalkinshmeal.lockout.artifacts.tasks.types.GrowWheatWithBonemealTask;
 import chalkinshmeal.lockout.artifacts.tasks.types.LightTNTTask;
-import chalkinshmeal.lockout.artifacts.tasks.types.ObtainAnItemTask;
-import chalkinshmeal.lockout.artifacts.tasks.types.PlaceAnItemTask;
+import chalkinshmeal.lockout.artifacts.tasks.types.ObtainItemsTask;
+import chalkinshmeal.lockout.artifacts.tasks.types.PlaceItemsTask;
 import chalkinshmeal.lockout.artifacts.tasks.types.PlaceItemInItemFrameTask;
 import chalkinshmeal.lockout.artifacts.tasks.types.PunchAnEntityWithItemTask;
 import chalkinshmeal.lockout.artifacts.tasks.types.RideAnEntityTask;
@@ -48,50 +50,55 @@ public class LockoutTaskHandler {
         this.maxLockoutTasks = this.configHandler.getInt("taskCount", 27);
     }
 
-    public void CreateTaskList() {
+    // Create the list of tasks for this lockout challenge
+    // Return true if successful, false if not
+    public boolean CreateTaskList() {
         this.lockoutRewardHandler = new LockoutRewardHandler(this.plugin);
         List<LockoutTask> allTasks = new ArrayList<>();
+        try {
+            allTasks.addAll(BreakItemsTask.getBreakItemsTasks(plugin, configHandler, this, lockoutRewardHandler));
+            allTasks.addAll(PlaceItemsTask.getPlaceItemsTasks(plugin, configHandler, this, lockoutRewardHandler));
+            allTasks.addAll(ObtainItemsTask.getObtainItemsTasks(plugin, configHandler, this, lockoutRewardHandler));
 
-        // Add tasks
-        List<String> materialStrs = Utils.getRandomItems(this.configHandler.getListFromKey("eatAnItemItems"), 1);
-        Material material = Material.valueOf(materialStrs.get(0));
-        allTasks.add(new EatAnItemTask(this.plugin, this.configHandler, this, this.lockoutRewardHandler, material));
+            // Add tasks
+            List<String> materialStrs = Utils.getRandomItems(this.configHandler.getListFromKey("eatAnItemItems"), 1);
+            Material material = Material.valueOf(materialStrs.get(0));
+            allTasks.add(new EatAnItemTask(this.plugin, this.configHandler, this, this.lockoutRewardHandler, material));
 
-        List<String> mountStrs = Utils.getRandomItems(this.configHandler.getListFromKey("rideAnEntityMounts"), 1);
-        EntityType mountType = EntityType.valueOf(mountStrs.get(0));
-        allTasks.add(new RideAnEntityTask(plugin, configHandler, this, lockoutRewardHandler, mountType));
+            List<String> mountStrs = Utils.getRandomItems(this.configHandler.getListFromKey("rideAnEntityMounts"), 1);
+            EntityType mountType = EntityType.valueOf(mountStrs.get(0));
+            allTasks.add(new RideAnEntityTask(plugin, configHandler, this, lockoutRewardHandler, mountType));
 
-        List<String> entityTypeStrs = Utils.getRandomItems(this.configHandler.getListFromKey("punchAnEntityEntityTypes"), 1);
-        List<String> itemStrs = Utils.getRandomItems(this.configHandler.getListFromKey("punchAnEntityItemTypes"), 1);
-        EntityType punchEntityType = EntityType.valueOf(entityTypeStrs.get(0));
-        Material punchMaterial = Material.valueOf(itemStrs.get(0));
-        allTasks.add(new PunchAnEntityWithItemTask(plugin, configHandler, this, lockoutRewardHandler, punchEntityType, punchMaterial));
+            List<String> entityTypeStrs = Utils.getRandomItems(this.configHandler.getListFromKey("punchAnEntityEntityTypes"), 1);
+            List<String> itemStrs = Utils.getRandomItems(this.configHandler.getListFromKey("punchAnEntityItemTypes"), 1);
+            EntityType punchEntityType = EntityType.valueOf(entityTypeStrs.get(0));
+            Material punchMaterial = Material.valueOf(itemStrs.get(0));
+            allTasks.add(new PunchAnEntityWithItemTask(plugin, configHandler, this, lockoutRewardHandler, punchEntityType, punchMaterial));
 
-        materialStrs = Utils.getRandomItems(this.configHandler.getListFromKey("placeItemInItemFrameItemTypes"), 1);
-        material = Material.valueOf(materialStrs.get(0));
-        allTasks.add(new PlaceItemInItemFrameTask(this.plugin, this.configHandler, this, this.lockoutRewardHandler, material));
+            materialStrs = Utils.getRandomItems(this.configHandler.getListFromKey("placeItemInItemFrameItemTypes"), 1);
+            material = Material.valueOf(materialStrs.get(0));
+            allTasks.add(new PlaceItemInItemFrameTask(this.plugin, this.configHandler, this, this.lockoutRewardHandler, material));
 
-        materialStrs = Utils.getRandomItems(this.configHandler.getListFromKey("obtainAnItemItemTypes"), 1);
-        material = Material.valueOf(materialStrs.get(0));
-        allTasks.add(new ObtainAnItemTask(this.plugin, this.configHandler, this, this.lockoutRewardHandler, material));
-
-        materialStrs = Utils.getRandomItems(this.configHandler.getListFromKey("placeAnItemItemTypes"), 1);
-        material = Material.valueOf(materialStrs.get(0));
-        allTasks.add(new PlaceAnItemTask(this.plugin, this.configHandler, this, this.lockoutRewardHandler, material));
-
-        allTasks.add(new WearFullIronArmorTask(plugin, configHandler, this, lockoutRewardHandler));
-        allTasks.add(new TeleportWithAnEnderpearlTask(plugin, configHandler, this, lockoutRewardHandler));
-        allTasks.add(new GrowWheatWithBonemealTask(plugin, configHandler, this, lockoutRewardHandler));
-        allTasks.add(new LightTNTTask(plugin, configHandler, this, lockoutRewardHandler));
-        allTasks.add(new DrinkMilkToCurePoisonTask(plugin, configHandler, this, lockoutRewardHandler));
-
+            allTasks.add(new WearFullIronArmorTask(plugin, configHandler, this, lockoutRewardHandler));
+            allTasks.add(new TeleportWithAnEnderpearlTask(plugin, configHandler, this, lockoutRewardHandler));
+            allTasks.add(new GrowWheatWithBonemealTask(plugin, configHandler, this, lockoutRewardHandler));
+            allTasks.add(new LightTNTTask(plugin, configHandler, this, lockoutRewardHandler));
+            allTasks.add(new DrinkMilkToCurePoisonTask(plugin, configHandler, this, lockoutRewardHandler));
+        }
+        catch (Exception e) {
+            this.plugin.getLogger().warning("Could not create task list: " + e.getMessage());
+            return false;
+        }
         // Randomly get items
         this.tasks = Utils.getRandomItems(allTasks, Math.min(this.maxLockoutTasks, allTasks.size()));
+        Collections.shuffle(this.tasks);
 
         // Initialize tasks (Generate rewards, set lore, etc.)
         for (LockoutTask task : this.tasks) {
             task.init();
         }
+
+        return true;
     }
 
     //---------------------------------------------------------------------------------------------

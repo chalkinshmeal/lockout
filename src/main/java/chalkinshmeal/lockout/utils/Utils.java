@@ -646,6 +646,23 @@ public class Utils {
     }
 
     //---------------------------------------------------------------------------------------------
+    // Player
+    //---------------------------------------------------------------------------------------------
+    public static boolean hasMaterial(Player player, Material material, int amount) {
+        int totalAmount = 0;
+        if (amount == 0) return true;
+
+        for (ItemStack item : player.getInventory().getContents()) {
+            if (item != null && item.getType() == material) {
+                totalAmount += item.getAmount();
+                if (totalAmount >= amount) return true;
+            }
+        }
+
+        return false;
+    }
+
+    //---------------------------------------------------------------------------------------------
     // TextComponent
     //---------------------------------------------------------------------------------------------
     public static String stripColor(String string) {

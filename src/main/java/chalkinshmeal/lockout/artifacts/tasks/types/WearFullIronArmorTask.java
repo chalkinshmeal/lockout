@@ -27,6 +27,8 @@ public class WearFullIronArmorTask extends LockoutTask {
     //---------------------------------------------------------------------------------------------
     // Abstract methods
     //---------------------------------------------------------------------------------------------
+    public void validateConfig() {}
+
     public void addListeners() {
 		this.listeners.add(new WearFullIronArmorTaskPlayerInteractListener(this));
     }

@@ -7,14 +7,15 @@ C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\listeners\server\PlayerInteractListener.java
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\artifacts\compass\LockoutCompass.java
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\artifacts\team\LockoutTeamHandler.java
-C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\artifacts\tasks\types\PlaceAnItemTask.java
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\artifacts\rewards\LockoutReward.java
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\commands\StopCommand.java
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\commands\CompassCommand.java
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\utils\cmdframework\argument\Argument.java
+C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\artifacts\tasks\types\BreakItemsTask.java
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\artifacts\tasks\types\LightTNTTask.java
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\commands\HelpCommand.java
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\utils\Particles.java
+C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\artifacts\tasks\types\PlaceItemsTask.java
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\listeners\server\PlayerJoinListener.java
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\utils\cmdframework\command\ArgCommand.java
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\artifacts\game\GameHandler.java
@@ -39,8 +40,8 @@ C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\utils\cmdframework\handler\CommandCompleter.java
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\artifacts\game\GameState.java
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\artifacts\tasks\types\RideAnEntityTask.java
-C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\artifacts\tasks\types\ObtainAnItemTask.java
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\listeners\server\InventoryClickListener.java
+C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\artifacts\tasks\types\ObtainItemsTask.java
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\Plugin.java
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\artifacts\tasks\types\DrinkMilkToCurePoisonTask.java
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\utils\Utils.java

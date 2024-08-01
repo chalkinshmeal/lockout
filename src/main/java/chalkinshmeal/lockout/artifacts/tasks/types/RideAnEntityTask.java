@@ -32,6 +32,8 @@ public class RideAnEntityTask extends LockoutTask {
     //---------------------------------------------------------------------------------------------
     // Abstract methods
     //---------------------------------------------------------------------------------------------
+    public void validateConfig() {}
+
     public void addListeners() {
 		this.listeners.add(new RideAnEntityTaskListener(this));
     }

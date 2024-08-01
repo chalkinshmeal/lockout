@@ -29,6 +29,8 @@ public class LightTNTTask extends LockoutTask {
     //---------------------------------------------------------------------------------------------
     // Abstract methods
     //---------------------------------------------------------------------------------------------
+    public void validateConfig() {}
+
     public void addListeners() {
 		this.listeners.add(new LightTNTTaskListener(this));
     }
