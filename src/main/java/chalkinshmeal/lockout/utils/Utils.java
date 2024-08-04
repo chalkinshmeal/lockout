@@ -627,9 +627,26 @@ public class Utils {
         return item;
     }
 
-    public static ItemStack setMaterial(ItemStack item, Material material) {
-        ItemStack newItem = new ItemStack(material);
-        newItem.setItemMeta(item.getItemMeta());
+    public static ItemStack setMaterial(ItemStack originalItem, Material newMaterial) {
+        ItemStack newItem = new ItemStack(newMaterial);
+        
+        // Get the meta of the original item
+        ItemMeta originalMeta = originalItem.getItemMeta();
+        
+        // If the original item has meta, transfer it to the new item
+        if (originalMeta != null) {
+            // Create a copy of the original meta to apply it to the new item
+            ItemMeta newMeta = newItem.getItemMeta();
+
+            // Copy basic properties from original meta
+            newMeta.displayName(originalMeta.displayName());
+            newMeta.lore(originalMeta.lore());
+            newMeta.setUnbreakable(originalMeta.isUnbreakable());
+
+            // Set the copied meta to the new item
+            newItem.setItemMeta(newMeta);
+        }
+        
         return newItem;
     }
 

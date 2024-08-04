@@ -94,6 +94,7 @@ public abstract class LockoutTask {
     }
 
     public ItemStack getItem() { return this.item; }
+    public String getName() { return this.name; }
     public void setItemDisplayName(TextComponent displayName) { this.item = Utils.setDisplayName(this.item, displayName); }
     public void addLore() {
         Component valueLore = Component.text("Value: ", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false)
