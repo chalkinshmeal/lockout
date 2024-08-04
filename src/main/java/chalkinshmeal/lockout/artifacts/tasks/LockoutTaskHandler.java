@@ -120,6 +120,13 @@ public class LockoutTaskHandler {
 	// Accessor/Mutator methods
     //---------------------------------------------------------------------------------------------
     public List<LockoutTask> GetTasks() { return this.tasks; }
+    public boolean areAllTasksDone() { 
+        for (LockoutTask task : this.tasks) {
+            if (task.isPunishment) continue;
+            if (!task.isComplete()) return false;
+        }
+        return true;
+    }
 
     //---------------------------------------------------------------------------------------------
 	// Task methods

@@ -10,9 +10,11 @@ import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffect;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import chalkinshmeal.lockout.artifacts.compass.LockoutCompass;
@@ -82,6 +84,7 @@ public class GameHandler {
         this.lockoutCompass.updateTasksInventory(this.lockoutTaskHandler);
         this.lockoutTaskHandler.registerListeners();
         this.delayStartTask(this.plugin, this, this.queueTime);
+        this.checkAllTasksDoneTask(plugin, lockoutTaskHandler);
     }
 
     public void start() {
@@ -106,12 +109,12 @@ public class GameHandler {
         int maxPoints = -100;
         for (String teamName : this.lockoutTeamHandler.getTeamNames()) {
             int teamPoints = this.lockoutScoreboard.getScore(teamName);
-            if (teamPoints == maxPoints) {
-                winningTeams.add(teamName);
-            }
-            else if (teamPoints > maxPoints) {
+            if (teamPoints > maxPoints) {
                 maxPoints = teamPoints;
                 winningTeams.clear();
+                winningTeams.add(teamName);
+            }
+            else if (teamPoints == maxPoints) {
                 winningTeams.add(teamName);
             }
         }
@@ -162,10 +165,19 @@ public class GameHandler {
     // Listener methods
     //---------------------------------------------------------------------------------------------
     public void onPlayerMoveEvent(PlayerMoveEvent event) {
-        if (!this.frozenPlayers.contains(event.getPlayer())) return;
         if (!this.isActive) return;
+        if (!this.frozenPlayers.contains(event.getPlayer())) return;
 
         event.setCancelled(true);
+    }
+
+    public void onEntityDeathEvent(EntityDeathEvent event) {
+        if (!this.isActive) return;
+        if (!(event.getEntity() instanceof Player)) return;
+        Player player = (Player) event.getEntity();
+
+        if (!this.lockoutTeamHandler.getAllPlayers().contains(player)) return;
+        for (PotionEffect effect : player.getActivePotionEffects()) player.removePotionEffect(effect.getType());
     }
 
     //---------------------------------------------------------------------------------------------
@@ -182,7 +194,7 @@ public class GameHandler {
         player.getInventory().clear();
         player.getInventory().setArmorContents(new ItemStack[4]);
         player.setGameMode(GameMode.SURVIVAL);
-        //for (PotionEffect effect : player.getActivePotionEffects()) player.removePotionEffect(effect.getType());
+        for (PotionEffect effect : player.getActivePotionEffects()) player.removePotionEffect(effect.getType());
 
         player.teleport(Bukkit.getWorld("world").getSpawnLocation());
     }
@@ -218,6 +230,10 @@ public class GameHandler {
         new BukkitRunnable() {
             @Override
             public void run() {
+                if (!isActive) {
+                    this.cancel();
+                    return;
+                }
                 gameHandler.stop();
             }
         }.runTaskLater(plugin, delayTicks);
@@ -255,6 +271,23 @@ public class GameHandler {
                     Title.Times.of(java.time.Duration.ZERO, java.time.Duration.ofSeconds(1), java.time.Duration.ofSeconds(5))
                 ));
                 remainingSeconds--;
+            }
+        }.runTaskTimer(plugin, 0, 20); // Run the task every 20 ticks (1 second)
+    }
+
+    private void checkAllTasksDoneTask(JavaPlugin plugin, LockoutTaskHandler lockoutTaskHandler) {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                if (!isActive) {
+                    this.cancel();
+                    return;
+                }
+                if (lockoutTaskHandler.areAllTasksDone()) {
+                    stop();
+                    this.cancel();
+                    return;
+                }
             }
         }.runTaskTimer(plugin, 0, 20); // Run the task every 20 ticks (1 second)
     }

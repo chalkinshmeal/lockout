@@ -15,6 +15,7 @@ import chalkinshmeal.lockout.commands.StartCommand;
 import chalkinshmeal.lockout.commands.StopCommand;
 import chalkinshmeal.lockout.commands.TeamCommand;
 import chalkinshmeal.lockout.data.ConfigHandler;
+import chalkinshmeal.lockout.listeners.server.EntityDeathListener;
 import chalkinshmeal.lockout.listeners.server.InventoryClickListener;
 import chalkinshmeal.lockout.listeners.server.PlayerInteractListener;
 import chalkinshmeal.lockout.listeners.server.PlayerJoinListener;
@@ -76,6 +77,7 @@ public class Plugin extends JavaPlugin implements Listener {
     //---------------------------------------------------------------------------------------------
 	private void registerListeners() {
 		PluginManager manager = this.getServer().getPluginManager();
+		manager.registerEvents(new EntityDeathListener(this.gameHandler), this);
 		manager.registerEvents(new InventoryClickListener(this.lockoutCompass), this);
 		manager.registerEvents(new PlayerJoinListener(this.lockoutCompass), this);
 		manager.registerEvents(new PlayerInteractListener(this.lockoutCompass), this);

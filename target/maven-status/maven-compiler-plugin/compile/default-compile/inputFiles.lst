@@ -37,6 +37,7 @@ C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\listeners\server\PlayerJoinListener.java
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\artifacts\game\GameHandler.java
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\artifacts\tasks\general\GetExpLevelTask.java
+C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\listeners\server\EntityDeathListener.java
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\artifacts\tasks\specific\DrinkMilkToCurePoisonTask.java
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\artifacts\rewards\punishments\BlowUpPunishment.java
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\artifacts\tasks\general\KillEntitiesTask.java
