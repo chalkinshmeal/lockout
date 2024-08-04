@@ -182,7 +182,7 @@ public class GameHandler {
         player.getInventory().clear();
         player.getInventory().setArmorContents(new ItemStack[4]);
         player.setGameMode(GameMode.SURVIVAL);
-        for (PotionEffect effect : player.getActivePotionEffects()) player.removePotionEffect(effect.getType());
+        //for (PotionEffect effect : player.getActivePotionEffects()) player.removePotionEffect(effect.getType());
 
         player.teleport(Bukkit.getWorld("world").getSpawnLocation());
     }

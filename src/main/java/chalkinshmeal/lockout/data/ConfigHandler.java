@@ -56,7 +56,13 @@ public class ConfigHandler {
 
     /** Special getters */
     public List<String> getListFromKey(String key) {
-        return this.config.getStringList(key);
+        try {
+            return this.config.getStringList(key);
+        }
+        catch (Exception e) {
+            this.plugin.getLogger().warning("Could not load '" + key + "': " + e);
+            return null;
+        }
     }
 
     public Material getMaterialFromKey(String key) {

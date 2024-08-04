@@ -1,11 +1,13 @@
-package chalkinshmeal.lockout.artifacts.tasks.types;
+package chalkinshmeal.lockout.artifacts.tasks.specific;
 
 import org.bukkit.Material;
-import org.bukkit.entity.EntityType;
+import org.bukkit.block.Block;
+import org.bukkit.block.data.Ageable;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityMountEvent;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -13,19 +15,15 @@ import chalkinshmeal.lockout.artifacts.rewards.LockoutRewardHandler;
 import chalkinshmeal.lockout.artifacts.tasks.LockoutTask;
 import chalkinshmeal.lockout.artifacts.tasks.LockoutTaskHandler;
 import chalkinshmeal.lockout.data.ConfigHandler;
-import chalkinshmeal.lockout.utils.Utils;
 
-public class RideAnEntityTask extends LockoutTask {
-    private final EntityType mountType;
-
+public class GrowWheatWithBonemealTask extends LockoutTask {
     //---------------------------------------------------------------------------------------------
     // Constructor, which takes lockouttaskhandler
     //---------------------------------------------------------------------------------------------
-    public RideAnEntityTask(JavaPlugin plugin, ConfigHandler configHandler, LockoutTaskHandler lockoutTaskHandler, LockoutRewardHandler lockoutRewardHandler, EntityType mountType) {
+    public GrowWheatWithBonemealTask(JavaPlugin plugin, ConfigHandler configHandler, LockoutTaskHandler lockoutTaskHandler, LockoutRewardHandler lockoutRewardHandler) {
         super(plugin, configHandler, lockoutTaskHandler, lockoutRewardHandler);
-        this.mountType = mountType;
-        this.name = "Ride a " + Utils.getReadableEntityTypeName(this.mountType);
-        this.item = new ItemStack(Material.SADDLE);
+        this.name = "Grow wheat using bonemeal";
+        this.item = new ItemStack(Material.WHEAT_SEEDS);
         this.value = 1;
     }
 
@@ -35,34 +33,42 @@ public class RideAnEntityTask extends LockoutTask {
     public void validateConfig() {}
 
     public void addListeners() {
-		this.listeners.add(new RideAnEntityTaskListener(this));
+		this.listeners.add(new GrowWheatWithBonemealTaskPlayerInteractListener(this));
     }
 
     //---------------------------------------------------------------------------------------------
     // Any listeners. Upon completion, LockoutTaskHandler.CompleteTask(player);
     //---------------------------------------------------------------------------------------------
-    public void onEntityMountEvent(EntityMountEvent event) {
-        if (!(event.getEntity() instanceof Player)) return;
-        if (event.getMount().getType() != this.mountType) return;
-        this.complete((Player) event.getEntity());
+    public void onPlayerInteractEvent(PlayerInteractEvent event) {
+        Player player = event.getPlayer();
+        if (event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
+        Block block = event.getClickedBlock();
+        if (block == null) return;
+        if (!(block.getBlockData() instanceof Ageable)) return;
+        Material blockType = block.getType();
+        if (blockType != Material.WHEAT) return;
+        Material itemInHand = player.getInventory().getItemInMainHand().getType();
+        if (itemInHand != Material.BONE_MEAL) return;
+
+        this.complete(player);
     }
 }
 
 //---------------------------------------------------------------------------------------------
 // Private classes - any listeners that this task requires
 //---------------------------------------------------------------------------------------------
-class RideAnEntityTaskListener implements Listener {
-    private final RideAnEntityTask task;
+class GrowWheatWithBonemealTaskPlayerInteractListener implements Listener {
+    private final GrowWheatWithBonemealTask task;
 
-    public RideAnEntityTaskListener(RideAnEntityTask task) {
+    public GrowWheatWithBonemealTaskPlayerInteractListener(GrowWheatWithBonemealTask task) {
         this.task = task;
     }
 
     /** Event Handler */
     @EventHandler
-    public void onEntityMountEvent(EntityMountEvent event) {
+    public void onPlayerInteractEvent(PlayerInteractEvent event) {
         if (this.task.isComplete()) return;
-        this.task.onEntityMountEvent(event);
+        this.task.onPlayerInteractEvent(event);
     }
 }
 

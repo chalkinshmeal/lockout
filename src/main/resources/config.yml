@@ -5,254 +5,430 @@
 # The number of tasks in a Lockout challenge
 taskCount: 27
 
+# The number of tasks that will be punishments in a Lockout challenge
+punishmentCount: 3
+
 # The number of seconds players are frozen before starting a game
-queueTime: 5
+queueTime: 120
 
 # The number of seconds to countdown for a game before sudden death
-timeLimit: 60
+timeLimit: 2700
 
 #--------------------------------------------------------------------------------------------------
 # Task-Specific Settings
 #--------------------------------------------------------------------------------------------------
-
-# Task: Eat an Item. List of possible items you can eat
-eatAnItemItems:
-- COOKIE
-- GOLDEN_CARROT
-- GOLDEN_APPLE
-- MELON_SLICE
-- GLOW_BERRIES
-- DRIED_KELP
-- POISONOUS_POTATO
-- PUFFERFISH
-- PUMPKIN_PIE
-- RABBIT_STEW
-- HONEY_BOTTLE
-
-# Task: Ride an entity. List of possible EntityTypes to ride
-rideAnEntityMounts:
-- CAMEL
-- DONKEY
-- HORSE
-- PIG
-- MULE
-- STRIDER
-- MINECART
-
-# Task: Punch an entity with item. Possible entities to punch
-punchAnEntityEntityTypes:
-- ARMADILLO
-- AXOLOTL
-- BAT
-- BEE
-- CAMEL
-- DOLPHIN
-- DONKEY
-- DROWNED
-- ENDERMAN
-- GLOW_SQUID
-- GOAT
-- HUSK
-- IRON_GOLEM
-- LLAMA
-- OCELOT
-- PARROT
-- PIGLIN
-- POLAR_BEAR
-- PUFFERFISH
-- SNOW_GOLEM
-- STRAY
-- TURTLE
-- VILLAGER
-- WITCH
-- WOLF
-
-# Task: Punch an entity with item. Possible items to punch with
-punchAnEntityItemTypes:
-- APPLE
-- BEETROOT
-- COD
-- COOKIE
-- GLOW_BERRIES
-- PUFFERFISH
-- SALMON
-- SWEET_BERRIES
-- TROPICAL_FISH
-
-# Task: Place an item in an item frame. Possible items to place in the frame
-placeItemInItemFrameItemTypes:
-- AMETHYST_SHARD
-- COAL
-- COPPER_INGOT
-- DIAMOND
-- EMERALD
-- GOLD_INGOT
-- IRON_INGOT
-- LAPIS_LAZULI
-- QUARTZ
-
 # Task: Break an item. Possible items to break, and how many to break
 breakItemsTask:
-  ACACIA_LOG: 10
-  ANDESITE: 32
-  BIRCH_LOG: 10
-  BLACKSTONE: 1
-  BLUE_ICE: 1
-  BOOKSHELF: 5
-  BONE_BLOCK: 1
-  BRICKS: 5
-  CHISELED_STONE_BRICKS: 1
-  CLAY: 10
-  COAL_ORE: 10
-  COBBLESTONE: 128
-  COBWEB: 1
-  CRIMSON_NYLIUM: 1
-  DIAMOND_ORE: 1
-  DIRT: 128
-  DARK_OAK_LOG: 10
-  EMERALD_ORE: 1
-  GLOWSTONE: 5
-  GOLD_ORE: 2
-  GRASS_BLOCK: 128
-  GRAVEL: 64
-  HAY_BLOCK: 10
-  ICE: 10
-  IRON_ORE: 1
-  JUNGLE_LOG: 10
-  LAPIS_ORE: 1
-  LIGHT_GRAY_STAINED_GLASS: 1
-  MELON: 3
-  SPAWNER: 1
-  MOSSY_COBBLESTONE: 1
-  NETHERRACK: 64
-  OAK_PLANKS: 64
-  OBSIDIAN: 1
-  PRISMARINE: 1
-  RED_SANDSTONE: 32
-  SAND: 64
-  SEA_LANTERN: 1
-  SLIME_BLOCK: 1
-  SNOW_BLOCK: 64
-  STONE: 64
-  TNT: 1
-  WHITE_CONCRETE: 1
-  YELLOW_TERRACOTTA: 1
+  maxTaskCount: 2
+  materials:
+    ACACIA_LOG: 10
+    ANDESITE: 32
+    BIRCH_LOG: 10
+    BLACKSTONE: 1
+    BLUE_ICE: 1
+    BOOKSHELF: 5
+    BONE_BLOCK: 1
+    BRICKS: 5
+    CHISELED_STONE_BRICKS: 1
+    CLAY: 10
+    COAL_ORE: 10
+    COBBLESTONE: 128
+    COBWEB: 1
+    CRIMSON_NYLIUM: 1
+    DIAMOND_ORE: 1
+    DIRT: 128
+    DARK_OAK_LOG: 10
+    EMERALD_ORE: 1
+    GLOWSTONE: 5
+    GOLD_ORE: 2
+    GRASS_BLOCK: 128
+    GRAVEL: 64
+    HAY_BLOCK: 10
+    ICE: 10
+    IRON_ORE: 1
+    JUNGLE_LOG: 10
+    LAPIS_ORE: 1
+    LIGHT_GRAY_STAINED_GLASS: 1
+    MELON: 3
+    SPAWNER: 1
+    MOSSY_COBBLESTONE: 1
+    NETHERRACK: 64
+    OAK_PLANKS: 64
+    OBSIDIAN: 1
+    PRISMARINE: 1
+    RED_SANDSTONE: 32
+    SAND: 64
+    SEA_LANTERN: 1
+    SLIME_BLOCK: 1
+    SNOW_BLOCK: 64
+    STONE: 64
+    TNT: 1
+    WHITE_CONCRETE: 1
+    YELLOW_TERRACOTTA: 1
+  punishmentMaterials:
+    COAL_ORE: 1
+    CRAFTING_TABLE: 1
+    FURNACE: 1
+    STONE: 30
+    DIAMOND_ORE: 1
+    DIRT: 5
 
-# Task: Obtain an item. Possible items to obtain
-obtainAnItemItemTypes:
-  OAK_LEAVES: 1
-  BIRCH_LEAVES: 1
-  DARK_OAK_LEAVES: 1
-  AZALEA_LEAVES: 1
-  SPRUCE_SAPLING: 1
-  ACACIA_SAPLING: 1
-  CHERRY_SAPLING: 1
-  SALMON_BUCKET: 1
-  TROPICAL_FISH_BUCKET: 1
-  PUFFERFISH_BUCKET: 1
-  AXOLOTL_BUCKET: 1
-  LAVA_BUCKET: 1
-  MILK_BUCKET: 1
-  CLOCK: 1
-  CARROT_ON_A_STICK: 1
-  MANGROVE_BOAT: 1
-  CHERRY_BOAT: 1
-  POWERED_RAIL: 1
-  DETECTOR_RAIL: 1
-  ACTIVATOR_RAIL: 1
-  GOAT_HORN: 1
-  SADDLE: 1
-  FIREWORK_ROCKET: 1
-  SNOWBALL: 1
-  HEART_OF_THE_SEA: 1
-  RABBIT_HIDE: 1
-  DIAMOND: 1
-  FEATHER: 1
-  GLOW_INK_SAC: 1
-  NAUTILUS_SHELL: 1
-  CHAIN: 1
-  LANTERN: 1
-  REDSTONE_TORCH: 1
-  BELL: 1
-  CAULDRON: 1
-  BREWING_STAND: 1
-  OAK_HANGING_SIGN: 1
-  BIRCH_HANGING_SIGN: 1
-  ACACIA_HANGING_SIGN: 1
-  WARPED_HANGING_SIGN: 1
-  BARREL: 1
-  WHITE_BED: 1
-  BLACK_BED: 1
-  LIME_BED: 1
-  LIGHT_BLUE_BED: 1
-  WHITE_CANDLE: 1
-  MAGENTA_CANDLE: 1
-  PINK_CANDLE: 1
-  WHITE_BANNER: 1
-  BLACK_BANNER: 1
-  RED_BANNER: 1
-  YELLOW_BANNER: 1
-  BLUE_BANNER: 1
-  COBBLESTONE: 5
-  COAL: 64
-  DIRT: 320
-  SAND: 128
-  CRYING_OBSIDIAN: 1
-  SEA_PICKLE: 10
-  TURTLE_SCUTE: 1
-  REDSTONE_TORCH: 64
-  GHAST_TEAR: 1
-  NETHERRACK: 640
-  PINK_WOOL: 10
-  APPLE: 5
-  BAKED_POTATO: 1
-  MELON_SLICE: 64
-  NETHER_WART: 1
-  RABBIT_FOOT: 1
-  SLIME_BLOCK: 1
-  SPONGE: 1
+# Task: Craft an item. List of possible items to craft
+craftItemTask:
+  maxTaskCount: 2
+  materials:
+  - ANVIL
+  - BOOKSHELF
+  - BOW
+  - CLOCK
+  - CRIMSON_SIGN
+  - DAYLIGHT_DETECTOR
+  - DISPENSER
+  - FIREWORK_ROCKET
+  - FISHING_ROD
+  - GLASS_PANE
+  - GOLDEN_CARROT
+  - HAY_BLOCK
+  - HOPPER
+  - IRON_AXE
+  - JUKEBOX
+  - LEATHER_BOOTS
+  - MOSSY_COBBLESTONE
+  - NOTE_BLOCK
+  - PAINTING
+  - PISTON
+  - POWERED_RAIL
+  - REDSTONE_TORCH
+  - TNT
+  - WRITTEN_BOOK
+  punishmentMaterials:
+  - SHIELD
+  - STICK
+  - WOODEN_PICKAXE
 
+# Task: Eat an item. List of possible items you can eat
+eatItemTask:
+  maxTaskCount: 3
+  materials:
+  - COOKIE
+  - DRIED_KELP
+  - GLISTERING_MELON_SLICE
+  - GLOW_BERRIES
+  - GOLDEN_APPLE
+  - GOLDEN_CARROT
+  - HONEY_BOTTLE
+  - MELON_SLICE
+  - MUSHROOM_STEW
+  - POISONOUS_POTATO
+  - PUFFERFISH
+  - PUMPKIN_PIE
+  - RABBIT_STEW
+  - SUSPICIOUS_STEW
+  punishmentMaterials:
+  - BREAD
 
-# Task: Place an item. Possible items to place, and the amount to place
-placeAnItemItemTypes:
-  CRIMSON_FUNGUS: 1
-  WARPED_FUNGUS: 1
-  GLOWSTONE: 1
-  JACK_O_LANTERN: 1
-  REDSTONE_BLOCK: 1
-  GOLD_BLOCK: 1
-  COMPARATOR: 1
-  DRIED_KELP_BLOCK: 1
-  FERN: 1
-  HONEYCOMB_BLOCK: 1
-  HOPPER: 1
-  LANTERN: 1
-  LIGHT_GRAY_GLAZED_TERRACOTTA: 1
-  WHITE_BANNER: 1
-  NETHER_BRICKS: 1
-  OBSERVER: 1
-  POLISHED_ANDESITE_STAIRS:
-  QUARTZ_PILLAR: 1
-  RED_GLAZED_TERRACOTTA: 1
-  RED_SANDSTONE_SLAB:
-  REDSTONE_LAMP: 1
-  WARPED_FENCE_GATE: 1
-  WHITE_CARPET: 5
-  COBBLESTONE_WALL: 1
-  STONE_BRICK_WALL: 1
-  GRANITE_WALL: 1
-  DIORITE_WALL: 1
-  ANDESITE_WALL: 1
-  COBBLED_DEEPSLATE_WALL: 1
-  TUFF_WALL: 1
-  BRICK_WALL: 1
-  SANDSTONE_WALL: 1
-  BLACKSTONE_WALL: 1
-  BONE_BLOCK: 1
-  CRIMSON_FUNGUS: 1
-  WARPED_FUNGUS: 1
-  WHITE_STAINED_GLASS: 1
-  BLACK_STAINED_GLASS: 1
-  RED_STAINED_GLASS: 1
-  YELLOW_STAINED_GLASS: 1
-  BLUE_STAINED_GLASS: 1
+# Task: Enter a biome. List of possible biomes to enter, and the material that appears in with the task
+enterBiomeTask:
+  maxTaskCount: 2
+  biomes:
+    BAMBOO_JUNGLE: BAMBOO
+    BASALT_DELTAS: BASALT
+    CHERRY_GROVE: CHERRY_SAPLING
+    CRIMSON_FOREST: CRIMSON_FUNGUS
+    DARK_FOREST: RED_MUSHROOM
+    DEEP_DARK: SCULK_SENSOR
+    DESERT: SAND
+    ERODED_BADLANDS: ORANGE_GLAZED_TERRACOTTA
+    ICE_SPIKES: PACKED_ICE
+    JUNGLE: JUNGLE_SAPLING
+    LUSH_CAVES: FLOWERING_AZALEA_LEAVES 
+    MEADOW: GRASS_BLOCK
+    SNOWY_TAIGA: SNOW_BLOCK
+    SWAMP: VINE
+    WARPED_FOREST: WARPED_FUNGUS
+  punishmentBiomes:
+    BAMBOO_JUNGLE: BAMBOO
+    BASALT_DELTAS: BASALT
+    CHERRY_GROVE: CHERRY_SAPLING
+    CRIMSON_FOREST: CRIMSON_FUNGUS
+    DARK_FOREST: RED_MUSHROOM
+    DEEP_DARK: SCULK_SENSOR
+    DESERT: SAND
+    ERODED_BADLANDS: ORANGE_GLAZED_TERRACOTTA
+    ICE_SPIKES: PACKED_ICE
+    JUNGLE: JUNGLE_SAPLING
+    LUSH_CAVES: FLOWERING_AZALEA_LEAVES 
+    MEADOW: GRASS_BLOCK
+    SNOWY_TAIGA: SNOW_BLOCK
+    SWAMP: VINE
+    WARPED_FOREST: WARPED_FUNGUS
+
+# Task: Get a certain EXP level. Is a random level, up to the max level specified here
+getExpLevelTask:
+  maxLevel: 10
+  punishmentMinLevel: 1
+  punishmentMaxLevel: 5
+
+# Task: Interact with an item. List of possible items to interact with
+interactItemTask:
+  maxTaskCount: 2
+  materials:
+  - BELL
+  - COMPARATOR
+  - LEVER
+  - LIGHT_WEIGHTED_PRESSURE_PLATE
+  - NOTE_BLOCK
+  - OAK_BUTTON 
+  - REPEATER
+  - STONE_BUTTON
+  - STONE_PRESSURE_PLATE
+  - TRAPPED_CHEST
+
+# Task: Kill N entities. Possible entities to kill, and how many to kill
+killEntitiesTask:
+  maxTaskCount: 3
+  entityTypes:
+    AXOLOTL: 1
+    BAT: 1
+    BEE: 1
+    BLAZE: 1
+    CHICKEN: 10
+    COD: 5
+    COW: 10
+    CREEPER: 10
+    DOLPHIN: 1
+    DONKEY: 1
+    DROWNED: 10
+    ENDERMAN: 1
+    FOX: 1
+    GHAST: 1
+    GLOW_SQUID: 1
+    HOGLIN: 3
+    HUSK: 1
+    PARROT: 1
+    PIG: 10
+    PIGLIN: 5
+    PILLAGER: 3
+    RABBIT: 1
+    SALMON: 5
+    SHEEP: 10
+    SLIME: 1
+    SNOW_GOLEM: 1
+    SPIDER: 10
+    SQUID: 3
+    TROPICAL_FISH: 1
+    VILLAGER: 1
+    WITCH: 1
+    ZOMBIE: 15
+    ZOMBIE_VILLAGER: 1
+  punishmentEntityTypes:
+    CHICKEN: 1
+    CREEPER: 1
+    COD: 1
+    COW: 1
+    PIG: 1
+    SALMON: 1
+    SKELETON: 1
+    SHEEP: 1
+    SPIDER: 1
+    ZOMBIE: 1
+
+# Task: Obtain an item. Possible items to obtain and the amount to obtain
+obtainItemsTask:
+  maxTaskCount: 2
+  materials:
+    OAK_LEAVES: 1
+    BIRCH_LEAVES: 1
+    DARK_OAK_LEAVES: 1
+    AZALEA_LEAVES: 1
+    SPRUCE_SAPLING: 1
+    ACACIA_SAPLING: 1
+    CHERRY_SAPLING: 1
+    SALMON_BUCKET: 1
+    TROPICAL_FISH_BUCKET: 1
+    PUFFERFISH_BUCKET: 1
+    AXOLOTL_BUCKET: 1
+    LAVA_BUCKET: 1
+    MILK_BUCKET: 1
+    CLOCK: 1
+    CARROT_ON_A_STICK: 1
+    MANGROVE_BOAT: 1
+    CHERRY_BOAT: 1
+    POWERED_RAIL: 1
+    DETECTOR_RAIL: 1
+    ACTIVATOR_RAIL: 1
+    GOAT_HORN: 1
+    SADDLE: 1
+    FIREWORK_ROCKET: 1
+    SNOWBALL: 1
+    HEART_OF_THE_SEA: 1
+    RABBIT_HIDE: 1
+    DIAMOND: 1
+    FEATHER: 1
+    GLOW_INK_SAC: 1
+    NAUTILUS_SHELL: 1
+    CHAIN: 1
+    LANTERN: 1
+    REDSTONE_TORCH: 1
+    BELL: 1
+    CAULDRON: 1
+    BREWING_STAND: 1
+    OAK_HANGING_SIGN: 1
+    BIRCH_HANGING_SIGN: 1
+    ACACIA_HANGING_SIGN: 1
+    WARPED_HANGING_SIGN: 1
+    BARREL: 1
+    WHITE_BED: 1
+    BLACK_BED: 1
+    LIME_BED: 1
+    LIGHT_BLUE_BED: 1
+    WHITE_CANDLE: 1
+    MAGENTA_CANDLE: 1
+    PINK_CANDLE: 1
+    WHITE_BANNER: 1
+    BLACK_BANNER: 1
+    RED_BANNER: 1
+    YELLOW_BANNER: 1
+    BLUE_BANNER: 1
+    COBBLESTONE: 5
+    COAL: 64
+    DIRT: 320
+    SAND: 128
+    CRYING_OBSIDIAN: 1
+    SEA_PICKLE: 10
+    TURTLE_SCUTE: 1
+    REDSTONE_TORCH: 64
+    GHAST_TEAR: 1
+    NETHERRACK: 640
+    PINK_WOOL: 10
+    APPLE: 5
+    BAKED_POTATO: 1
+    MELON_SLICE: 64
+    NETHER_WART: 1
+    RABBIT_FOOT: 1
+    SLIME_BLOCK: 1
+    SPONGE: 1
+  punishmentMaterials:
+    BONE: 1
+    COAL: 1
+    COBBLESTONE: 10
+    DIRT: 10
+    FEATHER: 1
+    GRAVEL: 1
+    OAK_SAPLING: 1
+    ROTTEN_FLESH: 1
+    STRING: 1
+    WHEAT_SEEDS: 1
+    
+
+# Task: Place an item in an item frame. Possible items to place in the frame
+placeItemInItemFrameTask:
+  maxTaskCount: 1
+  materials:
+  - AMETHYST_SHARD
+  - COAL
+  - COPPER_INGOT
+  - DIAMOND
+  - EMERALD
+  - GOLD_INGOT
+  - IRON_INGOT
+  - LAPIS_LAZULI
+  - QUARTZ
+
+# Task: Place N items. Possible items to place, and the amount to place
+placeItemsTask:
+  maxTaskCount: 2
+  materials:
+    ANDESITE_WALL: 1
+    BLACK_STAINED_GLASS: 1
+    BLUE_STAINED_GLASS: 1
+    BLACKSTONE_WALL: 1
+    BONE_BLOCK: 1
+    BRICK_WALL: 1
+    COBBLED_DEEPSLATE_WALL: 1
+    COBBLESTONE_WALL: 1
+    COMPARATOR: 1
+    CRIMSON_FUNGUS: 1
+    DIORITE_WALL: 1
+    DRIED_KELP_BLOCK: 1
+    FERN: 1
+    GLOWSTONE: 1
+    GOLD_BLOCK: 1
+    GRANITE_WALL: 1
+    HONEYCOMB_BLOCK: 1
+    HOPPER: 1
+    JACK_O_LANTERN: 1
+    LANTERN: 1
+    LIGHT_GRAY_GLAZED_TERRACOTTA: 1
+    OBSERVER: 1
+    NETHER_BRICKS: 1
+    POLISHED_ANDESITE_STAIRS:
+    QUARTZ_PILLAR: 1
+    SANDSTONE_WALL: 1
+    STONE_BRICK_WALL: 1
+    RED_GLAZED_TERRACOTTA: 1
+    RED_SANDSTONE_SLAB:
+    RED_STAINED_GLASS: 1
+    REDSTONE_BLOCK: 1
+    REDSTONE_LAMP: 1
+    TUFF_WALL: 1
+    WARPED_FENCE_GATE: 1
+    WARPED_FUNGUS: 1
+    WHITE_BANNER: 1
+    WHITE_CARPET: 5
+    WHITE_STAINED_GLASS: 1
+    YELLOW_STAINED_GLASS: 1
+  punishmentMaterials:
+    FURNACE: 1
+
+# Task: Punch an entity with an item. Possible entities to punch, and the items to punch them with
+punchAnEntityWithItemTask:
+  maxTaskCount: 3
+  entityTypes:
+  - ARMADILLO
+  - AXOLOTL
+  - BAT
+  - BEE
+  - CAMEL
+  - DOLPHIN
+  - DONKEY
+  - DROWNED
+  - ENDERMAN
+  - GLOW_SQUID
+  - GOAT
+  - HUSK
+  - IRON_GOLEM
+  - LLAMA
+  - OCELOT
+  - PARROT
+  - PIGLIN
+  - POLAR_BEAR
+  - PUFFERFISH
+  - SNOW_GOLEM
+  - STRAY
+  - TURTLE
+  - VILLAGER
+  - WITCH
+  - WOLF
+  materials:
+  - APPLE
+  - BEETROOT
+  - COD
+  - COOKIE
+  - GLOW_BERRIES
+  - PUFFERFISH
+  - SALMON
+  - SWEET_BERRIES
+  - TROPICAL_FISH
+
+# Task: Ride an entity. List of possible EntityTypes to ride
+rideAnEntityTask:
+  maxTaskCount: 1
+  entityTypes:
+  - CAMEL
+  - DONKEY
+  - HORSE
+  - PIG
+  - MULE
+  - STRIDER
+  - MINECART

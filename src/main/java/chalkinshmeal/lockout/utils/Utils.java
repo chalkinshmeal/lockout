@@ -32,6 +32,7 @@ import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.AreaEffectCloud;
@@ -76,8 +77,11 @@ public class Utils {
     // General
     //---------------------------------------------------------------------------------------------
     public static <T> List<T> getRandomItems(List<T> list, int n) {
+        if (n == -1) {
+            return list;
+        }
         if (n > list.size()) {
-            throw new IllegalArgumentException("n cannot be greater than the size of the list");
+            return list;
         }
 
         List<T> copy = new ArrayList<>(list);
@@ -639,6 +643,13 @@ public class Utils {
     }
 
     //---------------------------------------------------------------------------------------------
+    // Biomes 
+    //---------------------------------------------------------------------------------------------
+    public static String getReadableBiomeName(Biome biome) {
+        return biome.name().replace("_", " ").toLowerCase();
+    }
+
+    //---------------------------------------------------------------------------------------------
     // Entities 
     //---------------------------------------------------------------------------------------------
     public static String getReadableEntityTypeName(EntityType entityType) {
@@ -660,6 +671,45 @@ public class Utils {
         }
 
         return false;
+    }
+
+    //---------------------------------------------------------------------------------------------
+    // Strings 
+    //---------------------------------------------------------------------------------------------
+    public static String intToRomanNumerals(int num) {
+        if (num > 10) return Integer.toString(num);
+
+        int[] values = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
+        String[] symbols = {"X", "IX", "VIII", "VII", "VI", "V", "IV", "III", "II", "I"};
+        StringBuilder roman = new StringBuilder();
+
+        for (int i = 0; i < values.length; i++) {
+            while (num >= values[i]) {
+                roman.append(symbols[i]);
+                num -= values[i];
+            }
+        }
+
+        return roman.toString();
+    }
+
+    public static String toTitleCase(String input) {
+        if (input == null || input.isEmpty()) {
+            return input;
+        }
+
+        String[] words = input.toLowerCase().split(" ");
+        StringBuilder titleCase = new StringBuilder();
+
+        for (String word : words) {
+            if (word.length() > 0) {
+                titleCase.append(Character.toUpperCase(word.charAt(0)))
+                         .append(word.substring(1))
+                         .append(" ");
+            }
+        }
+
+        return titleCase.toString().trim();
     }
 
     //---------------------------------------------------------------------------------------------

@@ -1,11 +1,9 @@
-package chalkinshmeal.lockout.artifacts.tasks.types;
+package chalkinshmeal.lockout.artifacts.tasks.specific;
 
 import org.bukkit.Material;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -13,21 +11,15 @@ import chalkinshmeal.lockout.artifacts.rewards.LockoutRewardHandler;
 import chalkinshmeal.lockout.artifacts.tasks.LockoutTask;
 import chalkinshmeal.lockout.artifacts.tasks.LockoutTaskHandler;
 import chalkinshmeal.lockout.data.ConfigHandler;
-import chalkinshmeal.lockout.utils.Utils;
 
-public class PunchAnEntityWithItemTask extends LockoutTask {
-    private final EntityType entityType;
-    private final Material material;
-
+public class TeleportWithAnEnderpearlTask extends LockoutTask {
     //---------------------------------------------------------------------------------------------
     // Constructor, which takes lockouttaskhandler
     //---------------------------------------------------------------------------------------------
-    public PunchAnEntityWithItemTask(JavaPlugin plugin, ConfigHandler configHandler, LockoutTaskHandler lockoutTaskHandler, LockoutRewardHandler lockoutRewardHandler, EntityType entityType, Material material) {
+    public TeleportWithAnEnderpearlTask(JavaPlugin plugin, ConfigHandler configHandler, LockoutTaskHandler lockoutTaskHandler, LockoutRewardHandler lockoutRewardHandler) {
         super(plugin, configHandler, lockoutTaskHandler, lockoutRewardHandler);
-        this.entityType = entityType;
-        this.material = material;
-        this.name = "Punch a " + Utils.getReadableEntityTypeName(this.entityType) + " with a " + Utils.getReadableMaterialName(this.material);
-        this.item = new ItemStack(this.material);
+        this.name = "Teleport with an enderpearl";
+        this.item = new ItemStack(Material.ENDER_PEARL);
         this.value = 1;
     }
 
@@ -37,38 +29,32 @@ public class PunchAnEntityWithItemTask extends LockoutTask {
     public void validateConfig() {}
 
     public void addListeners() {
-		this.listeners.add(new PunchAnEntityWithItemTaskPlayerInteractListener(this));
+		this.listeners.add(new TeleportWithAnEnderpearlTaskPlayerInteractListener(this));
     }
 
     //---------------------------------------------------------------------------------------------
     // Any listeners. Upon completion, LockoutTaskHandler.CompleteTask(player);
     //---------------------------------------------------------------------------------------------
-    public void onEntityDamageByEntityEvent(EntityDamageByEntityEvent event) {
-        if (!(event.getDamager() instanceof Player)) return;
-        if (event.getEntityType() != this.entityType) return;
-        Player player = (Player) event.getDamager();
-        Material itemInHand = player.getInventory().getItemInMainHand().getType();
-        if (itemInHand != this.material) return;
-
-        this.complete(player);
+    public void onPlayerTeleportEvent(PlayerTeleportEvent event) {
+        if (event.getCause() != PlayerTeleportEvent.TeleportCause.ENDER_PEARL) return;
+        this.complete(event.getPlayer());
     }
 }
 
 //---------------------------------------------------------------------------------------------
 // Private classes - any listeners that this task requires
 //---------------------------------------------------------------------------------------------
-class PunchAnEntityWithItemTaskPlayerInteractListener implements Listener {
-    private final PunchAnEntityWithItemTask task;
+class TeleportWithAnEnderpearlTaskPlayerInteractListener implements Listener {
+    private final TeleportWithAnEnderpearlTask task;
 
-    public PunchAnEntityWithItemTaskPlayerInteractListener(PunchAnEntityWithItemTask task) {
+    public TeleportWithAnEnderpearlTaskPlayerInteractListener(TeleportWithAnEnderpearlTask task) {
         this.task = task;
     }
 
     /** Event Handler */
     @EventHandler
-    public void onEntityDamageByEntityEvent(EntityDamageByEntityEvent event) {
+    public void onPlayerTeleportEvent(PlayerTeleportEvent event) {
         if (this.task.isComplete()) return;
-        this.task.onEntityDamageByEntityEvent(event);
+        this.task.onPlayerTeleportEvent(event);
     }
 }
-

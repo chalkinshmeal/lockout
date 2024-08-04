@@ -1,12 +1,9 @@
-package chalkinshmeal.lockout.artifacts.tasks.types;
+package chalkinshmeal.lockout.artifacts.tasks.specific;
 
 import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.block.data.Ageable;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -16,14 +13,14 @@ import chalkinshmeal.lockout.artifacts.tasks.LockoutTask;
 import chalkinshmeal.lockout.artifacts.tasks.LockoutTaskHandler;
 import chalkinshmeal.lockout.data.ConfigHandler;
 
-public class GrowWheatWithBonemealTask extends LockoutTask {
+public class WearFullIronArmorTask extends LockoutTask {
     //---------------------------------------------------------------------------------------------
     // Constructor, which takes lockouttaskhandler
     //---------------------------------------------------------------------------------------------
-    public GrowWheatWithBonemealTask(JavaPlugin plugin, ConfigHandler configHandler, LockoutTaskHandler lockoutTaskHandler, LockoutRewardHandler lockoutRewardHandler) {
+    public WearFullIronArmorTask(JavaPlugin plugin, ConfigHandler configHandler, LockoutTaskHandler lockoutTaskHandler, LockoutRewardHandler lockoutRewardHandler) {
         super(plugin, configHandler, lockoutTaskHandler, lockoutRewardHandler);
-        this.name = "Grow wheat using bonemeal";
-        this.item = new ItemStack(Material.WHEAT_SEEDS);
+        this.name = "Wear a full set of iron armor";
+        this.item = new ItemStack(Material.IRON_CHESTPLATE);
         this.value = 1;
     }
 
@@ -33,7 +30,7 @@ public class GrowWheatWithBonemealTask extends LockoutTask {
     public void validateConfig() {}
 
     public void addListeners() {
-		this.listeners.add(new GrowWheatWithBonemealTaskPlayerInteractListener(this));
+		this.listeners.add(new WearFullIronArmorTaskPlayerInteractListener(this));
     }
 
     //---------------------------------------------------------------------------------------------
@@ -41,26 +38,23 @@ public class GrowWheatWithBonemealTask extends LockoutTask {
     //---------------------------------------------------------------------------------------------
     public void onPlayerInteractEvent(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-        if (event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
-        Block block = event.getClickedBlock();
-        if (block == null) return;
-        if (!(block.getBlockData() instanceof Ageable)) return;
-        Material blockType = block.getType();
-        if (blockType != Material.WHEAT) return;
-        Material itemInHand = player.getInventory().getItemInMainHand().getType();
-        if (itemInHand != Material.BONE_MEAL) return;
 
-        this.complete(player);
+        if (player.getInventory().getHelmet() != null && player.getInventory().getHelmet().getType() == Material.IRON_HELMET
+        && player.getInventory().getChestplate() != null && player.getInventory().getChestplate().getType() == Material.IRON_CHESTPLATE
+        && player.getInventory().getLeggings() != null && player.getInventory().getLeggings().getType() == Material.IRON_LEGGINGS
+        && player.getInventory().getBoots() != null && player.getInventory().getBoots().getType() == Material.IRON_BOOTS) {
+            this.complete(event.getPlayer());
+        }
     }
 }
 
 //---------------------------------------------------------------------------------------------
 // Private classes - any listeners that this task requires
 //---------------------------------------------------------------------------------------------
-class GrowWheatWithBonemealTaskPlayerInteractListener implements Listener {
-    private final GrowWheatWithBonemealTask task;
+class WearFullIronArmorTaskPlayerInteractListener implements Listener {
+    private final WearFullIronArmorTask task;
 
-    public GrowWheatWithBonemealTaskPlayerInteractListener(GrowWheatWithBonemealTask task) {
+    public WearFullIronArmorTaskPlayerInteractListener(WearFullIronArmorTask task) {
         this.task = task;
     }
 

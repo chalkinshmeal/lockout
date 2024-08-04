@@ -1,6 +1,7 @@
 package chalkinshmeal.lockout.artifacts.tasks;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Material;
@@ -21,18 +22,21 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 
 public abstract class LockoutTask {
+    public static String maxTaskCount = "maxTaskCount";
     protected final JavaPlugin plugin;
     protected final ConfigHandler configHandler;
     private final LockoutTaskHandler lockoutTaskHandler;
     private final LockoutRewardHandler lockoutRewardHandler;
     protected List<Listener> listeners;
     private boolean completed;
+    public NamedTextColor nameColor;
 
     protected String name;
     protected ItemStack item;
     protected TextComponent itemDisplayName;
     protected int value;
     protected LockoutReward reward;
+    protected boolean isPunishment;
 
     //---------------------------------------------------------------------------------------------
     // Constructor
@@ -48,6 +52,8 @@ public abstract class LockoutTask {
         this.item = new ItemStack(Material.DIRT);
         this.value = 1;
         this.reward = null;
+        this.isPunishment = false;
+        this.nameColor = NamedTextColor.BLUE;
         Utils.setDisplayName(item, this.itemDisplayName);
 
         this.validateConfig();
@@ -57,8 +63,32 @@ public abstract class LockoutTask {
     // Accessor/Mutator methods
     //---------------------------------------------------------------------------------------------
     public void init() {
-        this.reward = (this.value > 0) ? this.lockoutRewardHandler.getRandomReward() : this.lockoutRewardHandler.getRandomPunishment();
-        this.setItemDisplayName(Component.text(this.name, NamedTextColor.BLUE).decoration(TextDecoration.ITALIC, false));
+        // Set reward
+        this.reward = (this.isPunishment) ? this.lockoutRewardHandler.getRandomPunishment() : this.lockoutRewardHandler.getRandomReward();
+
+        // Change values based on if it's a punishment
+        if (this.isPunishment) {
+            this.value *= -1;
+            this.name = "Don't " + this.name.toLowerCase();
+            this.nameColor = NamedTextColor.RED;
+        }
+
+        // Chance name based on 1/a rules and a/an rules
+        if (this.name.contains(" 1 ")) {
+            this.name = this.name.replace(" 1 ", " a ");
+        }
+        if (this.name.contains(" a ")) {
+            String regexPattern = "^[aeiou].*"; 
+            List<String> stringList = Arrays.asList(this.name.split(" "));
+            for (int i = 0; i < stringList.size() - 1; i++) {
+                if (stringList.get(i).equals("a") && stringList.get(i + 1).matches(regexPattern)) {
+                    stringList.set(i, "an");
+                }
+            }
+            this.name = String.join(" ", stringList);
+        }
+
+        this.setItemDisplayName(Component.text(this.name, this.nameColor).decoration(TextDecoration.ITALIC, false));
         this.addLore();
         this.addListeners();
     }
@@ -68,7 +98,7 @@ public abstract class LockoutTask {
     public void addLore() {
         Component valueLore = Component.text("Value: ", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false)
                 .append(Component.text(String.valueOf(this.value), NamedTextColor.GOLD));
-        Component rewardLore = Component.text("Reward: ", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false)
+        Component rewardLore = Component.text((this.isPunishment) ? "Punishment: " : "Reward: ", NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false)
                 .append(Component.text((this.reward == null) ? "Nothing" : this.reward.getDescription(), NamedTextColor.LIGHT_PURPLE));
 
         this.item = Utils.addLore(this.item, valueLore);
