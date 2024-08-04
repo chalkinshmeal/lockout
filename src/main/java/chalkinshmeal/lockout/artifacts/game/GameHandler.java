@@ -13,7 +13,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.potion.PotionEffect;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import chalkinshmeal.lockout.artifacts.compass.LockoutCompass;
@@ -69,6 +68,8 @@ public class GameHandler {
         // Create task list first, in case there are any problems with the config
         if (!this.lockoutTaskHandler.CreateTaskList()) return;
 
+        this.isActive = true;
+
         for (Player player : this.lockoutTeamHandler.getAllPlayers()) {
             this.frozenPlayers.add(player);
             this.resetPlayerState(player);
@@ -85,7 +86,6 @@ public class GameHandler {
 
     public void start() {
         // Global operations
-        this.isActive = true;
         this.frozenPlayers.clear();
         this.countdownBossBar.start();
         this.lockoutScoreboard.init(this.lockoutTeamHandler);
@@ -123,7 +123,6 @@ public class GameHandler {
 
         // Per-player operations
         for (Player player : this.lockoutTeamHandler.getAllPlayers()) {
-            player.sendMessage(Component.text("Lockout game ended.", NamedTextColor.GOLD));
             player.showTitle(Title.title(
                 Component.text(winningTeams.get(0) + " won!", NamedTextColor.GOLD),
                 Component.empty(), // No subtitle
@@ -138,7 +137,6 @@ public class GameHandler {
     public void suddenDeath(List<String> winningTeams) {
         // Sudden death
         for (Player player : this.lockoutTeamHandler.getAllPlayers()) {
-            player.sendMessage(Component.text("Lockout game ended.", NamedTextColor.GOLD));
             player.showTitle(Title.title(
                 Component.text("No winners - draw!", NamedTextColor.GOLD),
                 Component.empty(), // No subtitle
@@ -156,6 +154,7 @@ public class GameHandler {
 
         for (Player player : this.lockoutTeamHandler.getAllPlayers()) {
             this.lockoutScoreboard.hideFromPlayer(player);
+            player.sendMessage(Component.text("Lockout game ended.", NamedTextColor.GOLD));
         }
     }
 
@@ -164,6 +163,7 @@ public class GameHandler {
     //---------------------------------------------------------------------------------------------
     public void onPlayerMoveEvent(PlayerMoveEvent event) {
         if (!this.frozenPlayers.contains(event.getPlayer())) return;
+        if (!this.isActive) return;
 
         event.setCancelled(true);
     }
@@ -233,6 +233,10 @@ public class GameHandler {
                 if (remainingSeconds <= 0) {
                     player.clearTitle();
                     this.cancel(); // Stop the task when the timer ends
+                    return;
+                }
+                if (!isActive) {
+                    this.cancel();
                     return;
                 }
 

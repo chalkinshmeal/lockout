@@ -33,6 +33,6 @@ public class StopCommand extends BaseCommand {
                     .append(Component.text("game in progress", NamedTextColor.GRAY)));
             return;
         }
-        this.gameHandler.stop();
+        this.gameHandler.end();
     }
 }
