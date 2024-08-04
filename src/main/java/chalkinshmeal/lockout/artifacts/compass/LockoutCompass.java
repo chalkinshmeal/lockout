@@ -130,7 +130,7 @@ public class LockoutCompass {
     //---------------------------------------------------------------------------------------------
     private ItemStack constructTeamItem(int teamIndex, List<String> playerNames) {
         ItemStack item = new ItemStack(this.lockoutTeamHandler.getTeamMaterials().get(teamIndex));
-        item = Utils.setDisplayName(item, Component.text("Team " + (teamIndex+1), NamedTextColor.AQUA));
+        item = Utils.setDisplayName(item, Component.text(this.lockoutTeamHandler.getTeamName(teamIndex), NamedTextColor.AQUA));
         item = Utils.addLore(item, Component.text(playerNames.size() + " players", NamedTextColor.DARK_PURPLE));
         for (String playerName : playerNames) {
             item = Utils.addLore(item, Component.text(" " + playerName, NamedTextColor.DARK_AQUA));
