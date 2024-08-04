@@ -84,9 +84,9 @@ public class KillEntitiesTask extends LockoutTask {
         EntityType entityType = event.getEntity().getType();
         if (entityType != this.entityType) return;
 
-        // Return if 
-        System.out.println(event.getEntity().getKiller());
+        if (!(event.getEntity().getKiller() instanceof Player)) return;
         Player player = event.getEntity().getKiller();
+
         this.killedEntities.put(player, this.killedEntities.getOrDefault(player, 0) + 1);
         if (this.killedEntities.get(player) < this.amount) return;
         this.complete(player);
