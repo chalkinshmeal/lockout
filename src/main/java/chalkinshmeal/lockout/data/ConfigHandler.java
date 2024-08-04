@@ -61,7 +61,7 @@ public class ConfigHandler {
         }
         catch (Exception e) {
             this.plugin.getLogger().warning("Could not load '" + key + "': " + e);
-            return null;
+            return new ArrayList<>();
         }
     }
 

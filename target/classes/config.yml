@@ -9,10 +9,10 @@ taskCount: 27
 punishmentCount: 3
 
 # The number of seconds players are frozen before starting a game
-queueTime: 120
+queueTime: 5
 
 # The number of seconds to countdown for a game before sudden death
-timeLimit: 2700
+timeLimit: 120
 
 #--------------------------------------------------------------------------------------------------
 # Task-Specific Settings
@@ -35,6 +35,7 @@ breakItemsTask:
     COBBLESTONE: 128
     COBWEB: 1
     CRIMSON_NYLIUM: 1
+    DANDELION: 5
     DIAMOND_ORE: 1
     DIRT: 128
     DARK_OAK_LOG: 10
@@ -53,15 +54,22 @@ breakItemsTask:
     SPAWNER: 1
     MOSSY_COBBLESTONE: 1
     NETHERRACK: 64
+    OAK_LEAVES: 64
     OAK_PLANKS: 64
     OBSIDIAN: 1
+    PINK_PETALS: 20
     PRISMARINE: 1
+    POPPY: 5
     RED_SANDSTONE: 32
+    RED_MUSHROOM_BLOCK: 20
     SAND: 64
     SEA_LANTERN: 1
+    SEAGRASS: 20
+    SHORT_GRASS: 30
     SLIME_BLOCK: 1
     SNOW_BLOCK: 64
     STONE: 64
+    TALL_GRASS: 10
     TNT: 1
     WHITE_CONCRETE: 1
     YELLOW_TERRACOTTA: 1
@@ -236,77 +244,78 @@ killEntitiesTask:
 obtainItemsTask:
   maxTaskCount: 2
   materials:
-    OAK_LEAVES: 1
-    BIRCH_LEAVES: 1
-    DARK_OAK_LEAVES: 1
-    AZALEA_LEAVES: 1
-    SPRUCE_SAPLING: 1
-    ACACIA_SAPLING: 1
-    CHERRY_SAPLING: 1
-    SALMON_BUCKET: 1
-    TROPICAL_FISH_BUCKET: 1
-    PUFFERFISH_BUCKET: 1
-    AXOLOTL_BUCKET: 1
-    LAVA_BUCKET: 1
-    MILK_BUCKET: 1
-    CLOCK: 1
-    CARROT_ON_A_STICK: 1
-    MANGROVE_BOAT: 1
-    CHERRY_BOAT: 1
-    POWERED_RAIL: 1
-    DETECTOR_RAIL: 1
-    ACTIVATOR_RAIL: 1
-    GOAT_HORN: 1
-    SADDLE: 1
-    FIREWORK_ROCKET: 1
-    SNOWBALL: 1
-    HEART_OF_THE_SEA: 1
-    RABBIT_HIDE: 1
-    DIAMOND: 1
-    FEATHER: 1
-    GLOW_INK_SAC: 1
-    NAUTILUS_SHELL: 1
-    CHAIN: 1
-    LANTERN: 1
-    REDSTONE_TORCH: 1
-    BELL: 1
-    CAULDRON: 1
-    BREWING_STAND: 1
-    OAK_HANGING_SIGN: 1
-    BIRCH_HANGING_SIGN: 1
     ACACIA_HANGING_SIGN: 1
-    WARPED_HANGING_SIGN: 1
-    BARREL: 1
-    WHITE_BED: 1
-    BLACK_BED: 1
-    LIME_BED: 1
-    LIGHT_BLUE_BED: 1
-    WHITE_CANDLE: 1
-    MAGENTA_CANDLE: 1
-    PINK_CANDLE: 1
-    WHITE_BANNER: 1
-    BLACK_BANNER: 1
-    RED_BANNER: 1
-    YELLOW_BANNER: 1
-    BLUE_BANNER: 1
-    COBBLESTONE: 5
-    COAL: 64
-    DIRT: 320
-    SAND: 128
-    CRYING_OBSIDIAN: 1
-    SEA_PICKLE: 10
-    TURTLE_SCUTE: 1
-    REDSTONE_TORCH: 64
-    GHAST_TEAR: 1
-    NETHERRACK: 640
-    PINK_WOOL: 10
+    ACACIA_SAPLING: 1
+    ACTIVATOR_RAIL: 1
     APPLE: 5
+    AXOLOTL_BUCKET: 1
+    AZALEA_LEAVES: 1
     BAKED_POTATO: 1
+    BARREL: 1
+    BELL: 1
+    BIG_DRIPLEAF: 10
+    BIRCH_HANGING_SIGN: 1
+    BIRCH_LEAVES: 1
+    BLACK_BANNER: 1
+    BLACK_BED: 1
+    BLUE_BANNER: 1
+    BREWING_STAND: 1
+    CARROT_ON_A_STICK: 1
+    CAULDRON: 1
+    CHAIN: 1
+    CHERRY_BOAT: 1
+    CHERRY_SAPLING: 1
+    CLOCK: 1
+    COAL: 64
+    COBBLESTONE: 5
+    CRYING_OBSIDIAN: 1
+    DARK_OAK_LEAVES: 1
+    DETECTOR_RAIL: 1
+    DIAMOND: 1
+    DIRT: 320
+    FEATHER: 1
+    FIREWORK_ROCKET: 1
+    GHAST_TEAR: 1
+    GLOW_INK_SAC: 1
+    GOAT_HORN: 1
+    HEART_OF_THE_SEA: 1
+    LANTERN: 1
+    LAVA_BUCKET: 1
+    LIGHT_BLUE_BED: 1
+    LIME_BED: 1
+    MAGENTA_CANDLE: 1
+    MANGROVE_BOAT: 1
     MELON_SLICE: 64
+    MILK_BUCKET: 1
+    NAUTILUS_SHELL: 1
+    NETHERRACK: 640
     NETHER_WART: 1
+    OAK_HANGING_SIGN: 1
+    OAK_LEAVES: 1
+    PINK_CANDLE: 1
+    PINK_WOOL: 10
+    POWERED_RAIL: 1
+    PUFFERFISH_BUCKET: 1
     RABBIT_FOOT: 1
+    RABBIT_HIDE: 1
+    REDSTONE_TORCH: 1
+    REDSTONE_TORCH: 64
+    RED_BANNER: 1
+    SADDLE: 1
+    SALMON_BUCKET: 1
+    SAND: 128
+    SEA_PICKLE: 10
     SLIME_BLOCK: 1
+    SNOWBALL: 1
     SPONGE: 1
+    SPRUCE_SAPLING: 1
+    TROPICAL_FISH_BUCKET: 1
+    TURTLE_SCUTE: 1
+    WARPED_HANGING_SIGN: 1
+    WHITE_BANNER: 1
+    WHITE_BED: 1
+    WHITE_CANDLE: 1
+    YELLOW_BANNER: 1
   punishmentMaterials:
     BONE: 1
     COAL: 1
@@ -431,3 +440,41 @@ rideAnEntityTask:
   - MULE
   - STRIDER
   - MINECART
+
+# Task: Stand on a block. Possible items to stand on
+standOnBlockTask:
+  maxTaskCount: 2
+  materials:
+  - AMETHYST_BLOCK
+  - BEDROCK
+  - BEE_NEST
+  - BLACKSTONE
+  - BLAST_FURNACE
+  - BLUE_ICE
+  - CACTUS
+  - CLAY
+  - CRYING_OBSIDIAN
+  - DEEPSLATE_COAL_ORE
+  - DEEPSLATE_COPPER_ORE
+  - DEEPSLATE_GOLD_ORE
+  - DEEPSLATE_IRON_ORE
+  - DIORITE
+  - ICE
+  - IRON_BARS
+  - MUSHROOM_STEM
+  - NETHERRACK
+  - SMALL_DRIPLEAF
+  - SMOOTH_BASALT
+  - SNOW_BLOCK
+  - SOUL_SAND
+  - STRIPPED_BIRCH_LOG
+  - STRIPPED_DARK_OAK_LOG
+  - TUFF
+  punishmentMaterials:
+  - ANDESITE
+  - COAL_BLOCK
+  - COBBLESTONE
+  - DIORITE
+  - DIRT
+  - GRAVEL
+  - SAND

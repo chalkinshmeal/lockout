@@ -24,6 +24,7 @@ import chalkinshmeal.lockout.artifacts.tasks.general.PlaceItemInItemFrameTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.PlaceItemsTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.PunchAnEntityWithItemTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.RideEntityTask;
+import chalkinshmeal.lockout.artifacts.tasks.general.StandOnBlockTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.DrinkMilkToCurePoisonTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.GrowWheatWithBonemealTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.KillLeftySkeletonTask;
@@ -79,6 +80,7 @@ public class LockoutTaskHandler {
             allTasks.addAll(PlaceItemsTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(PunchAnEntityWithItemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(RideEntityTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
+            allTasks.addAll(StandOnBlockTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(KillLeftySkeletonTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
 
             // Specific tasks
@@ -97,6 +99,7 @@ public class LockoutTaskHandler {
             punishmentTasks.addAll(KillEntitiesTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
             punishmentTasks.addAll(ObtainItemsTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
             punishmentTasks.addAll(PlaceItemsTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
+            punishmentTasks.addAll(StandOnBlockTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
         }
         catch (Exception e) {
             this.plugin.getLogger().warning("Could not create task list: " + e.getMessage());

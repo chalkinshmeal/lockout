@@ -47,6 +47,7 @@ C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\utils\cmdframework\argument\ArgValue.java
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\artifacts\rewards\types\GoldenAppleReward.java
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\data\LootConfig.java
+C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\artifacts\tasks\general\StandOnBlockTask.java
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\listeners\server\PlayerMoveListener.java
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\artifacts\tasks\LockoutTaskHandler.java
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\data\ConfigHandler.java
