@@ -50,6 +50,7 @@ import org.bukkit.entity.WitherSkull;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityPotionEffectEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
@@ -660,20 +661,6 @@ public class Utils {
     }
 
     //---------------------------------------------------------------------------------------------
-    // Biomes 
-    //---------------------------------------------------------------------------------------------
-    public static String getReadableBiomeName(Biome biome) {
-        return biome.name().replace("_", " ").toLowerCase();
-    }
-
-    //---------------------------------------------------------------------------------------------
-    // Entities 
-    //---------------------------------------------------------------------------------------------
-    public static String getReadableEntityTypeName(EntityType entityType) {
-        return entityType.name().replace("_", " ").toLowerCase();
-    }
-
-    //---------------------------------------------------------------------------------------------
     // Player
     //---------------------------------------------------------------------------------------------
     public static boolean hasMaterial(Player player, Material material, int amount) {
@@ -693,6 +680,22 @@ public class Utils {
     //---------------------------------------------------------------------------------------------
     // Strings 
     //---------------------------------------------------------------------------------------------
+    public static String getReadableBiomeName(Biome biome) {
+        return biome.name().replace("_", " ").toLowerCase();
+    }
+
+    public static String getReadableDamageCauseName(DamageCause damageCause) {
+        return damageCause.name().replace("_", " ").toLowerCase();
+    }
+
+    public static String getReadableEntityTypeName(EntityType entityType) {
+        return entityType.name().replace("_", " ").toLowerCase();
+    }
+
+    public static String getReadableMaterialName(Material material) {
+        return material.name().replace("_", " ").toLowerCase();
+    }
+
     public static String intToRomanNumerals(int num) {
         if (num > 10) return Integer.toString(num);
 
@@ -735,12 +738,5 @@ public class Utils {
     public static String stripColor(String string) {
         String COLOR_CODE_REGEX = "§[0-9a-fk-or]";
         return string.replaceAll(COLOR_CODE_REGEX, "");
-    }
-
-    //---------------------------------------------------------------------------------------------
-    // Materials 
-    //---------------------------------------------------------------------------------------------
-    public static String getReadableMaterialName(Material material) {
-        return material.name().replace("_", " ").toLowerCase();
     }
 }

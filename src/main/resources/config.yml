@@ -478,3 +478,51 @@ standOnBlockTask:
   - DIRT
   - GRAVEL
   - SAND
+
+# Task: Die a specific way. Possible DamageCauses to die from
+specificDeathTask:
+  maxTaskCount: 12
+  damageCauses:
+    BLOCK_EXPLOSION:
+      material: TNT
+      explanation: Die from a block's explosion
+    CAMPFIRE:
+      material: CAMPFIRE
+      explanation: Die by burning in a campfire
+    CONTACT:
+      material: CACTUS
+      explanation: Die from a prickly block (Cactus, Dripstone, Berry Bush)
+    DROWNING:
+      material: WATER_BUCKET
+      explanation: Die via drowning
+    ENTITY_EXPLOSION:
+      material: CREEPER_HEAD
+      explanation: Die from an entity's explosion (Creeper)
+    FALL: 
+      material: FEATHER
+      explanation: Fall to your death
+    FALLING_BLOCK:
+      material: ANVIL
+      explanation: Die by getting crushed by a falling block
+    HOT_FLOOR:
+      material: MAGMA_BLOCK
+      explanation: Die by stepping on a magma block
+    LAVA:
+      material: LAVA_BUCKET
+      explanation: Die by burning in lava
+    PROJECTILE:
+      material: ARROW
+      explanation: Die to a projectile
+    STARVATION:
+      material: CARROT
+      explanation: Starve to death
+    SUFFOCATION:
+      material: SAND
+      explanation: Suffocate to death
+  punishmentDamageCauses:
+    ENTITY_EXPLOSION:
+      material: CREEPER_HEAD
+      explanation: Die from an entity's explosion (Creeper)
+    PROJECTILE:
+      material: ARROW
+      explanation: Die to a projectile
