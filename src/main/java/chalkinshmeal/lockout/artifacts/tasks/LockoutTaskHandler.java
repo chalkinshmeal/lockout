@@ -27,6 +27,7 @@ import chalkinshmeal.lockout.artifacts.tasks.general.RideEntityTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.SpecificDeathTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.StandOnBlockTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.BlockArrowWithShieldTask;
+import chalkinshmeal.lockout.artifacts.tasks.specific.CatchFishTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.DrinkMilkToCurePoisonTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.GrowWheatWithBonemealTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.KillLeftySkeletonTask;
@@ -71,6 +72,7 @@ public class LockoutTaskHandler {
             // General tasks
             allTasks.addAll(BreakItemsTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(BlockArrowWithShieldTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
+            allTasks.addAll(CatchFishTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(CraftItemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(EatItemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(EnterBiomeTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
