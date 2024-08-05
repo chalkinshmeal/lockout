@@ -3,12 +3,13 @@ package chalkinshmeal.lockout.artifacts.rewards;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.Material;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffectType;
 
 import chalkinshmeal.lockout.artifacts.rewards.punishments.BlowUpPunishment;
 import chalkinshmeal.lockout.artifacts.rewards.types.BowArrowReward;
-import chalkinshmeal.lockout.artifacts.rewards.types.GoldenAppleReward;
+import chalkinshmeal.lockout.artifacts.rewards.types.ItemReward;
 import chalkinshmeal.lockout.artifacts.rewards.types.PotionEffectReward;
 import chalkinshmeal.lockout.utils.Utils;
 
@@ -24,18 +25,25 @@ public class LockoutRewardHandler {
     }
 
     public void createRewardsList() {
-        this.rewards.add(new GoldenAppleReward());
         this.rewards.add(new BowArrowReward());
-        this.rewards.add(new PotionEffectReward(PotionEffectType.SPEED, 10000, 2));
-        this.rewards.add(new PotionEffectReward(PotionEffectType.STRENGTH, 10000, 1));
-        this.rewards.add(new PotionEffectReward(PotionEffectType.HASTE, 10000, 1));
-        this.rewards.add(new PotionEffectReward(PotionEffectType.REGENERATION, 10000, 1));
-        this.rewards.add(new PotionEffectReward(PotionEffectType.RESISTANCE, 10000, 1));
-        this.rewards.add(new PotionEffectReward(PotionEffectType.FIRE_RESISTANCE, 10000, 1));
-        this.rewards.add(new PotionEffectReward(PotionEffectType.ABSORPTION, 10000, 2));
+        this.rewards.add(new ItemReward(Material.GOLDEN_APPLE, 1));
+        this.rewards.add(new ItemReward(Material.IRON_INGOT, 32));
+        this.rewards.add(new ItemReward(Material.DIAMOND_AXE, 1));
+        this.rewards.add(new ItemReward(Material.DIAMOND_SWORD, 1));
+        this.rewards.add(new ItemReward(Material.DIAMOND_SHOVEL, 1));
+        this.rewards.add(new ItemReward(Material.SHIELD, 1));
+        this.rewards.add(new ItemReward(Material.COOKED_BEEF, 16));
+        this.rewards.add(new PotionEffectReward(PotionEffectType.SPEED, Integer.MAX_VALUE, 2));
+        this.rewards.add(new PotionEffectReward(PotionEffectType.STRENGTH, Integer.MAX_VALUE, 1));
+        this.rewards.add(new PotionEffectReward(PotionEffectType.HASTE, Integer.MAX_VALUE, 1));
+        this.rewards.add(new PotionEffectReward(PotionEffectType.REGENERATION, Integer.MAX_VALUE, 1));
+        this.rewards.add(new PotionEffectReward(PotionEffectType.RESISTANCE, Integer.MAX_VALUE, 1));
+        this.rewards.add(new PotionEffectReward(PotionEffectType.FIRE_RESISTANCE, Integer.MAX_VALUE, 1));
+        this.rewards.add(new PotionEffectReward(PotionEffectType.ABSORPTION, Integer.MAX_VALUE, 2));
     }
 
     public void createPunishmentList() {
+        this.punishments.add(new BlowUpPunishment());
         this.punishments.add(new BlowUpPunishment());
         this.punishments.add(new BlowUpPunishment());
         this.punishments.add(new BlowUpPunishment());

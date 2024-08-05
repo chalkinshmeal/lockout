@@ -7,19 +7,24 @@ import org.bukkit.inventory.ItemStack;
 import chalkinshmeal.lockout.artifacts.rewards.LockoutReward;
 import chalkinshmeal.lockout.utils.Utils;
 
-public class GoldenAppleReward extends LockoutReward {
+public class ItemReward extends LockoutReward {
+    private final Material material;
+    private final int amount;
+
     //---------------------------------------------------------------------------------------------
     // Constructor
     //---------------------------------------------------------------------------------------------
-    public GoldenAppleReward() {
+    public ItemReward(Material material, int amount) {
         super();
-        this.description = "Receive a golden apple";
+        this.description = "Receive " + amount + " " + Utils.getReadableMaterialName(material);
+        this.material = material;
+        this.amount = amount;
     }
 
     //---------------------------------------------------------------------------------------------
     // Reward methods
     //---------------------------------------------------------------------------------------------
     public void giveReward(Player player) {
-        Utils.giveItem(player, new ItemStack(Material.GOLDEN_APPLE, 1));
+        Utils.giveItem(player, new ItemStack(this.material, this.amount));
     }
 }
