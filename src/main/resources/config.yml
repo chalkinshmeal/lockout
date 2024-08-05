@@ -170,6 +170,21 @@ enterBiomeTask:
     SWAMP: VINE
     WARPED_FOREST: WARPED_FUNGUS
 
+# Task: Equip an item. List of possible items to equip
+equipItemTask:
+  maxTaskCount: 1
+  materials:
+  - CARVED_PUMPKIN
+  - GOLDEN_HELMET
+  - GOLDEN_CHESTPLATE
+  - GOLDEN_LEGGINGS
+  - GOLDEN_BOOTS
+  - LEATHER_HELMET
+  - LEATHER_CHESTPLATE
+  - LEATHER_LEGGINGS
+  - LEATHER_BOOTS
+  - PUMPKIN
+
 # Task: Get a certain EXP level. Is a random level, up to the max level specified here
 getExpLevelTask:
   maxLevel: 10

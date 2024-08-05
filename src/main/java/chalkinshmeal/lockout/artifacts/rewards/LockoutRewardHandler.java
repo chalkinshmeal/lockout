@@ -33,6 +33,7 @@ public class LockoutRewardHandler {
         this.rewards.add(new ItemReward(Material.DIAMOND_SHOVEL, 1));
         this.rewards.add(new ItemReward(Material.SHIELD, 1));
         this.rewards.add(new ItemReward(Material.COOKED_BEEF, 16));
+        this.rewards.add(new ItemReward(Material.DIRT, 128));
         this.rewards.add(new PotionEffectReward(PotionEffectType.SPEED, Integer.MAX_VALUE, 2));
         this.rewards.add(new PotionEffectReward(PotionEffectType.STRENGTH, Integer.MAX_VALUE, 1));
         this.rewards.add(new PotionEffectReward(PotionEffectType.HASTE, Integer.MAX_VALUE, 1));
@@ -40,6 +41,7 @@ public class LockoutRewardHandler {
         this.rewards.add(new PotionEffectReward(PotionEffectType.RESISTANCE, Integer.MAX_VALUE, 1));
         this.rewards.add(new PotionEffectReward(PotionEffectType.FIRE_RESISTANCE, Integer.MAX_VALUE, 1));
         this.rewards.add(new PotionEffectReward(PotionEffectType.ABSORPTION, Integer.MAX_VALUE, 2));
+        this.rewards.add(new PotionEffectReward(PotionEffectType.WATER_BREATHING, Integer.MAX_VALUE, 2));
     }
 
     public void createPunishmentList() {
@@ -49,7 +51,9 @@ public class LockoutRewardHandler {
         this.punishments.add(new BlowUpPunishment());
         this.punishments.add(new PotionEffectReward(PotionEffectType.SLOWNESS, 120, 2));
         this.punishments.add(new PotionEffectReward(PotionEffectType.BLINDNESS, 120, 1));
+        this.punishments.add(new PotionEffectReward(PotionEffectType.LEVITATION, 60, 1));
         this.punishments.add(new PotionEffectReward(PotionEffectType.WEAKNESS, 120, 1));
+        this.punishments.add(new PotionEffectReward(PotionEffectType.POISON, 60, 1));
     }
 
     //---------------------------------------------------------------------------------------------
