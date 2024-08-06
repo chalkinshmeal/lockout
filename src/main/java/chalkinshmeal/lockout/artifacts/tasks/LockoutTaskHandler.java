@@ -30,6 +30,7 @@ import chalkinshmeal.lockout.artifacts.tasks.general.StandOnBlockTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.BlockArrowWithShieldTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.CatchFishTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.DrinkMilkToCurePoisonTask;
+import chalkinshmeal.lockout.artifacts.tasks.specific.EnterNetherTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.GrowWheatWithBonemealTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.KillLeftySkeletonTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.LightTNTTask;
@@ -78,10 +79,12 @@ public class LockoutTaskHandler {
             allTasks.addAll(CraftItemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(EatItemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(EnterBiomeTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
+            allTasks.addAll(EnterNetherTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(EquipItemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(GetExpLevelTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(InteractItemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(KillEntitiesTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
+            allTasks.addAll(KillLeftySkeletonTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(ObtainItemsTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(ObtainMusicDiskTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(PlaceBookOnLecternTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
@@ -91,7 +94,6 @@ public class LockoutTaskHandler {
             allTasks.addAll(RideEntityTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(SpecificDeathTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(StandOnBlockTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
-            allTasks.addAll(KillLeftySkeletonTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
 
             // Specific tasks
             allTasks.add(new WearFullIronArmorTask(plugin, configHandler, this, lockoutRewardHandler));
