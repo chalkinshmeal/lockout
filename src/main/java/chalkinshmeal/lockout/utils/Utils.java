@@ -29,6 +29,7 @@ import java.util.Random;
 import java.util.UUID;
 
 import org.bukkit.Color;
+import org.bukkit.DyeColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -614,6 +615,139 @@ public class Utils {
         return item;
     }
 
+    public static Material getBedMaterial(DyeColor color) {
+        switch (color) {
+            case WHITE:
+                return Material.WHITE_BED;
+            case ORANGE:
+                return Material.ORANGE_BED;
+            case MAGENTA:
+                return Material.MAGENTA_BED;
+            case LIGHT_BLUE:
+                return Material.LIGHT_BLUE_BED;
+            case YELLOW:
+                return Material.YELLOW_BED;
+            case LIME:
+                return Material.LIME_BED;
+            case PINK:
+                return Material.PINK_BED;
+            case GRAY:
+                return Material.GRAY_BED;
+            case LIGHT_GRAY:
+                return Material.LIGHT_GRAY_BED;
+            case CYAN:
+                return Material.CYAN_BED;
+            case PURPLE:
+                return Material.PURPLE_BED;
+            case BLUE:
+                return Material.BLUE_BED;
+            case BROWN:
+                return Material.BROWN_BED;
+            case GREEN:
+                return Material.GREEN_BED;
+            case RED:
+                return Material.RED_BED;
+            case BLACK:
+                return Material.BLACK_BED;
+            default:
+                return Material.WHITE_BED; // Default to white bed if color is undefined
+        }
+    }
+
+    public static Material getWoolMaterial(DyeColor color) {
+        switch (color) {
+            case WHITE:
+                return Material.WHITE_WOOL;
+            case ORANGE:
+                return Material.ORANGE_WOOL;
+            case MAGENTA:
+                return Material.MAGENTA_WOOL;
+            case LIGHT_BLUE:
+                return Material.LIGHT_BLUE_WOOL;
+            case YELLOW:
+                return Material.YELLOW_WOOL;
+            case LIME:
+                return Material.LIME_WOOL;
+            case PINK:
+                return Material.PINK_WOOL;
+            case GRAY:
+                return Material.GRAY_WOOL;
+            case LIGHT_GRAY:
+                return Material.LIGHT_GRAY_WOOL;
+            case CYAN:
+                return Material.CYAN_WOOL;
+            case PURPLE:
+                return Material.PURPLE_WOOL;
+            case BLUE:
+                return Material.BLUE_WOOL;
+            case BROWN:
+                return Material.BROWN_WOOL;
+            case GREEN:
+                return Material.GREEN_WOOL;
+            case RED:
+                return Material.RED_WOOL;
+            case BLACK:
+                return Material.BLACK_WOOL;
+            default:
+                return Material.WHITE_WOOL; // Default to white wool if color is undefined
+        }
+    }
+
+    public static DyeColor getDyeColorFromMaterial(Material material) {
+        switch (material) {
+            case WHITE_WOOL:
+            case WHITE_BED:
+                return DyeColor.WHITE;
+            case ORANGE_WOOL:
+            case ORANGE_BED:
+                return DyeColor.ORANGE;
+            case MAGENTA_WOOL:
+            case MAGENTA_BED:
+                return DyeColor.MAGENTA;
+            case LIGHT_BLUE_WOOL:
+            case LIGHT_BLUE_BED:
+                return DyeColor.LIGHT_BLUE;
+            case YELLOW_WOOL:
+            case YELLOW_BED:
+                return DyeColor.YELLOW;
+            case LIME_WOOL:
+            case LIME_BED:
+                return DyeColor.LIME;
+            case PINK_WOOL:
+            case PINK_BED:
+                return DyeColor.PINK;
+            case GRAY_WOOL:
+            case GRAY_BED:
+                return DyeColor.GRAY;
+            case LIGHT_GRAY_WOOL:
+            case LIGHT_GRAY_BED:
+                return DyeColor.LIGHT_GRAY;
+            case CYAN_WOOL:
+            case CYAN_BED:
+                return DyeColor.CYAN;
+            case PURPLE_WOOL:
+            case PURPLE_BED:
+                return DyeColor.PURPLE;
+            case BLUE_WOOL:
+            case BLUE_BED:
+                return DyeColor.BLUE;
+            case BROWN_WOOL:
+            case BROWN_BED:
+                return DyeColor.BROWN;
+            case GREEN_WOOL:
+            case GREEN_BED:
+                return DyeColor.GREEN;
+            case RED_WOOL:
+            case RED_BED:
+                return DyeColor.RED;
+            case BLACK_WOOL:
+            case BLACK_BED:
+                return DyeColor.BLACK;
+            default:
+                return null; // Return null if the material doesn't correspond to a dye color
+        }
+    }
+
     public static ItemStack hideEnchants(ItemStack item) {
         ItemMeta meta = item.getItemMeta();
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
@@ -660,6 +794,7 @@ public class Utils {
         return b.getType().equals(m);
     }
 
+
     //---------------------------------------------------------------------------------------------
     // Player
     //---------------------------------------------------------------------------------------------
@@ -686,6 +821,10 @@ public class Utils {
 
     public static String getReadableDamageCauseName(DamageCause damageCause) {
         return damageCause.name().replace("_", " ").toLowerCase();
+    }
+
+    public static String getReadableDyeColorName(DyeColor dyeColor) {
+        return dyeColor.name().replace("_", " ").toLowerCase();
     }
 
     public static String getReadableEntityTypeName(EntityType entityType) {

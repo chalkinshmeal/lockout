@@ -456,6 +456,48 @@ rideAnEntityTask:
   - STRIDER
   - MINECART
 
+# Task: Shear a sheep of a certain DyeColor. List of possible DyeColors to shear
+shearColoredSheepTask:
+  maxTaskCount: 1
+  dyeColors:
+  - BLACK
+  - BLUE
+  - BROWN
+  - CYAN
+  - GRAY
+  - GREEN
+  - ORANGE
+  - LIGHT_BLUE
+  - LIGHT_GRAY
+  - LIME
+  - MAGENTA
+  - PINK
+  - PURPLE
+  - RED
+  - WHITE
+  - YELLOW
+
+# Task: Sleep in a bed of a certain DyeColor. List of possible DyeColors to sleep in
+shearColoredSheepTask:
+  maxTaskCount: 16
+  dyeColors:
+  - BLACK
+  - BLUE
+  - BROWN
+  - CYAN
+  - GRAY
+  - GREEN
+  - ORANGE
+  - LIGHT_BLUE
+  - LIGHT_GRAY
+  - LIME
+  - MAGENTA
+  - PINK
+  - PURPLE
+  - RED
+  - WHITE
+  - YELLOW
+
 # Task: Stand on a block. Possible items to stand on
 standOnBlockTask:
   maxTaskCount: 2
@@ -496,7 +538,7 @@ standOnBlockTask:
 
 # Task: Die a specific way. Possible DamageCauses to die from
 specificDeathTask:
-  maxTaskCount: 12
+  maxTaskCount: 2 
   damageCauses:
     BLOCK_EXPLOSION:
       material: TNT

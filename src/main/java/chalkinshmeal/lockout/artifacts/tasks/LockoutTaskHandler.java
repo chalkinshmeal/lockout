@@ -25,11 +25,14 @@ import chalkinshmeal.lockout.artifacts.tasks.general.PlaceItemInItemFrameTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.PlaceItemsTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.PunchAnEntityWithItemTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.RideEntityTask;
+import chalkinshmeal.lockout.artifacts.tasks.general.ShearColoredSheepTask;
+import chalkinshmeal.lockout.artifacts.tasks.general.SleepInColoredBedTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.SpecificDeathTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.StandOnBlockTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.BlockArrowWithShieldTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.CatchFishTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.DrinkMilkToCurePoisonTask;
+import chalkinshmeal.lockout.artifacts.tasks.specific.EnterBoatWithPassengerTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.EnterNetherTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.GrowWheatWithBonemealTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.KillLeftySkeletonTask;
@@ -37,6 +40,7 @@ import chalkinshmeal.lockout.artifacts.tasks.specific.LightTNTTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.ObtainMusicDiskTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.PlaceBookOnLecternTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.TeleportWithAnEnderpearlTask;
+import chalkinshmeal.lockout.artifacts.tasks.specific.UseEyeOfEnderTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.WearFullIronArmorTask;
 import chalkinshmeal.lockout.data.ConfigHandler;
 import chalkinshmeal.lockout.utils.Utils;
@@ -79,6 +83,7 @@ public class LockoutTaskHandler {
             allTasks.addAll(CraftItemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(EatItemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(EnterBiomeTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
+            allTasks.addAll(EnterBoatWithPassengerTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(EnterNetherTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(EquipItemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(GetExpLevelTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
@@ -92,8 +97,11 @@ public class LockoutTaskHandler {
             allTasks.addAll(PlaceItemsTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(PunchAnEntityWithItemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(RideEntityTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
+            allTasks.addAll(ShearColoredSheepTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
+            allTasks.addAll(SleepInColoredBedTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(SpecificDeathTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(StandOnBlockTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
+            allTasks.addAll(UseEyeOfEnderTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
 
             // Specific tasks
             allTasks.add(new WearFullIronArmorTask(plugin, configHandler, this, lockoutRewardHandler));
