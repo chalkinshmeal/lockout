@@ -32,6 +32,8 @@ import org.bukkit.Color;
 import org.bukkit.DyeColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.Registry;
 import org.bukkit.Sound;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
@@ -62,6 +64,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ArmorMeta;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.inventory.meta.trim.ArmorTrim;
 import org.bukkit.inventory.meta.trim.TrimMaterial;
@@ -755,6 +758,20 @@ public class Utils {
         return item;
     }
 
+    public static boolean isDyedLeatherArmor(ItemStack item) {
+        if (item == null || item.getType() == Material.AIR) return false;
+        
+        // Check if the item is leather armor
+        if (!item.getType().name().startsWith("LEATHER_")) return false;
+        
+        // Check if the item is dyed
+        if (!(item.getItemMeta() instanceof LeatherArmorMeta)) return false;
+        
+        LeatherArmorMeta meta = (LeatherArmorMeta) item.getItemMeta();
+        System.out.println("Color of " + item + " : " + meta.getColor());
+        return meta.getColor() != null; // Check if color is set
+    }
+
     public static ItemStack setDisplayName(ItemStack item, Component displayName) {
         ItemMeta meta = item.getItemMeta();
         meta.displayName(displayName);
@@ -813,6 +830,23 @@ public class Utils {
     }
 
     //---------------------------------------------------------------------------------------------
+    // Potions 
+    //---------------------------------------------------------------------------------------------
+    public static ItemStack getSplashPotionFromPotionEffectType(PotionEffectType potionEffectType) {
+        ItemStack splashPotion = new ItemStack(Material.SPLASH_POTION);
+        PotionMeta potionMeta = (PotionMeta) splashPotion.getItemMeta();
+        PotionEffect potionEffect = new PotionEffect(potionEffectType, PotionEffect.INFINITE_DURATION, 1);
+        potionMeta.addCustomEffect(potionEffect, true);
+        splashPotion.setItemMeta(potionMeta);
+        return splashPotion;
+    }
+
+    public static PotionEffectType getPotionEffectTypeFromStr(String potionEffectTypeStr) {
+        NamespacedKey key = NamespacedKey.minecraft(potionEffectTypeStr.toLowerCase());
+        return Registry.POTION_EFFECT_TYPE.get(key);
+    }
+
+    //---------------------------------------------------------------------------------------------
     // Strings 
     //---------------------------------------------------------------------------------------------
     public static String getReadableBiomeName(Biome biome) {
@@ -833,6 +867,10 @@ public class Utils {
 
     public static String getReadableMaterialName(Material material) {
         return material.name().replace("_", " ").toLowerCase();
+    }
+
+    public static String getReadablePotionEffectTypeName(PotionEffectType potionEffectType) {
+        return potionEffectType.getKey().getKey().replace("_", " ").toLowerCase();
     }
 
     public static String intToRomanNumerals(int num) {

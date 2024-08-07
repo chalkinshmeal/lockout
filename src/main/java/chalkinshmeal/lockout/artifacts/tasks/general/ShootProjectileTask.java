@@ -3,12 +3,12 @@ package chalkinshmeal.lockout.artifacts.tasks.general;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.DyeColor;
-import org.bukkit.block.Block;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerBedEnterEvent;
+import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -18,48 +18,47 @@ import chalkinshmeal.lockout.artifacts.tasks.LockoutTaskHandler;
 import chalkinshmeal.lockout.data.ConfigHandler;
 import chalkinshmeal.lockout.utils.Utils;
 
-public class SleepInColoredBedTask extends LockoutTask {
-    private static final String configKey = "sleepInColoredBedTask";
-    private static final String normalKey = "dyeColors";
-    private final DyeColor dyeColor;
+public class ShootProjectileTask extends LockoutTask {
+    private static final String configKey = "shootProjectileTask";
+    private static final String normalKey = "materials";
+    private final Material material;
 
     //---------------------------------------------------------------------------------------------
     // Constructor, which takes lockouttaskhandler
     //---------------------------------------------------------------------------------------------
-    public SleepInColoredBedTask(JavaPlugin plugin, ConfigHandler configHandler, LockoutTaskHandler lockoutTaskHandler,
-                          LockoutRewardHandler lockoutRewardHandler, DyeColor dyeColor) {
+    public ShootProjectileTask(JavaPlugin plugin, ConfigHandler configHandler, LockoutTaskHandler lockoutTaskHandler,
+                                    LockoutRewardHandler lockoutRewardHandler, Material material) {
         super(plugin, configHandler, lockoutTaskHandler, lockoutRewardHandler);
-        this.dyeColor = dyeColor;
-        this.name = "Sleep in a " + Utils.getReadableDyeColorName(this.dyeColor) + " colored bed";
-        this.item = new ItemStack(Utils.getBedMaterial(this.dyeColor));
-        this.value = 1;
+        this.material = material;
+        this.name = "Shoot a " + Utils.getReadableMaterialName(material);
+        this.item = new ItemStack(this.material);
     }
 
     //---------------------------------------------------------------------------------------------
     // Abstract methods
     //---------------------------------------------------------------------------------------------
     public void validateConfig() {
-        for (String dyeColorStr : this.configHandler.getListFromKey(configKey + "." + normalKey)) {
-            DyeColor.valueOf(dyeColorStr);
+        for (String materialStr : this.configHandler.getListFromKey(configKey + "." + normalKey)) {
+            Material.valueOf(materialStr);
         }
     }
 
     public void addListeners() {
-		this.listeners.add(new SleepInColoredBedTaskListener(this));
+		this.listeners.add(new ShootProjectileTaskPlayerItemConsumeListener(this));
     }
 
     //---------------------------------------------------------------------------------------------
     // Task getter
     //---------------------------------------------------------------------------------------------
-    public static List<SleepInColoredBedTask> getTasks(JavaPlugin plugin, ConfigHandler configHandler, LockoutTaskHandler lockoutTaskHandler,
+    public static List<ShootProjectileTask> getTasks(JavaPlugin plugin, ConfigHandler configHandler, LockoutTaskHandler lockoutTaskHandler,
                                                           LockoutRewardHandler lockoutRewardHandler) {
-        List<SleepInColoredBedTask> tasks = new ArrayList<>();
+        List<ShootProjectileTask> tasks = new ArrayList<>();
         int taskCount = configHandler.getInt(configKey + "." + maxTaskCount, 1);
-        List<String> dyeColorStrs = Utils.getRandomItems(configHandler.getListFromKey(configKey + "." + normalKey), taskCount);
+        List<String> materialStrs = Utils.getRandomItems(configHandler.getListFromKey(configKey + "." + normalKey), taskCount);
 
-        for (int i = 0; i < Math.min(taskCount, dyeColorStrs.size()); i++) {
-            DyeColor dyeColor = DyeColor.valueOf(dyeColorStrs.get(i));
-            tasks.add(new SleepInColoredBedTask(plugin, configHandler, lockoutTaskHandler, lockoutRewardHandler, dyeColor));
+        for (int i = 0; i < Math.min(taskCount, materialStrs.size()); i++) {
+            Material material = Material.valueOf(materialStrs.get(i));
+            tasks.add(new ShootProjectileTask(plugin, configHandler, lockoutTaskHandler, lockoutRewardHandler, material));
         }
         return tasks;
     }
@@ -67,12 +66,13 @@ public class SleepInColoredBedTask extends LockoutTask {
     //---------------------------------------------------------------------------------------------
     // Any listeners. Upon completion, LockoutTaskHandler.CompleteTask(player);
     //---------------------------------------------------------------------------------------------
-    public void onPlayerBedEnterEvent(PlayerBedEnterEvent event) {
-        Player player = event.getPlayer();
-        Block bedBlock = event.getBed();
+    public void onProjectileLaunchEvent(ProjectileLaunchEvent event) {
+        Projectile projectile = event.getEntity();
+        if (!(projectile.getShooter() instanceof Player)) return;
+        Player player = (Player) projectile.getShooter();
 
-        // Check if the bed is made of the target color
-        if (this.dyeColor != Utils.getDyeColorFromMaterial(bedBlock.getType())) return;
+        // Check if the item in the player's hand is a bow or crossbow
+        if (!player.getInventory().getItemInMainHand().getType().equals(this.material)) return;
 
         this.complete(player);
     }
@@ -81,18 +81,18 @@ public class SleepInColoredBedTask extends LockoutTask {
 //---------------------------------------------------------------------------------------------
 // Private classes - any listeners that this task requires
 //---------------------------------------------------------------------------------------------
-class SleepInColoredBedTaskListener implements Listener {
-    private final SleepInColoredBedTask task;
+class ShootProjectileTaskPlayerItemConsumeListener implements Listener {
+    private final ShootProjectileTask task;
 
-    public SleepInColoredBedTaskListener(SleepInColoredBedTask task) {
+    public ShootProjectileTaskPlayerItemConsumeListener(ShootProjectileTask task) {
         this.task = task;
     }
 
     /** Event Handler */
     @EventHandler
-    public void onPlayerBedEnterEvent(PlayerBedEnterEvent event) {
+    public void onProjectileLaunchEvent(ProjectileLaunchEvent event) {
         if (this.task.isComplete()) return;
-        this.task.onPlayerBedEnterEvent(event);
+        this.task.onProjectileLaunchEvent(event);
     }
 }
 

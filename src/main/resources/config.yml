@@ -444,6 +444,15 @@ punchAnEntityWithItemTask:
   - SWEET_BERRIES
   - TROPICAL_FISH
 
+# Task: Receive a type of potion effect. List of possible PotionEffectTypes to receive
+receivePotionEffectTypeTask:
+  maxTaskCount: 1
+  potionEffectTypes:
+  - BAD_OMEN
+  - DOLPHINS_GRACE
+  - HUNGER
+  - POISON
+
 # Task: Ride an entity. List of possible EntityTypes to ride
 rideAnEntityTask:
   maxTaskCount: 1
@@ -478,8 +487,8 @@ shearColoredSheepTask:
   - YELLOW
 
 # Task: Sleep in a bed of a certain DyeColor. List of possible DyeColors to sleep in
-shearColoredSheepTask:
-  maxTaskCount: 16
+sleepInColoredBedTask:
+  maxTaskCount: 1
   dyeColors:
   - BLACK
   - BLUE
@@ -497,6 +506,13 @@ shearColoredSheepTask:
   - RED
   - WHITE
   - YELLOW
+
+# Task: Shoot a projectile with an item. Possible items to shoot a projectile with
+shootProjectileTask:
+  maxTaskCount: 1
+  materials:
+  - BOW
+  - CROSSBOW
 
 # Task: Stand on a block. Possible items to stand on
 standOnBlockTask:

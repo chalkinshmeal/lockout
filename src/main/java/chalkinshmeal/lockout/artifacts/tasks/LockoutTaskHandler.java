@@ -24,8 +24,10 @@ import chalkinshmeal.lockout.artifacts.tasks.general.ObtainItemsTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.PlaceItemInItemFrameTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.PlaceItemsTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.PunchAnEntityWithItemTask;
+import chalkinshmeal.lockout.artifacts.tasks.general.ReceivePotionEffectTypeTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.RideEntityTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.ShearColoredSheepTask;
+import chalkinshmeal.lockout.artifacts.tasks.general.ShootProjectileTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.SleepInColoredBedTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.SpecificDeathTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.StandOnBlockTask;
@@ -96,14 +98,17 @@ public class LockoutTaskHandler {
             allTasks.addAll(PlaceItemInItemFrameTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(PlaceItemsTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(PunchAnEntityWithItemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
+            allTasks.addAll(ReceivePotionEffectTypeTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(RideEntityTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(ShearColoredSheepTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
+            allTasks.addAll(ShootProjectileTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(SleepInColoredBedTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(SpecificDeathTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(StandOnBlockTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(UseEyeOfEnderTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
 
             // Specific tasks
+            //allTasks.add(new WearFullDyedLeatherArmorTask(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.add(new WearFullIronArmorTask(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.add(new TeleportWithAnEnderpearlTask(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.add(new GrowWheatWithBonemealTask(plugin, configHandler, this, lockoutRewardHandler));
