@@ -12,7 +12,7 @@ punishmentCount: 3
 queueTime: 5
 
 # The number of seconds to countdown for a game before sudden death
-timeLimit: 120
+timeLimit: 1200
 
 #--------------------------------------------------------------------------------------------------
 # Task-Specific Settings
@@ -80,6 +80,20 @@ breakItemsTask:
     STONE: 30
     DIAMOND_ORE: 1
     DIRT: 5
+
+# Task: Breed some animals. Possible EntityTypes to breed, and how many to breed
+breedEntitiesTask:
+  maxTaskCount: 1
+  entityTypes:
+    BEE: 1
+    CHICKEN: 3
+    COW: 3
+    GOAT: 1
+    PIG: 3
+    RABBIT: 1
+    SHEEP: 3
+    TURTLE: 1
+    WOLF: 1
 
 # Task: Craft an item. List of possible items to craft
 craftItemTask:

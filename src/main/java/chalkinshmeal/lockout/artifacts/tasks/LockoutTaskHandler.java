@@ -13,6 +13,7 @@ import chalkinshmeal.lockout.artifacts.compass.LockoutCompass;
 import chalkinshmeal.lockout.artifacts.rewards.LockoutRewardHandler;
 import chalkinshmeal.lockout.artifacts.scoreboard.LockoutScoreboard;
 import chalkinshmeal.lockout.artifacts.tasks.general.BreakItemsTask;
+import chalkinshmeal.lockout.artifacts.tasks.general.BreedEntitiesTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.CraftItemTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.EatItemTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.EnterBiomeTask;
@@ -81,6 +82,7 @@ public class LockoutTaskHandler {
         try {
             // General tasks
             allTasks.addAll(BreakItemsTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
+            allTasks.addAll(BreedEntitiesTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(BlockArrowWithShieldTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(CatchFishTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(CraftItemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
