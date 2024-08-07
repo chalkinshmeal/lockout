@@ -18,6 +18,7 @@ import chalkinshmeal.lockout.artifacts.tasks.general.EatItemTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.EnterBiomeTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.EquipItemTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.GetExpLevelTask;
+import chalkinshmeal.lockout.artifacts.tasks.general.GetSpecificHealthTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.InteractItemTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.KillEntitiesTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.ObtainItemsTask;
@@ -89,6 +90,7 @@ public class LockoutTaskHandler {
             allTasks.addAll(EnterNetherTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(EquipItemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(GetExpLevelTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
+            allTasks.addAll(GetSpecificHealthTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(InteractItemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(KillEntitiesTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(KillLeftySkeletonTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));

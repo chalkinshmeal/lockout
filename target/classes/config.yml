@@ -191,6 +191,11 @@ getExpLevelTask:
   punishmentMinLevel: 1
   punishmentMaxLevel: 5
 
+# Task: Get a specific number of health (in half hearts). Randomly chooses target health between minHealth and maxHealth
+getSpecificHealthTask:
+  minHealth: 1
+  maxHealth: 10
+
 # Task: Interact with an item. List of possible items to interact with
 interactItemTask:
   maxTaskCount: 2
