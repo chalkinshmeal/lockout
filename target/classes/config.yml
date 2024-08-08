@@ -326,6 +326,7 @@ obtainItemsTask:
     NETHER_WART: 1
     OAK_HANGING_SIGN: 1
     OAK_LEAVES: 1
+    OBSIDIAN: 5
     PINK_CANDLE: 1
     PINK_WOOL: 10
     POWERED_RAIL: 1
@@ -362,6 +363,27 @@ obtainItemsTask:
     STRING: 1
     WHEAT_SEEDS: 1
     
+# Task: Place a flower in a pot. Possible items to place in pot
+placeFlowerInPotTask:
+  maxTaskCount: 1
+  materials:
+  - ALLIUM
+  - AZURE_BLUET
+  - BLUE_ORCHID
+  - CORNFLOWER
+  - DANDELION
+  - LILAC
+  - LILY_OF_THE_VALLEY
+  - ORANGE_TULIP
+  - OXEYE_DAISY
+  - PEONY
+  - PINK_TULIP
+  - POPPY
+  - RED_TULIP
+  - ROSE_BUSH
+  - SUNFLOWER
+  - WHITE_TULIP
+  - WITHER_ROSE
 
 # Task: Place an item in an item frame. Possible items to place in the frame
 placeItemInItemFrameTask:

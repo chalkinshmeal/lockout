@@ -23,6 +23,7 @@ import chalkinshmeal.lockout.artifacts.tasks.general.GetSpecificHealthTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.InteractItemTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.KillEntitiesTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.ObtainItemsTask;
+import chalkinshmeal.lockout.artifacts.tasks.general.PlaceFlowerInPotTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.PlaceItemInItemFrameTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.PlaceItemsTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.PunchAnEntityWithItemTask;
@@ -100,6 +101,7 @@ public class LockoutTaskHandler {
             allTasks.addAll(ObtainItemsTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(ObtainMusicDiskTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(PlaceBookOnLecternTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
+            allTasks.addAll(PlaceFlowerInPotTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(PlaceItemInItemFrameTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(PlaceItemsTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(PunchAnEntityWithItemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
