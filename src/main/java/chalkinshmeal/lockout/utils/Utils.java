@@ -63,6 +63,7 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ArmorMeta;
+import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.PotionMeta;
@@ -694,6 +695,16 @@ public class Utils {
             default:
                 return Material.WHITE_WOOL; // Default to white wool if color is undefined
         }
+    }
+
+    public static int getCurrentDurability(ItemStack itemStack) {
+        if (itemStack == null) return -1;
+        ItemMeta itemMeta = itemStack.getItemMeta();
+
+        if (!(itemMeta instanceof Damageable)) return -1;
+        Damageable damageable = (Damageable) itemMeta;
+
+        return itemStack.getType().getMaxDurability() - damageable.getDamage();
     }
 
     public static DyeColor getDyeColorFromMaterial(Material material) {

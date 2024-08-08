@@ -129,6 +129,38 @@ craftItemTask:
   - WOODEN_PICKAXE
 
 # Task: Eat an item. List of possible items you can eat
+destroyItemTask:
+  maxTaskCount: 27
+  materials:
+  - FISHING_ROD
+  - FLINT_AND_STEEL
+  - GOLDEN_AXE
+  - GOLDEN_HOE
+  - GOLDEN_PICKAXE
+  - GOLDEN_SHOVEL
+  - GOLDEN_SWORD
+  - IRON_AXE
+  - IRON_HOE
+  - IRON_PICKAXE
+  - IRON_SHOVEL 
+  - LEATHER_BOOTS
+  - LEATHER_CHESTPLATE
+  - LEATHER_HELMET
+  - LEATHER_LEGGINGS
+  - SHEARS
+  - SHIELD
+  - STONE_AXE
+  - STONE_HOE
+  - STONE_PICKAXE
+  - STONE_SHOVEL
+  - STONE_SWORD
+  - WOODEN_AXE
+  - WOODEN_HOE
+  - WOODEN_PICKAXE
+  - WOODEN_SHOVEL
+  - WOODEN_SWORD
+
+# Task: Eat an item. List of possible items you can eat
 eatItemTask:
   maxTaskCount: 3
   materials:

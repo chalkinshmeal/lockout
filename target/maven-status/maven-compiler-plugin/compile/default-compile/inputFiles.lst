@@ -11,6 +11,7 @@ C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\commands\CompassCommand.java
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\artifacts\rewards\types\PotionEffectReward.java
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\artifacts\tasks\general\EnterBiomeTask.java
+C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\artifacts\tasks\general\DestroyItemTask.java
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\utils\Particles.java
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\artifacts\tasks\general\SpecificDeathTask.java
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\utils\cmdframework\command\ArgCommand.java
