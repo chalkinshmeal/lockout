@@ -225,6 +225,14 @@ interactItemTask:
   - STONE_PRESSURE_PLATE
   - TRAPPED_CHEST
 
+# Task: Jump N times. Range of how many jumps to jump
+jumpTask:
+  maxTaskCount: 1
+  minJumps: 100
+  maxJumps: 100
+  minPunishmentJumps: 50
+  maxPunishmentJumps: 50
+
 # Task: Kill N entities. Possible entities to kill, and how many to kill
 killEntitiesTask:
   maxTaskCount: 3

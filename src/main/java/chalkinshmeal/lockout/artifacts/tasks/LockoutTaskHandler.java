@@ -21,6 +21,7 @@ import chalkinshmeal.lockout.artifacts.tasks.general.EquipItemTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.GetExpLevelTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.GetSpecificHealthTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.InteractItemTask;
+import chalkinshmeal.lockout.artifacts.tasks.general.JumpTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.KillEntitiesTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.ObtainItemsTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.PlaceFlowerInPotTask;
@@ -96,6 +97,7 @@ public class LockoutTaskHandler {
             allTasks.addAll(GetExpLevelTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(GetSpecificHealthTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(InteractItemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
+            allTasks.addAll(JumpTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(KillEntitiesTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(KillLeftySkeletonTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(ObtainItemsTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
@@ -130,6 +132,7 @@ public class LockoutTaskHandler {
             punishmentTasks.addAll(EnterBiomeTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
             punishmentTasks.addAll(GetExpLevelTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
             punishmentTasks.addAll(KillEntitiesTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
+            punishmentTasks.addAll(JumpTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
             punishmentTasks.addAll(ObtainItemsTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
             punishmentTasks.addAll(PlaceItemsTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
             punishmentTasks.addAll(SpecificDeathTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
