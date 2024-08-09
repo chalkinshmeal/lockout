@@ -32,6 +32,7 @@ import chalkinshmeal.lockout.artifacts.tasks.general.PunchAnEntityWithItemTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.ReceivePotionEffectTypeTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.RideEntityTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.ShearColoredSheepTask;
+import chalkinshmeal.lockout.artifacts.tasks.general.ShootBlockTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.ShootProjectileTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.SleepInColoredBedTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.SpecificDeathTask;
@@ -112,6 +113,7 @@ public class LockoutTaskHandler {
             allTasks.addAll(ReceivePotionEffectTypeTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(RideEntityTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(ShearColoredSheepTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
+            allTasks.addAll(ShootBlockTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(ShootProjectileTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(SleepInColoredBedTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(SpecificDeathTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));

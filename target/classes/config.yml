@@ -588,6 +588,68 @@ sleepInColoredBedTask:
   - WHITE
   - YELLOW
 
+# Task: Shoot a projectile at a block. Possible blocks to shoot a projectile with
+shootBlockTask:
+  maxTaskCount: 1
+  materials:
+  - ACACIA_STAIRS
+  - ANDESITE
+  - ANVIL
+  - BARREL
+  - BEEHIVE
+  - BELL
+  - BIRCH_FENCE_GATE
+  - BLACK_CONCRETE
+  - BLACK_WOOL
+  - BLAST_FURNACE
+  - BOOKSHELF
+  - BRICKS
+  - CAMPFIRE
+  - CARTOGRAPHY_TABLE
+  - CAULDRON
+  - CHISELED_QUARTZ_BLOCK
+  - CHISELED_SANDSTONE
+  - COBBLESTONE_WALL
+  - COMPOSTER
+  - CRIMSON_SLAB
+  - DARK_OAK_TRAPDOOR
+  - DIORITE
+  - DISPENSER
+  - EMERALD_BLOCK
+  - FARMLAND
+  - FLETCHING_TABLE
+  - GILDED_BLACKSTONE
+  - GLASS_PANE
+  - GLOWSTONE
+  - GOLD_ORE
+  - GRANITE
+  - GRINDSTONE
+  - HAY_BLOCK
+  - IRON_BARS
+  - JACK_O_LANTERN
+  - JUKEBOX
+  - JUNGLE_PLANKS
+  - LANTERN
+  - LAPIS_BLOCK
+  - LECTERN
+  - LIME_CONCRETE
+  - MELON
+  - MOSSY_COBBLESTONE
+  - NETHERRACK
+  - OAK_LOG
+  - PINK_CONCRETE
+  - PISTON
+  - QUARTZ_BLOCK
+  - REDSTONE_BLOCK
+  - SANDSTONE_STAIRS
+  - SMITHING_TABLE
+  - STONE_BRICKS
+  - STONE_SLAB
+  - STRIPPED_ACACIA_LOG
+  - TARGET
+  - TNT
+  - YELLOW_WOOL
+
 # Task: Shoot a projectile with an item. Possible items to shoot a projectile with
 shootProjectileTask:
   maxTaskCount: 1
