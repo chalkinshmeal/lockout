@@ -7,6 +7,7 @@ C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\listeners\server\PlayerInteractListener.java
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\artifacts\tasks\general\ObtainItemsTask.java
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\artifacts\tasks\specific\WearFullIronArmorTask.java
+C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\artifacts\tasks\specific\RepairIronGolemTask.java
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\artifacts\rewards\LockoutReward.java
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\commands\CompassCommand.java
 C:\Users\Charles\Desktop\MC Plugins\lockout\src\main\java\chalkinshmeal\lockout\artifacts\rewards\types\PotionEffectReward.java

@@ -604,6 +604,18 @@ public class Utils {
 
         return as;
     }
+    
+    //---------------------------------------------------------------------------------------------
+    // Entities
+    //---------------------------------------------------------------------------------------------
+    public static boolean isAtFullHealth(Entity entity) {
+        if (!(entity instanceof LivingEntity)) return false;
+
+        LivingEntity livingEntity = (LivingEntity) entity;
+        double currentHealth = livingEntity.getHealth();
+        double maxHealth = livingEntity.getAttribute(org.bukkit.attribute.Attribute.GENERIC_MAX_HEALTH).getValue();
+        return currentHealth == maxHealth;
+    }
 
     //---------------------------------------------------------------------------------------------
     // Items 
