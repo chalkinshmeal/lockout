@@ -314,6 +314,170 @@ killEntitiesTask:
     SPIDER: 1
     ZOMBIE: 1
 
+# Task: Obtain a group of item. List of item groups to obtain, including:
+# - Description: What is displayed as description for the task
+# - Materials: Materials that count as part of the description's group
+# - Amount: Required amount of items from the materials needed to complete the task
+obtainItemGroupTask:
+  maxTaskCount: 2
+  materials:
+    APPLE:
+      description: "Obtain 2 types of raw fruit"
+      amount: 2
+      materials:
+      - APPLE
+      - CHORUS_FRUIT
+      - GLOW_BERRIES
+      - MELON_SLICE
+      - PUMPKIN
+      - SWEET_BERRIES
+    CHEST:
+      description: "Obtain 3 types of items with chests in them"
+      amount: 3
+      materials:
+      - ACACIA_CHEST_BOAT
+      - BAMBOO_CHEST_RAFT
+      - BIRCH_CHEST_BOAT
+      - CHERRY_CHEST_BOAT
+      - CHEST_MINECART
+      - DARK_OAK_CHEST_BOAT
+      - JUNGLE_CHEST_BOAT
+      - MANGROVE_CHEST_BOAT
+      - OAK_CHEST_BOAT
+      - SPRUCE_CHEST_BOAT
+    COD_BUCKET:
+      description: "Obtain 3 types of fish in a bucket"
+      amount: 3
+      materials:
+      - AXOLOTL_BUCKET
+      - COD_BUCKET
+      - PUFFERFISH_BUCKET
+      - SALMON_BUCKET
+      - TADPOLE_BUCKET
+      - TROPICAL_FISH_BUCKET
+    COOKED_BEEF:
+      description: "Obtain 4 types of cooked meat or fish"
+      amount: 4
+      materials:
+      - COOKED_BEEF
+      - COOKED_CHICKEN
+      - COOKED_COD
+      - COOKED_MUTTON
+      - COOKED_PORKCHOP
+      - COOKED_RABBIT
+      - COOKED_SALMON
+    DIAMOND:
+      description: "Obtain 4 types of ore in its most refined state"
+      amount: 4
+      materials:
+      - COAL
+      - COPPER_INGOT
+      - DIAMOND
+      - EMERALD
+      - GOLD_INGOT
+      - IRON_INGOT
+      - LAPIS_LAZULI
+      - NETHERITE_INGOT
+      - QUARTZ
+      - REDSTONE
+    DIAMOND_PICKAXE:
+      description: "Obtain 2 types of diamond tools"
+      amount: 2
+      materials:
+      - DIAMOND_AXE
+      - DIAMOND_HOE
+      - DIAMOND_PICKAXE
+      - DIAMOND_SHOVEL
+      - DIAMOND_SWORD
+    DIRT:
+      description: "Obtain 3 types of dirt blocks"
+      amount: 3
+      materials:
+      - COARSE_DIRT
+      - DIRT
+      - DIRT_PATH
+      - FARMLAND
+      - GRASS_BLOCK
+      - MYCELIUM
+      - PODZOL
+      - ROOTED_DIRT
+    GOLDEN_PICKAXE:
+      description: "Obtain a complete set of golden tools"
+      amount: 5
+      materials:
+      - GOLDEN_AXE
+      - GOLDEN_HOE
+      - GOLDEN_PICKAXE
+      - GOLDEN_SHOVEL
+      - GOLDEN_SWORD
+    IRON_PICKAXE:
+      description: "Obtain a complete set of iron tools"
+      amount: 5
+      materials:
+      - IRON_AXE
+      - IRON_HOE
+      - IRON_PICKAXE
+      - IRON_SHOVEL
+      - IRON_SWORD
+    OAK_LOG:
+      description: "Obtain 4 types of wooden logs"
+      amount: 4
+      materials:
+      - ACACIA_LOG
+      - BIRCH_LOG
+      - DARK_OAK_LOG
+      - JUNGLE_LOG
+      - MANGROVE_LOG
+      - OAK_LOG
+      - SPRUCE_LOG
+    STONE_PICKAXE:
+      description: "Obtain a complete set of stone tools"
+      amount: 5
+      materials:
+      - STONE_AXE
+      - STONE_HOE
+      - STONE_PICKAXE
+      - STONE_SHOVEL
+      - STONE_SWORD
+    TORCH:
+      description: "Obtain 3 types of light sources (when placed or held, they emit light)"
+      amount: 3
+      materials:
+      - BEACON
+      - CAMPFIRE
+      - CONDUIT
+      - END_ROD
+      - GLOWSTONE
+      - GLOW_BERRIES
+      - GLOW_INK_SAC
+      - GLOW_ITEM_FRAME
+      - JACK_O_LANTERN
+      - LANTERN
+      - LAVA_BUCKET
+      - MAGMA_BLOCK
+      - REDSTONE_TORCH
+      - SEA_LANTERN
+      - SHROOMLIGHT
+      - SOUL_CAMPFIRE
+      - SOUL_LANTERN
+      - TORCH
+  punishmentMaterials:
+    IRON_INGOT:
+      description: "Obtain 2 types of ore in its most refined state"
+      amount: 2
+      materials:
+      - COAL
+      - COPPER_INGOT
+      - DIAMOND
+      - EMERALD
+      - GOLD_INGOT
+      - IRON_INGOT
+      - LAPIS_LAZULI
+      - NETHERITE_INGOT
+      - QUARTZ
+      - REDSTONE
+
+
 # Task: Obtain an item. Possible items to obtain and the amount to obtain
 obtainItemsTask:
   maxTaskCount: 2
@@ -402,6 +566,89 @@ obtainItemsTask:
     ROTTEN_FLESH: 1
     STRING: 1
     WHEAT_SEEDS: 1
+
+# Task: Obtain N items with a string in their name. List of item groups to obtain, including:
+# - String: String glob to search in its name
+# - Amount: Required amount of items from the materials needed to complete the task
+obtainItemWithStringTask:
+  maxTaskCount: 2
+  materials:
+    BLACK_WOOL:
+      string: 'black'
+      amount: 4
+    BOOK:
+      string: 'book'
+      amount: 2
+    BRAIN_CORAL:
+      string: 'coral'
+      amount: 2
+    BRICK:
+      string: 'brick'
+      amount: 3
+    CARROT:
+      string: 'carrot'
+      amount: 2
+    COBBLESTONE:
+      string: 'cobblestone'
+      amount: 4
+    DEEPSLATE:
+      string: 'deepslate'
+      amount: 4
+    DIAMOND_BOOTS:
+      string: 'boots'
+      amount: 2
+    DIAMOND_CHESTPLATE:
+      string: 'chestplate'
+      amount: 2
+    DIAMOND_HELMET:
+      string: 'helmet'
+      amount: 2
+    DIAMOND_LEGGINGS:
+      string: 'leggings'
+      amount: 2
+    DIAMOND_SWORD:
+      string: 'sword'
+      amount: 4
+    DIRT:
+      string: 'dirt'
+      amount: 2
+    FIRE_CHARGE:
+      string: 'fire'
+      amount: 2
+    GLOWSTONE:
+      string: 'glow'
+      amount: 2
+    NETHERITE_BLOCK:
+      string: 'block of'
+      amount: 3
+    OAK_LEAVES:
+      string: 'leaves'
+      amount: 3
+    OAK_PRESSURE_PLATE:
+      string: 'plate'
+      amount: 4
+    RED_DYE:
+      string: 'red'
+      amount: 3
+    SAND:
+      string: 'sand'
+      amount: 4
+    SNOWBALL:
+      string: 'ball'
+      amount: 1
+    STICK:
+      string: 'stick'
+      amount: 2
+    STONE:
+      string: 'stone'
+      amount: 6
+    WHITE_WOOL:
+      string: 'wool'
+      amount: 5
+  punishmentMaterials:
+    DIRT:
+      string: 'dirt'
+      amount: 1
     
 # Task: Place a flower in a pot. Possible items to place in pot
 placeFlowerInPotTask:

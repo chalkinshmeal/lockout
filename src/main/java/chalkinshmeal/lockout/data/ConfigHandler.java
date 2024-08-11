@@ -55,6 +55,21 @@ public class ConfigHandler {
     }
 
     /** Special getters */
+    public List<Material> getMaterialsFromKey(String key) {
+        try {
+            List<String> materialStrs = this.getListFromKey(key);
+            List<Material> materials = new ArrayList<>();
+            for (String materialStr : materialStrs) {
+                materials.add(Material.valueOf(materialStr.toUpperCase()));
+            }
+            return materials;
+        }
+        catch (Exception e) {
+            this.plugin.getLogger().warning("Could not load '" + key + "': " + e);
+            return null;
+        }
+    }
+
     public List<String> getListFromKey(String key) {
         try {
             return this.config.getStringList(key);

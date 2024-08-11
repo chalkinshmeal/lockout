@@ -24,8 +24,10 @@ import static org.bukkit.event.entity.EntityRegainHealthEvent.RegainReason.CUSTO
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.UUID;
 
 import org.bukkit.Color;
@@ -850,6 +852,46 @@ public class Utils {
         }
 
         return false;
+    }
+
+    // Get how many materials, out of the validMaterials, a player has in their inventory
+    // - addedMaterial is added for simplicity sake - this is another material assumed to be in the player's inventory
+    public static int getMaterialCount(Player player, List<Material> validMaterials, Material addedMaterial) {
+        int materialCount = 0;
+        for (Material material : validMaterials) {
+            if (addedMaterial == material) {
+                materialCount += 1;
+                continue;
+            }
+            for (ItemStack item : player.getInventory().getContents()) {
+                if (item == null) continue;
+                if (item.getType() != material) continue;
+                materialCount += 1;
+                break;
+            }
+        }
+        return materialCount;
+    }
+
+    public static int getMaterialGlobCount(Player player, String glob, ItemStack addedItem) {
+        Set<Material> materials = new HashSet<>();
+        List<ItemStack> items = new ArrayList<>();
+        for (ItemStack item : player.getInventory().getContents()) {
+            if (item == null) continue;
+            items.add(item);
+        }
+
+        if (addedItem != null) {
+            items.add(addedItem);
+        }
+
+        for (ItemStack item : items) {
+            if (item == null) continue;
+            if (!item.getType().name().toLowerCase().replace('_', ' ').contains(glob)) continue;
+            materials.add(item.getType());
+        }
+
+        return materials.size();
     }
 
     //---------------------------------------------------------------------------------------------
