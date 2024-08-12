@@ -6,6 +6,7 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.GameRule;
+import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
@@ -168,7 +169,17 @@ public class GameHandler {
         if (!this.isActive) return;
         if (!this.frozenPlayers.contains(event.getPlayer())) return;
 
-        event.setCancelled(true);
+        Location from = event.getFrom();
+        Location to = event.getTo();
+
+        if (to == null) return;
+        if (from.getX() != to.getX() || from.getY() != to.getY() || from.getZ() != to.getZ()) {
+            // Cancel movement by setting the player's position back to the original location
+            to.setX(from.getX());
+            to.setY(from.getY());
+            to.setZ(from.getZ());
+            event.setTo(to); // This allows the player to still look around
+        }
     }
 
     public void onEntityDeathEvent(EntityDeathEvent event) {

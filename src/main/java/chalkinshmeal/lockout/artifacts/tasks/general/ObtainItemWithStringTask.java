@@ -9,6 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -89,7 +90,9 @@ public class ObtainItemWithStringTask extends LockoutTask {
     }
 
     public void onInventoryClickEvent(InventoryClickEvent event) {
+        System.out.println("[ObtainItemWithStringTask::onInventoryClickEvent] Clicked!");
         if (!(event.getWhoClicked() instanceof Player)) return;
+        if (event.getClickedInventory().getType() != InventoryType.PLAYER) return;
 
         Player player = (Player) event.getWhoClicked();
         if (event.getCurrentItem() == null) return;
@@ -97,6 +100,7 @@ public class ObtainItemWithStringTask extends LockoutTask {
         ItemStack addedItem = event.getCurrentItem();
         if (Utils.getMaterialGlobCount(player, this.glob, addedItem) < this.amount) return;
 
+        System.out.println("[ObtainItemWithStringTask::onInventoryClickEvent] Completed!");
         this.complete(player);
     }
 }
