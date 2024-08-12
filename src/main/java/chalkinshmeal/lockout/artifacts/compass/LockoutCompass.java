@@ -5,8 +5,6 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
@@ -108,7 +106,6 @@ public class LockoutCompass {
         this.openInventory(event.getPlayer());
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled=true)
     public void onInventoryClickEvent(InventoryClickEvent event) {
         // Check that inventory name matches
         String invName = Utils.stripColor(event.getView().getOriginalTitle());
@@ -117,7 +114,6 @@ public class LockoutCompass {
         // Check that slot is valid
         int slot = event.getRawSlot();
         if (slot < 0 || slot >= this.getMaxSlots()) return;
-        System.out.println("[LockoutCompass::onInventoryClickEvent] Cancelling event");
 
         event.setCancelled(true);
 

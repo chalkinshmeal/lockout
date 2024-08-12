@@ -12,6 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import chalkinshmeal.lockout.artifacts.compass.LockoutCompass;
 import chalkinshmeal.lockout.artifacts.rewards.LockoutRewardHandler;
 import chalkinshmeal.lockout.artifacts.scoreboard.LockoutScoreboard;
+import chalkinshmeal.lockout.artifacts.tasks.general.ActivateBlockTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.BreakItemsTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.BreedEntitiesTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.CraftItemTask;
@@ -57,6 +58,7 @@ import chalkinshmeal.lockout.artifacts.tasks.specific.WearFullIronArmorTask;
 import chalkinshmeal.lockout.data.ConfigHandler;
 import chalkinshmeal.lockout.utils.Utils;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.HoverEvent.Action;
 import net.kyori.adventure.text.format.NamedTextColor;
 
 public class LockoutTaskHandler {
@@ -89,6 +91,7 @@ public class LockoutTaskHandler {
         List<LockoutTask> punishmentTasks = new ArrayList<>();
         try {
             // General tasks
+            allTasks.addAll(ActivateBlockTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(BreakItemsTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(BreedEntitiesTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(BlockArrowWithShieldTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));

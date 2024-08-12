@@ -17,6 +17,20 @@ timeLimit: 1200
 #--------------------------------------------------------------------------------------------------
 # Task-Specific Settings
 #--------------------------------------------------------------------------------------------------
+# Task: Activate a block with redstone current. Possible items to activate
+activateBlockTask:
+  maxTaskCount: 10
+  materials:
+  - COMPARATOR
+  - DAYLIGHT_DETECTOR
+  - DISPENSER
+  - DROPPER
+  - HOPPER
+  - NOTE_BLOCK
+  - PISTON
+  - REDSTONE_LAMP
+  - REPEATER
+
 # Task: Break an item. Possible items to break, and how many to break
 breakItemsTask:
   maxTaskCount: 2

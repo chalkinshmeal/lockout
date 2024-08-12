@@ -37,6 +37,7 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Registry;
 import org.bukkit.Sound;
+import org.bukkit.World;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
@@ -827,7 +828,20 @@ public class Utils {
         return newItem;
     }
 
-    // Blocks
+    //---------------------------------------------------------------------------------------------
+    // Blocks 
+    //---------------------------------------------------------------------------------------------
+    public static List<Block> getAdjacentBlocks(Block block) {
+        List<Block> adjacentBlocks = new ArrayList<>();
+        adjacentBlocks.add(block.getRelative(0, 1, 0));   // Up
+        adjacentBlocks.add(block.getRelative(0, -1, 0));  // Down
+        adjacentBlocks.add(block.getRelative(1, 0, 0));   // East
+        adjacentBlocks.add(block.getRelative(-1, 0, 0));  // West
+        adjacentBlocks.add(block.getRelative(0, 0, 1));   // South
+        adjacentBlocks.add(block.getRelative(0, 0, -1));  // North
+        return adjacentBlocks;
+    }
+
     public static void placeBlock(BlockPlaceEvent event, Material material) {
         event.getBlockReplacedState().setType(material);
         event.getBlockReplacedState().setBlockData(event.getBlockPlaced().getBlockData());
@@ -840,6 +854,26 @@ public class Utils {
     //---------------------------------------------------------------------------------------------
     // Player
     //---------------------------------------------------------------------------------------------
+    public static Player getClosestPlayer(Location location) {
+        World world = location.getWorld();
+        if (world == null) return null;
+
+        Player closestPlayer = null;
+        double closestDistanceSquared = Double.MAX_VALUE;
+
+        for (Player player : world.getPlayers()) {
+            double distanceSquared = location.distanceSquared(player.getLocation());
+
+            // Check if this player is closer than the current closest
+            if (distanceSquared < closestDistanceSquared) {
+                closestDistanceSquared = distanceSquared;
+                closestPlayer = player;
+            }
+        }
+
+        return closestPlayer;
+    }
+
     public static boolean hasMaterial(Player player, Material material, int amount) {
         int totalAmount = 0;
         if (amount == 0) return true;
