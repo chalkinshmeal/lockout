@@ -19,7 +19,7 @@ timeLimit: 1200
 #--------------------------------------------------------------------------------------------------
 # Task: Activate a block with redstone current. Possible items to activate
 activateBlockTask:
-  maxTaskCount: 10
+  maxTaskCount: 1
   materials:
   - COMPARATOR
   - DAYLIGHT_DETECTOR
@@ -785,6 +785,12 @@ punchAnEntityWithItemTask:
   - SALMON
   - SWEET_BERRIES
   - TROPICAL_FISH
+
+# Task: Reach a velocity of N blocks/second. Define the min/max of the random number generator for target max velocity
+reachVelocityTask:
+  maxTaskCount: 1
+  minVelocity: 25
+  maxVelocity: 50
 
 # Task: Receive a type of potion effect. List of possible PotionEffectTypes to receive
 receivePotionEffectTypeTask:

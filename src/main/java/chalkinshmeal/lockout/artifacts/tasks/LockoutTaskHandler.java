@@ -32,6 +32,7 @@ import chalkinshmeal.lockout.artifacts.tasks.general.PlaceFlowerInPotTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.PlaceItemInItemFrameTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.PlaceItemsTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.PunchAnEntityWithItemTask;
+import chalkinshmeal.lockout.artifacts.tasks.general.ReachVelocityTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.ReceivePotionEffectTypeTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.RideEntityTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.ShearColoredSheepTask;
@@ -58,7 +59,6 @@ import chalkinshmeal.lockout.artifacts.tasks.specific.WearFullIronArmorTask;
 import chalkinshmeal.lockout.data.ConfigHandler;
 import chalkinshmeal.lockout.utils.Utils;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.event.HoverEvent.Action;
 import net.kyori.adventure.text.format.NamedTextColor;
 
 public class LockoutTaskHandler {
@@ -118,6 +118,7 @@ public class LockoutTaskHandler {
             allTasks.addAll(PlaceItemInItemFrameTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(PlaceItemsTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(PunchAnEntityWithItemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
+            allTasks.addAll(ReachVelocityTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(ReceivePotionEffectTypeTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(RepairIronGolemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(RideEntityTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
