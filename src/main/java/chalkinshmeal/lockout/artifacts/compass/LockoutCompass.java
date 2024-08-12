@@ -5,7 +5,9 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
@@ -107,6 +109,10 @@ public class LockoutCompass {
     }
 
     public void onInventoryClickEvent(InventoryClickEvent event) {
+        // Prevent movement
+        if (event.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY)
+            event.setCancelled(true);
+
         // Check that inventory name matches
         String invName = Utils.stripColor(event.getView().getOriginalTitle());
         if (!invName.equals(this.getInvName())) return;
@@ -123,6 +129,14 @@ public class LockoutCompass {
         this.lockoutTeamHandler.addPlayer(player, slot);
         this.updateTeamsInventory();
         player.updateInventory();
+    }
+
+    public void onInventoryDragEvent(InventoryDragEvent event) {
+        // Check that inventory name matches
+        String invName = Utils.stripColor(event.getView().getOriginalTitle());
+        if (!invName.equals(this.getInvName())) return;
+
+        event.setCancelled(true);
     }
 
     //---------------------------------------------------------------------------------------------

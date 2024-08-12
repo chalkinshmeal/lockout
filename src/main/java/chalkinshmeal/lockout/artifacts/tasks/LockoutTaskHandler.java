@@ -49,7 +49,6 @@ import chalkinshmeal.lockout.artifacts.tasks.specific.EnterNetherTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.GrowWheatWithBonemealTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.KillLeftySkeletonTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.LightTNTTask;
-import chalkinshmeal.lockout.artifacts.tasks.specific.ObtainMusicDiskTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.PlaceBookOnLecternTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.RepairIronGolemTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.TeleportWithAnEnderpearlTask;
@@ -112,7 +111,6 @@ public class LockoutTaskHandler {
             allTasks.addAll(ObtainItemGroupTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(ObtainItemWithStringTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(ObtainItemsTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
-            allTasks.addAll(ObtainMusicDiskTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(PlaceBookOnLecternTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(PlaceFlowerInPotTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(PlaceItemInItemFrameTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));

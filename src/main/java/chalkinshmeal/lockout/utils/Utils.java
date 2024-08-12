@@ -888,6 +888,25 @@ public class Utils {
         return false;
     }
 
+    public static boolean hasItemWithString(Player player, String glob, ItemStack addedItem) {
+        List<ItemStack> items = new ArrayList<>();
+        for (ItemStack item : player.getInventory().getContents()) {
+            if (item == null) continue;
+            items.add(item);
+        }
+
+        if (addedItem != null) {
+            items.add(addedItem);
+        }
+
+        for (ItemStack item : items) {
+            if (item == null) continue;
+            if (!item.getType().name().contains(glob)) continue;
+            return true;
+        }
+        return false;
+    }
+
     // Get how many materials, out of the validMaterials, a player has in their inventory
     // - addedMaterial is added for simplicity sake - this is another material assumed to be in the player's inventory
     public static int getMaterialCount(Player player, List<Material> validMaterials, Material addedMaterial) {

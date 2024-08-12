@@ -90,7 +90,6 @@ public class ObtainItemWithStringTask extends LockoutTask {
     }
 
     public void onInventoryClickEvent(InventoryClickEvent event) {
-        System.out.println("[ObtainItemWithStringTask::onInventoryClickEvent] Clicked!");
         if (!(event.getWhoClicked() instanceof Player)) return;
         if (event.getClickedInventory().getType() != InventoryType.PLAYER) return;
 
@@ -100,7 +99,6 @@ public class ObtainItemWithStringTask extends LockoutTask {
         ItemStack addedItem = event.getCurrentItem();
         if (Utils.getMaterialGlobCount(player, this.glob, addedItem) < this.amount) return;
 
-        System.out.println("[ObtainItemWithStringTask::onInventoryClickEvent] Completed!");
         this.complete(player);
     }
 }

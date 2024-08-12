@@ -144,7 +144,7 @@ craftItemTask:
 
 # Task: Eat an item. List of possible items you can eat
 destroyItemTask:
-  maxTaskCount: 27
+  maxTaskCount: 1
   materials:
   - FISHING_ROD
   - FLINT_AND_STEEL
@@ -433,6 +433,22 @@ obtainItemGroupTask:
       - IRON_PICKAXE
       - IRON_SHOVEL
       - IRON_SWORD
+    MUSIC_DISC_13:
+      description: "Obtain a music disc"
+      amount: 1
+      materials:
+        - MUSIC_DISC_11
+        - MUSIC_DISC_13
+        - MUSIC_DISC_BLOCKS
+        - MUSIC_DISC_CAT
+        - MUSIC_DISC_CHIRP
+        - MUSIC_DISC_FAR
+        - MUSIC_DISC_MALL
+        - MUSIC_DISC_MELLOHI
+        - MUSIC_DISC_PIGSTEP
+        - MUSIC_DISC_STAL
+        - MUSIC_DISC_STRAD
+        - MUSIC_DISC_WARD
     OAK_LOG:
       description: "Obtain 4 types of wooden logs"
       amount: 4
