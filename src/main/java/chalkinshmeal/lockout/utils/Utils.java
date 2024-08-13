@@ -850,6 +850,20 @@ public class Utils {
         return b.getType().equals(m);
     }
 
+    //---------------------------------------------------------------------------------------------
+    // Location 
+    //---------------------------------------------------------------------------------------------
+    public static Location getRandomLocation(World world, double centerX, double centerZ, double radius) {
+        Random random = new Random();
+        double angle = 2 * Math.PI * random.nextDouble();
+
+        // Calculate the x and y coordinates based on the angle and radius
+        int x = (int) (centerX + radius * Math.cos(angle));
+        int z = (int) (centerZ + radius * Math.sin(angle));
+
+        return new Location(world, x, 0, z);
+    }
+
 
     //---------------------------------------------------------------------------------------------
     // Player

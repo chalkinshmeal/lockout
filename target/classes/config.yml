@@ -986,6 +986,12 @@ standOnBlockTask:
   - GRAVEL
   - SAND
 
+# Task: Stand on coordinate task. Set bounds of possible radius away from spawn location the coordinate is at
+standOnCoordinateTask:
+  maxTaskCount: 1
+  minRadius: 100
+  maxRadius: 1000
+
 # Task: Die a specific way. Possible DamageCauses to die from
 specificDeathTask:
   maxTaskCount: 2 

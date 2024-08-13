@@ -41,6 +41,7 @@ import chalkinshmeal.lockout.artifacts.tasks.general.ShootProjectileTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.SleepInColoredBedTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.SpecificDeathTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.StandOnBlockTask;
+import chalkinshmeal.lockout.artifacts.tasks.general.StandOnCoordinateTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.BlockArrowWithShieldTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.CatchFishTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.DrinkMilkToCurePoisonTask;
@@ -126,6 +127,7 @@ public class LockoutTaskHandler {
             allTasks.addAll(SleepInColoredBedTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(SpecificDeathTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(StandOnBlockTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
+            allTasks.addAll(StandOnCoordinateTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(UseEyeOfEnderTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(UseNametagTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
 
