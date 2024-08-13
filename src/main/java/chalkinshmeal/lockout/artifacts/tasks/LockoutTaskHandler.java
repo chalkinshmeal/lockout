@@ -49,6 +49,7 @@ import chalkinshmeal.lockout.artifacts.tasks.specific.DrinkMilkToCurePoisonTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.EnterBoatWithPassengerTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.EnterNetherTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.GrowWheatWithBonemealTask;
+import chalkinshmeal.lockout.artifacts.tasks.specific.KillEntityWithStatusEffectTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.KillLeftySkeletonTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.LightTNTTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.PlaceBookOnLecternTask;
@@ -110,6 +111,7 @@ public class LockoutTaskHandler {
             allTasks.addAll(InteractItemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(JumpTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(KillEntitiesTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
+            allTasks.addAll(KillEntityWithStatusEffectTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(KillLeftySkeletonTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(ObtainItemGroupTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(ObtainItemWithStringTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
