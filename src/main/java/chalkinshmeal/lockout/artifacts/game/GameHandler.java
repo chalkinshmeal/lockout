@@ -132,6 +132,12 @@ public class GameHandler {
                 Component.empty(), // No subtitle
                 Title.Times.of(java.time.Duration.ZERO, java.time.Duration.ofSeconds(5), java.time.Duration.ofSeconds(1))
             ));
+            if (this.lockoutTeamHandler.getTeamPlayers(winningTeams.get(0)).contains(player)) {
+                Utils.playSound(player, Sound.ITEM_GOAT_HORN_SOUND_1);
+            }
+            else {
+                Utils.playSound(player, Sound.ITEM_GOAT_HORN_SOUND_6);
+            }
         }
 
         this.end();

@@ -359,6 +359,14 @@ obtainItemGroupTask:
       - MANGROVE_CHEST_BOAT
       - OAK_CHEST_BOAT
       - SPRUCE_CHEST_BOAT
+    COD:
+      description: "Obtain 4 types of raw fish"
+      amount: 4
+      materials:
+      - COD
+      - PUFFERFISH
+      - SALMON
+      - TROPICAL_FISH
     COD_BUCKET:
       description: "Obtain 3 types of fish in a bucket"
       amount: 3
@@ -601,7 +609,7 @@ obtainItemsTask:
 # - String: String glob to search in its name
 # - Amount: Required amount of items from the materials needed to complete the task
 obtainItemWithStringTask:
-  maxTaskCount: 2
+  maxTaskCount: 1
   materials:
     BLACK_WOOL:
       string: 'black'
