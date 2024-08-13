@@ -67,6 +67,10 @@ public class ObtainItemWithStringTask extends LockoutTask {
         List<String> materialStrs = Utils.getRandomItems(configHandler.getKeyListFromKey(configKey + "." + subKey), taskCount);
         int loopCount = (isPunishment) ? materialStrs.size() : taskCount;
 
+        if (materialStrs.size() == 0) {
+            plugin.getLogger().warning("Could not find any entries at config key '" + configKey + "'. Skipping " + configKey);
+            return tasks;
+        }
         for (int i = 0; i < loopCount; i++) {
             String materialStr = materialStrs.get(i);
             Material material = Material.valueOf(materialStrs.get(i));

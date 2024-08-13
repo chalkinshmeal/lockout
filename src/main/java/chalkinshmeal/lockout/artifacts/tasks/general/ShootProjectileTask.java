@@ -55,6 +55,10 @@ public class ShootProjectileTask extends LockoutTask {
         List<ShootProjectileTask> tasks = new ArrayList<>();
         int taskCount = configHandler.getInt(configKey + "." + maxTaskCount, 1);
         List<String> materialStrs = Utils.getRandomItems(configHandler.getListFromKey(configKey + "." + normalKey), taskCount);
+        if (materialStrs.size() == 0) {
+            plugin.getLogger().warning("Could not find any entries at config key '" + configKey + "'. Skipping " + configKey);
+            return tasks;
+        }
 
         for (int i = 0; i < Math.min(taskCount, materialStrs.size()); i++) {
             Material material = Material.valueOf(materialStrs.get(i));

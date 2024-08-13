@@ -68,6 +68,10 @@ public class KillEntitiesTask extends LockoutTask {
         List<String> entityTypeStrs = Utils.getRandomItems(configHandler.getKeyListFromKey(configKey + "." + subKey), taskCount);
         int loopCount = (isPunishment) ? entityTypeStrs.size() : taskCount;
 
+        if (entityTypeStrs.size() == 0) {
+            plugin.getLogger().warning("Could not find any entries at config key '" + configKey + "'. Skipping " + configKey);
+            return tasks;
+        }
         for (int i = 0; i < loopCount; i++) {
             String entityTypeStr = entityTypeStrs.get(i);
             EntityType entityType = EntityType.valueOf(entityTypeStrs.get(i));

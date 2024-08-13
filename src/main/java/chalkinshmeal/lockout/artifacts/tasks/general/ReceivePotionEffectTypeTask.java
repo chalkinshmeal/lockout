@@ -56,6 +56,10 @@ public class ReceivePotionEffectTypeTask extends LockoutTask {
         int taskCount = configHandler.getInt(configKey + "." + maxTaskCount, 1);
         List<String> potionEffectTypeStrs = Utils.getRandomItems(configHandler.getListFromKey(configKey + "." + normalKey), taskCount);
 
+        if (potionEffectTypeStrs.size() == 0) {
+            plugin.getLogger().warning("Could not find any entries at config key '" + configKey + "'. Skipping " + configKey);
+            return tasks;
+        }
         for (int i = 0; i < taskCount; i++) {
             PotionEffectType potionEffectType = Utils.getPotionEffectTypeFromStr(potionEffectTypeStrs.get(i));
             tasks.add(new ReceivePotionEffectTypeTask(plugin, configHandler, lockoutTaskHandler, lockoutRewardHandler, potionEffectType));

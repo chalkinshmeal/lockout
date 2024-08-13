@@ -61,6 +61,10 @@ public class InteractItemTask extends LockoutTask {
         List<String> materialStrs = Utils.getRandomItems(configHandler.getListFromKey(configKey + "." + subKey), taskCount);
         int loopCount = (isPunishment) ? materialStrs.size() : taskCount;
 
+        if (materialStrs.size() == 0) {
+            plugin.getLogger().warning("Could not find any entries at config key '" + configKey + "'. Skipping " + configKey);
+            return tasks;
+        }
         for (int i = 0; i < loopCount; i++) {
             Material material = Material.valueOf(materialStrs.get(i));
             tasks.add(new InteractItemTask(plugin, configHandler, lockoutTaskHandler, lockoutRewardHandler, material, isPunishment));

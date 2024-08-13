@@ -61,6 +61,10 @@ public class EnterBiomeTask extends LockoutTask {
         String subKey = (isPunishment) ? punishmentKey : normalKey;
         List<String> biomeStrs = Utils.getRandomItems(configHandler.getKeyListFromKey(configKey + "." + subKey), taskCount);
         int loopCount = (isPunishment) ? biomeStrs.size() : taskCount;
+        if (biomeStrs.size() == 0) {
+            plugin.getLogger().warning("Could not find any entries at config key '" + configKey + "'. Skipping " + configKey);
+            return tasks;
+        }
 
         for (int i = 0; i < loopCount; i++) {
             Biome biome = Biome.valueOf(biomeStrs.get(i));

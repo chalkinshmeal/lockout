@@ -64,6 +64,10 @@ public class BreedEntitiesTask extends LockoutTask {
         int taskCount = configHandler.getInt(configKey + "." + maxTaskCount, 1);
         List<String> entityTypeStrs = Utils.getRandomItems(configHandler.getKeyListFromKey(configKey + "." + normalKey), taskCount);
 
+        if (entityTypeStrs.size() == 0) {
+            plugin.getLogger().warning("Could not find any entries at config key '" + configKey + "'. Skipping " + configKey);
+            return tasks;
+        }
         for (int i = 0; i < taskCount; i++) {
             String entityTypeStr = entityTypeStrs.get(i);
             EntityType entityType = EntityType.valueOf(entityTypeStrs.get(i));

@@ -64,6 +64,10 @@ public class SpecificDeathTask extends LockoutTask {
         String subKey = (isPunishment) ? punishmentKey : normalKey;
         List<String> damageCauseStrs = Utils.getRandomItems(configHandler.getKeyListFromKey(configKey + "." + subKey), taskCount);
         int loopCount = (isPunishment) ? damageCauseStrs.size() : taskCount;
+        if (damageCauseStrs.size() == 0) {
+            plugin.getLogger().warning("Could not find any entries at config key '" + configKey + "'. Skipping " + configKey);
+            return tasks;
+        }
 
         for (int i = 0; i < loopCount; i++) {
             String damageCauseStr = damageCauseStrs.get(i);

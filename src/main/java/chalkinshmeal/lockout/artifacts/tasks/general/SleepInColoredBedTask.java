@@ -56,6 +56,10 @@ public class SleepInColoredBedTask extends LockoutTask {
         List<SleepInColoredBedTask> tasks = new ArrayList<>();
         int taskCount = configHandler.getInt(configKey + "." + maxTaskCount, 1);
         List<String> dyeColorStrs = Utils.getRandomItems(configHandler.getListFromKey(configKey + "." + normalKey), taskCount);
+        if (dyeColorStrs.size() == 0) {
+            plugin.getLogger().warning("Could not find any entries at config key '" + configKey + "'. Skipping " + configKey);
+            return tasks;
+        }
 
         for (int i = 0; i < Math.min(taskCount, dyeColorStrs.size()); i++) {
             DyeColor dyeColor = DyeColor.valueOf(dyeColorStrs.get(i));

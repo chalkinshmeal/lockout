@@ -55,6 +55,10 @@ public class ActivateBlockTask extends LockoutTask {
         int taskCount = configHandler.getInt(configKey + "." + maxTaskCount, 1);
         List<String> materialStrs = Utils.getRandomItems(configHandler.getListFromKey(configKey + "." + normalKey), taskCount);
 
+        if (materialStrs.size() == 0) {
+            plugin.getLogger().warning("Could not find any entries at config key '" + configKey + "'. Skipping " + configKey);
+            return tasks;
+        }
         for (int i = 0; i < taskCount; i++) {
             Material material = Material.valueOf(materialStrs.get(i));
             tasks.add(new ActivateBlockTask(plugin, configHandler, lockoutTaskHandler, lockoutRewardHandler, material));
