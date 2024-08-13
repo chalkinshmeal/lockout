@@ -142,6 +142,13 @@ craftItemTask:
   - STICK
   - WOODEN_PICKAXE
 
+# Task: Create an entity. List of entities to create
+createEntityTask:
+  maxTaskCount: 1
+  entityTypes:
+  - IRON_GOLEM
+  - SNOW_GOLEM
+
 # Task: Eat an item. List of possible items you can eat
 destroyItemTask:
   maxTaskCount: 1

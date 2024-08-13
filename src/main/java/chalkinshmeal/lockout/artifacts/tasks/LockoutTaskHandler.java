@@ -16,6 +16,7 @@ import chalkinshmeal.lockout.artifacts.tasks.general.ActivateBlockTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.BreakItemsTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.BreedEntitiesTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.CraftItemTask;
+import chalkinshmeal.lockout.artifacts.tasks.general.CreateEntityTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.DestroyItemTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.EatItemTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.EnterBiomeTask;
@@ -97,6 +98,7 @@ public class LockoutTaskHandler {
             allTasks.addAll(BlockArrowWithShieldTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(CatchFishTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(CraftItemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
+            allTasks.addAll(CreateEntityTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(DestroyItemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(EatItemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(EnterBiomeTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
