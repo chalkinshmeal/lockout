@@ -238,6 +238,9 @@ public class GameHandler {
         world.setGameRule(GameRule.KEEP_INVENTORY, true);
         nether.setGameRule(GameRule.KEEP_INVENTORY, true);
         theend.setGameRule(GameRule.KEEP_INVENTORY, true);
+        world.setGameRule(GameRule.DO_IMMEDIATE_RESPAWN, true);
+        nether.setGameRule(GameRule.DO_IMMEDIATE_RESPAWN, true);
+        theend.setGameRule(GameRule.DO_IMMEDIATE_RESPAWN, true);
     }
 
     //---------------------------------------------------------------------------------------------

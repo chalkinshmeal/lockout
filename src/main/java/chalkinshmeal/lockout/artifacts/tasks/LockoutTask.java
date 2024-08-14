@@ -38,6 +38,7 @@ public abstract class LockoutTask {
     protected LockoutReward reward;
     protected boolean isPunishment;
     protected boolean isSuddenDeath;
+    protected boolean applyAAnRules;
 
     //---------------------------------------------------------------------------------------------
     // Constructor
@@ -55,6 +56,7 @@ public abstract class LockoutTask {
         this.reward = null;
         this.isPunishment = false;
         this.isSuddenDeath = false;
+        this.applyAAnRules = true;
         this.nameColor = NamedTextColor.BLUE;
         Utils.setDisplayName(item, this.itemDisplayName);
 
@@ -76,18 +78,20 @@ public abstract class LockoutTask {
         }
 
         // Chance name based on 1/a rules and a/an rules
-        if (this.name.contains(" 1 ")) {
-            this.name = this.name.replace(" 1 ", " a ");
-        }
-        if (this.name.contains(" a ")) {
-            String regexPattern = "^[aeiou].*"; 
-            List<String> stringList = Arrays.asList(this.name.split(" "));
-            for (int i = 0; i < stringList.size() - 1; i++) {
-                if (stringList.get(i).equals("a") && stringList.get(i + 1).matches(regexPattern)) {
-                    stringList.set(i, "an");
-                }
+        if (this.applyAAnRules) {
+            if (this.name.contains(" 1 ")) {
+                this.name = this.name.replace(" 1 ", " a ");
             }
-            this.name = String.join(" ", stringList);
+            if (this.name.contains(" a ")) {
+                String regexPattern = "^[aeiou].*"; 
+                List<String> stringList = Arrays.asList(this.name.split(" "));
+                for (int i = 0; i < stringList.size() - 1; i++) {
+                    if (stringList.get(i).equals("a") && stringList.get(i + 1).matches(regexPattern)) {
+                        stringList.set(i, "an");
+                    }
+                }
+                this.name = String.join(" ", stringList);
+            }
         }
 
         this.setItemDisplayName(Component.text(this.name, this.nameColor).decoration(TextDecoration.ITALIC, false));

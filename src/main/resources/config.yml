@@ -181,6 +181,14 @@ destroyItemTask:
   - WOODEN_SHOVEL
   - WOODEN_SWORD
 
+# Task: Die. Min and max deaths to have for this given task
+dieTask:
+  maxTaskCount: 1
+  minDeaths: 1
+  maxDeaths: 2
+  punishmentMinDeaths: 5 
+  punishmentMaxDeaths: 15
+
 # Task: Eat an item. List of possible items you can eat
 eatItemTask:
   maxTaskCount: 3
