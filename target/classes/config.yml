@@ -891,6 +891,12 @@ shearColoredSheepTask:
   - WHITE
   - YELLOW
 
+# Task: Shear N sheep. Min and max shears needed for this task
+shearColoredSheepTask:
+  maxTaskCount: 1
+  minShears: 1
+  maxShears: 15
+
 # Task: Sleep in a bed of a certain DyeColor. List of possible DyeColors to sleep in
 sleepInColoredBedTask:
   maxTaskCount: 1
