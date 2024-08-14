@@ -1078,3 +1078,8 @@ specificDeathTask:
     PROJECTILE:
       material: ARROW
       explanation: Die to a projectile
+
+# Task: Stay above a specific number of health (in half hearts). Randomly chooses target health between minHealth and maxHealth
+stayAboveHealthTask:
+  minHealth: 4
+  maxHealth: 16
