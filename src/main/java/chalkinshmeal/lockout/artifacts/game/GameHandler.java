@@ -36,7 +36,7 @@ public class GameHandler {
     private final LockoutTaskHandler lockoutTaskHandler;
     private final CountdownBossBar countdownBossBar;
     private final LockoutScoreboard lockoutScoreboard;
-    private final LockoutTeamHandler lockoutTeamHandler;
+    public final LockoutTeamHandler lockoutTeamHandler;
     private final int queueTime;
     private final int gameTime;
 
@@ -83,16 +83,16 @@ public class GameHandler {
         this.resetWorldState();
         this.lockoutCompass.SetIsActive(true);
         this.lockoutCompass.updateTasksInventory(this.lockoutTaskHandler);
-        this.lockoutTaskHandler.registerListeners();
         this.delayStartTask(this.plugin, this, this.queueTime);
-        this.checkAllTasksDoneTask(plugin, lockoutTaskHandler);
     }
 
     public void start() {
         // Global operations
         this.frozenPlayers.clear();
         this.countdownBossBar.start();
+        this.lockoutTaskHandler.registerListeners();
         this.lockoutScoreboard.init(this.lockoutTeamHandler);
+        this.checkAllTasksDoneTask(plugin, lockoutTaskHandler);
         this.delayStopTask(this.plugin, this, this.gameTime);
 
         // Per-player operations
@@ -145,15 +145,25 @@ public class GameHandler {
 
     @SuppressWarnings("deprecation")
     public void suddenDeath(List<String> winningTeams) {
-        // Sudden death
+        // Global operations
+        this.countdownBossBar.update(Component.text("Overtime", NamedTextColor.RED));
+        this.lockoutTaskHandler.unRegisterListeners();
+        this.lockoutTaskHandler.CreateSuddenDeathTaskList();
+        this.lockoutTaskHandler.registerListeners();
+        this.lockoutCompass.updateTasksInventory(this.lockoutTaskHandler);
+        this.checkSuddenDeathTasksDoneTask(plugin, lockoutTaskHandler);
+
+        // Per-player operations
         for (Player player : this.lockoutTeamHandler.getAllPlayers()) {
             player.showTitle(Title.title(
-                Component.text("No winners - draw!", NamedTextColor.GOLD),
-                Component.empty(), // No subtitle
+                Component.text("Sudden Death", NamedTextColor.GOLD),
+                Component.text("Compass updated. First to 3 wins", NamedTextColor.GOLD),
                 Title.Times.of(java.time.Duration.ZERO, java.time.Duration.ofSeconds(5), java.time.Duration.ofSeconds(1))
             ));
+            this.lockoutScoreboard.setScore(this.lockoutTeamHandler.getTeamName(player), 0);
+            this.resetPlayerState(player);
+            this.lockoutCompass.giveCompass(player);
         }
-        this.end();
     }
 
     public void end() {
@@ -213,7 +223,10 @@ public class GameHandler {
         player.setGameMode(GameMode.SURVIVAL);
         for (PotionEffect effect : player.getActivePotionEffects()) player.removePotionEffect(effect.getType());
 
-        player.teleport(Bukkit.getWorld("world").getSpawnLocation());
+        World world = Bukkit.getWorld("world");
+        Location spawnLocation = world.getSpawnLocation();
+        Location teleportLocation = new Location(world, spawnLocation.getX(), world.getHighestBlockYAt(spawnLocation) + 1, spawnLocation.getZ());
+        player.teleport(teleportLocation);
     }
 
     private void resetWorldState() {
@@ -301,6 +314,23 @@ public class GameHandler {
                     return;
                 }
                 if (lockoutTaskHandler.areAllTasksDone()) {
+                    stop();
+                    this.cancel();
+                    return;
+                }
+            }
+        }.runTaskTimer(plugin, 0, 20); // Run the task every 20 ticks (1 second)
+    }
+
+    private void checkSuddenDeathTasksDoneTask(JavaPlugin plugin, LockoutTaskHandler lockoutTaskHandler) {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                if (!isActive) {
+                    this.cancel();
+                    return;
+                }
+                if (lockoutTaskHandler.areSuddenDeathTasksDone()) {
                     stop();
                     this.cancel();
                     return;

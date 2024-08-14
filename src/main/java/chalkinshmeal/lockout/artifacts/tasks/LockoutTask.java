@@ -37,6 +37,7 @@ public abstract class LockoutTask {
     protected int value;
     protected LockoutReward reward;
     protected boolean isPunishment;
+    protected boolean isSuddenDeath;
 
     //---------------------------------------------------------------------------------------------
     // Constructor
@@ -53,6 +54,7 @@ public abstract class LockoutTask {
         this.value = 1;
         this.reward = null;
         this.isPunishment = false;
+        this.isSuddenDeath = false;
         this.nameColor = NamedTextColor.BLUE;
         Utils.setDisplayName(item, this.itemDisplayName);
 

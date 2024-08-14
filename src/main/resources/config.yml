@@ -526,6 +526,7 @@ obtainItemGroupTask:
 # Task: Obtain an item. Possible items to obtain and the amount to obtain
 obtainItemsTask:
   maxTaskCount: 2
+  suddenDeathTaskCount: 5
   materials:
     ACACIA_HANGING_SIGN: 1
     ACACIA_SAPLING: 1
@@ -611,6 +612,23 @@ obtainItemsTask:
     ROTTEN_FLESH: 1
     STRING: 1
     WHEAT_SEEDS: 1
+  suddenDeathMaterials:
+    CHEST: 1
+    CLAY: 10
+    COAL: 10
+    COBBLESTONE: 10
+    CRAFTING_TABLE: 1
+    DIRT: 10
+    FURNACE: 1
+    GRAVEL: 10
+    LADDER: 10
+    LEVER: 10
+    OAK_LOG: 10
+    SAND: 10
+    STICK: 10
+    STONE_PICKAXE: 1
+    TORCH: 10
+    WOODEN_PICKAXE: 1
 
 # Task: Obtain N items with a string in their name. List of item groups to obtain, including:
 # - String: String glob to search in its name

@@ -32,7 +32,7 @@ public class CountdownBossBar {
     //---------------------------------------------------------------------------------------------
     // BossBar methods 
     //---------------------------------------------------------------------------------------------
-    private void update(Component message) {
+    public void update(Component message) {
         bossBar.name(message);
 
         // Update all players with the boss bar

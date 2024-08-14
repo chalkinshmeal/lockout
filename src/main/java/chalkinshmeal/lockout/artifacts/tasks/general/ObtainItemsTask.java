@@ -22,6 +22,8 @@ public class ObtainItemsTask extends LockoutTask {
     private static final String configKey = "obtainItemsTask";
     private static final String normalKey = "materials";
     private static final String punishmentKey = "punishmentMaterials";
+    private static final String suddenDeathKey = "suddenDeathMaterials";
+    private static final String suddenDeathTaskCountKey = "suddenDeathTaskCount";
     private final Material material;
     private final int amount;
 
@@ -29,13 +31,14 @@ public class ObtainItemsTask extends LockoutTask {
     // Constructor, which takes lockouttaskhandler
     //---------------------------------------------------------------------------------------------
     public ObtainItemsTask(JavaPlugin plugin, ConfigHandler configHandler, LockoutTaskHandler lockoutTaskHandler,
-                           LockoutRewardHandler lockoutRewardHandler, Material material, int amount, boolean isPunishment) {
+                           LockoutRewardHandler lockoutRewardHandler, Material material, int amount, boolean isPunishment, boolean isSuddenDeath) {
         super(plugin, configHandler, lockoutTaskHandler, lockoutRewardHandler);
         this.material = material;
         this.amount = amount;
         this.name = "Obtain " + ((this.amount == 1 ? "a" : this.amount)) + " " + Utils.getReadableMaterialName(material);
         this.item = new ItemStack(this.material);
         this.isPunishment = isPunishment;
+        this.isSuddenDeath = isSuddenDeath;
     }
 
     //---------------------------------------------------------------------------------------------
@@ -43,6 +46,12 @@ public class ObtainItemsTask extends LockoutTask {
     //---------------------------------------------------------------------------------------------
     public void validateConfig() {
         for (String materialStr : this.configHandler.getKeyListFromKey(configKey + "." + normalKey)) {
+            Material.valueOf(materialStr);
+        }
+        for (String materialStr : this.configHandler.getKeyListFromKey(configKey + "." + punishmentKey)) {
+            Material.valueOf(materialStr);
+        }
+        for (String materialStr : this.configHandler.getKeyListFromKey(configKey + "." + suddenDeathKey)) {
             Material.valueOf(materialStr);
         }
     }
@@ -56,22 +65,22 @@ public class ObtainItemsTask extends LockoutTask {
     // Task getter
     //---------------------------------------------------------------------------------------------
     public static List<ObtainItemsTask> getTasks(JavaPlugin plugin, ConfigHandler configHandler, LockoutTaskHandler lockoutTaskHandler,
-                                                          LockoutRewardHandler lockoutRewardHandler, boolean isPunishment) {
+                                                          LockoutRewardHandler lockoutRewardHandler, boolean isPunishment, boolean isSuddenDeath) {
         List<ObtainItemsTask> tasks = new ArrayList<>();
-        int taskCount = (isPunishment) ? -1 : configHandler.getInt(configKey + "." + maxTaskCount, 1);
-        String subKey = (isPunishment) ? punishmentKey : normalKey;
+        int taskCount = (isSuddenDeath | isPunishment) ? -1 : configHandler.getInt(configKey + "." + maxTaskCount, 1);
+        String subKey = (isSuddenDeath) ? suddenDeathKey : (isPunishment) ? punishmentKey : normalKey;
         List<String> materialStrs = Utils.getRandomItems(configHandler.getKeyListFromKey(configKey + "." + subKey), taskCount);
-        int loopCount = (isPunishment) ? materialStrs.size() : taskCount;
+        int loopCount = (isSuddenDeath) ? configHandler.getInt(configKey + "." + suddenDeathTaskCountKey, 5) : (isPunishment) ? materialStrs.size() : taskCount;
 
         if (materialStrs.size() == 0) {
             plugin.getLogger().warning("Could not find any entries at config key '" + configKey + "'. Skipping " + configKey);
             return tasks;
         }
-        for (int i = 0; i < loopCount; i++) {
+        for (int i = 0; i < Math.min(loopCount, materialStrs.size()); i++) {
             String materialStr = materialStrs.get(i);
             Material material = Material.valueOf(materialStrs.get(i));
             int amount = configHandler.getInt(configKey + "." + subKey + "." + materialStr, 1);
-            tasks.add(new ObtainItemsTask(plugin, configHandler, lockoutTaskHandler, lockoutRewardHandler, material, amount, isPunishment));
+            tasks.add(new ObtainItemsTask(plugin, configHandler, lockoutTaskHandler, lockoutRewardHandler, material, amount, isPunishment, isSuddenDeath));
         }
         return tasks;
     }

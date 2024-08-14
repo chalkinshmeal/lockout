@@ -28,15 +28,17 @@ public class StartCommand extends BaseCommand {
     protected void onCommand(CommandSender sender, String[] args) {
         if (this.gameHandler.isActive) {
             sender.sendMessage(
-                Component.text("Lockout ", NamedTextColor.GOLD)
-                    .append(Component.text("game is already in progress", NamedTextColor.GRAY)));
+                Component.text("Lockout game is already in progress", NamedTextColor.RED));
             return;
         }
         if (this.gameHandler.getNumTeams() <= 0) {
             sender.sendMessage(
-                Component.text("Create at least 1 team to start a ", NamedTextColor.GRAY)
-                    .append(Component.text("Lockout ", NamedTextColor.GOLD))
-                    .append(Component.text("game", NamedTextColor.GRAY)));
+                Component.text("Create at least 1 team to start a Lockout game", NamedTextColor.RED));
+            return;
+        }
+        if (this.gameHandler.lockoutTeamHandler.getAllPlayers().size() <= 0) {
+            sender.sendMessage(
+                Component.text("Must join a team to start a game. Type /lockout compass and join a team", NamedTextColor.RED));
             return;
         }
         this.gameHandler.queue();

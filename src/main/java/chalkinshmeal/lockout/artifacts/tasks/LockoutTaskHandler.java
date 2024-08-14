@@ -115,7 +115,7 @@ public class LockoutTaskHandler {
             allTasks.addAll(KillLeftySkeletonTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(ObtainItemGroupTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(ObtainItemWithStringTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
-            allTasks.addAll(ObtainItemsTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
+            allTasks.addAll(ObtainItemsTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false, false));
             allTasks.addAll(PlaceBookOnLecternTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(PlaceFlowerInPotTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(PlaceItemInItemFrameTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
@@ -151,7 +151,7 @@ public class LockoutTaskHandler {
             punishmentTasks.addAll(GetExpLevelTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
             punishmentTasks.addAll(KillEntitiesTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
             punishmentTasks.addAll(JumpTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
-            punishmentTasks.addAll(ObtainItemsTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
+            punishmentTasks.addAll(ObtainItemsTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true, false));
             punishmentTasks.addAll(ObtainItemGroupTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
             punishmentTasks.addAll(ObtainItemWithStringTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
             punishmentTasks.addAll(PlaceItemsTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
@@ -176,6 +176,29 @@ public class LockoutTaskHandler {
         return true;
     }
 
+    public void CreateSuddenDeathTaskList() {
+        this.lockoutRewardHandler = new LockoutRewardHandler(this.plugin);
+
+        List<LockoutTask> suddenDeathTasks = new ArrayList<>();
+        try {
+            suddenDeathTasks.addAll(ObtainItemsTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false, true));
+        }
+
+        catch (Exception e) {
+            this.plugin.getLogger().warning("Could not create task list: " + e.getMessage());
+            return;
+        }
+
+        // Randomly get items
+        this.tasks = suddenDeathTasks;
+        Collections.shuffle(this.tasks);
+
+        // Initialize tasks (Generate rewards, set lore, etc.)
+        for (LockoutTask task : this.tasks) {
+            task.init();
+        }
+    }
+
     //---------------------------------------------------------------------------------------------
 	// Accessor/Mutator methods
     //---------------------------------------------------------------------------------------------
@@ -187,7 +210,15 @@ public class LockoutTaskHandler {
         }
         return true;
     }
-
+    public boolean areSuddenDeathTasksDone() {
+        int minTasksToBeDone = (int) (Math.floor(this.tasks.size() / 2)) + 1;
+        int doneTasks = 0;
+        for (LockoutTask task : this.tasks) {
+            if (task.isPunishment) continue;
+            if (task.isComplete()) doneTasks += 1;
+        }
+        return doneTasks >= minTasksToBeDone;
+    }
     //---------------------------------------------------------------------------------------------
 	// Task methods
     //---------------------------------------------------------------------------------------------
