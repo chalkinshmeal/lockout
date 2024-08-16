@@ -20,6 +20,7 @@ import chalkinshmeal.lockout.artifacts.tasks.general.CreateEntityTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.DestroyItemTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.DieTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.EatItemTask;
+import chalkinshmeal.lockout.artifacts.tasks.general.EatTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.EnterBiomeTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.EquipItemTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.GetExpLevelTask;
@@ -104,6 +105,7 @@ public class LockoutTaskHandler {
             allTasks.addAll(CreateEntityTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(DestroyItemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(DieTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
+            allTasks.addAll(EatTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(EatItemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(EnterBiomeTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(EnterBoatWithPassengerTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
@@ -151,6 +153,7 @@ public class LockoutTaskHandler {
             punishmentTasks.addAll(BreakItemsTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
             punishmentTasks.addAll(CraftItemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
             punishmentTasks.addAll(DieTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
+            punishmentTasks.addAll(EatTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
             punishmentTasks.addAll(EatItemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
             punishmentTasks.addAll(EnterBiomeTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
             punishmentTasks.addAll(GetExpLevelTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));

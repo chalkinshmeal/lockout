@@ -189,6 +189,14 @@ dieTask:
   punishmentMinDeaths: 5 
   punishmentMaxDeaths: 15
 
+# Task: Eat N items. Min and max items to eat for this given task
+eatTask:
+  maxTaskCount: 1
+  minConsumes: 10
+  maxConsumes: 50
+  punishmentMinConsumes: 1
+  punishmentMaxConsumes: 10
+
 # Task: Eat an item. List of possible items you can eat
 eatItemTask:
   maxTaskCount: 3
