@@ -592,7 +592,6 @@ obtainItemsTask:
     RABBIT_FOOT: 1
     RABBIT_HIDE: 1
     REDSTONE_TORCH: 1
-    REDSTONE_TORCH: 64
     RED_BANNER: 1
     SADDLE: 1
     SALMON_BUCKET: 1
@@ -892,7 +891,7 @@ shearColoredSheepTask:
   - YELLOW
 
 # Task: Shear N sheep. Min and max shears needed for this task
-shearColoredSheepTask:
+shearSheepTask:
   maxTaskCount: 1
   minShears: 1
   maxShears: 15

@@ -95,6 +95,7 @@ public class ObtainItemWithStringTask extends LockoutTask {
 
     public void onInventoryClickEvent(InventoryClickEvent event) {
         if (!(event.getWhoClicked() instanceof Player)) return;
+        if (event.getClickedInventory() == null) return;
         if (event.getClickedInventory().getType() != InventoryType.PLAYER) return;
 
         Player player = (Player) event.getWhoClicked();

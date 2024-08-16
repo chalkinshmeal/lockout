@@ -40,8 +40,11 @@ public class TeamCommand extends ArgCommand {
     protected void executeArgs(CommandSender sender, List<ArgValue> argValues, Set<String> usedFlags) {
         Player player = (Player) sender;
         String teamName = argValues.get(0).get();
-        Material material = Material.getMaterial(argValues.get(1).get());
-        if (material == null) {
+        Material material;
+        try {
+            material = Material.valueOf(argValues.get(1).get());
+        }
+        catch (Exception e) {
             player.sendMessage(Component.text("Invalid material provided: '" + argValues.get(1).get() + "'", NamedTextColor.RED));
             return;
         }

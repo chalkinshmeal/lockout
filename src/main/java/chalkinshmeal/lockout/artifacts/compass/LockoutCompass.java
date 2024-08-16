@@ -109,13 +109,13 @@ public class LockoutCompass {
     }
 
     public void onInventoryClickEvent(InventoryClickEvent event) {
-        // Prevent movement
-        if (event.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY)
-            event.setCancelled(true);
-
         // Check that inventory name matches
         String invName = Utils.stripColor(event.getView().getOriginalTitle());
         if (!invName.equals(this.getInvName())) return;
+
+        // Prevent movement
+        if (event.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY)
+            event.setCancelled(true);
 
         // Check that slot is valid
         int slot = event.getRawSlot();

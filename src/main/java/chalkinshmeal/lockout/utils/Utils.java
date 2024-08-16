@@ -888,11 +888,21 @@ public class Utils {
         return closestPlayer;
     }
 
-    public static boolean hasMaterial(Player player, Material material, int amount) {
+    public static boolean hasMaterial(Player player, Material material, int amount, ItemStack addedItem) {
         int totalAmount = 0;
         if (amount == 0) return true;
 
+        List<ItemStack> items = new ArrayList<>();
         for (ItemStack item : player.getInventory().getContents()) {
+            if (item == null) continue;
+            items.add(item);
+        }
+
+        if (addedItem != null) {
+            items.add(addedItem);
+        }
+
+        for (ItemStack item : items) {
             if (item != null && item.getType() == material) {
                 totalAmount += item.getAmount();
                 if (totalAmount >= amount) return true;

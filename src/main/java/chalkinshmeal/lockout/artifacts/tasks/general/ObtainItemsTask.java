@@ -93,21 +93,25 @@ public class ObtainItemsTask extends LockoutTask {
         Player player = (Player) event.getEntity();
         Material itemType = event.getItem().getItemStack().getType();
         if (itemType != this.material) return;
-
-        int amountNeededBeforePickup = this.amount - event.getItem().getItemStack().getAmount();
-        if (!Utils.hasMaterial(player, this.material, amountNeededBeforePickup)) return;
+        if (!Utils.hasMaterial(player, this.material, this.amount, event.getItem().getItemStack())) return;
 
         this.complete(player);
     }
     public void onInventoryClickEvent(InventoryClickEvent event) {
+        System.out.println("Inventory click event");
+        System.out.println("Clicked item: " + event.getCurrentItem());
         if (!(event.getWhoClicked() instanceof Player)) return;
+        System.out.println("HERE1");
 
         Player player = (Player) event.getWhoClicked();
         if (event.getCurrentItem() == null) return;
+        System.out.println("HERE2");
 
         Material itemType = event.getCurrentItem().getType();
         if (itemType != this.material) return;
-        if (!Utils.hasMaterial(player, this.material, this.amount)) return;
+        System.out.println("HERE3");
+        if (!Utils.hasMaterial(player, this.material, this.amount, event.getCurrentItem())) return;
+        System.out.println("HERE4");
 
         this.complete(player);
     }
