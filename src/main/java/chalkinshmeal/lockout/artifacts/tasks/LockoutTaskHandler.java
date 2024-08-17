@@ -31,6 +31,7 @@ import chalkinshmeal.lockout.artifacts.tasks.general.KillEntitiesTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.ObtainItemGroupTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.ObtainItemWithStringTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.ObtainItemsTask;
+import chalkinshmeal.lockout.artifacts.tasks.general.StayStillTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.PlaceFlowerInPotTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.PlaceItemInItemFrameTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.PlaceItemsTask;
@@ -49,6 +50,7 @@ import chalkinshmeal.lockout.artifacts.tasks.general.StayAboveHealthTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.BlockArrowWithShieldTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.CatchFishTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.DrinkMilkToCurePoisonTask;
+import chalkinshmeal.lockout.artifacts.tasks.specific.EnchantItemTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.EnterBoatWithPassengerTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.EnterNetherTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.GrowWheatWithBonemealTask;
@@ -107,6 +109,7 @@ public class LockoutTaskHandler {
             allTasks.addAll(DieTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(EatTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(EatItemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
+            allTasks.addAll(EnchantItemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(EnterBiomeTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(EnterBoatWithPassengerTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(EnterNetherTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
@@ -138,6 +141,7 @@ public class LockoutTaskHandler {
             allTasks.addAll(SpecificDeathTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(StandOnBlockTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(StandOnCoordinateTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
+            //allTasks.addAll(StayStillTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(UseEyeOfEnderTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(UseNametagTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
 
@@ -166,6 +170,7 @@ public class LockoutTaskHandler {
             punishmentTasks.addAll(SpecificDeathTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
             punishmentTasks.addAll(StandOnBlockTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
             punishmentTasks.addAll(StayAboveHealthTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
+            punishmentTasks.addAll(StayStillTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
         }
         catch (Exception e) {
             this.plugin.getLogger().warning("Could not create task list: " + e.getMessage());

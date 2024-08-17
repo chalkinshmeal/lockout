@@ -1090,3 +1090,11 @@ specificDeathTask:
 stayAboveHealthTask:
   minHealth: 4
   maxHealth: 16
+
+# Task: Stay still for N seconds. Min and max range of seconds for this given task
+stayStillTask:
+  maxTaskCount: 1
+  minSeconds: 60
+  maxSeconds: 240
+  punishmentMinSeconds: 5
+  punishmentMaxSeconds: 20
