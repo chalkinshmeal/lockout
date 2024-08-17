@@ -351,6 +351,47 @@ killEntitiesTask:
     SPIDER: 1
     ZOMBIE: 1
 
+# Task: Kill an entity with an item. Possible entities to kill, and the items to kill them with
+killEntityWithItemTask:
+  maxTaskCount: 1
+  entityTypes:
+  - ARMADILLO
+  - AXOLOTL
+  - BAT
+  - BEE
+  - CAMEL
+  - DOLPHIN
+  - DONKEY
+  - DROWNED
+  - ENDERMAN
+  - GLOW_SQUID
+  - GOAT
+  - HUSK
+  - IRON_GOLEM
+  - LLAMA
+  - OCELOT
+  - PARROT
+  - PIGLIN
+  - POLAR_BEAR
+  - PUFFERFISH
+  - SNOW_GOLEM
+  - STRAY
+  - TURTLE
+  - VILLAGER
+  - WITCH
+  - WOLF
+  materials:
+  - APPLE
+  - BEETROOT
+  - COD
+  - COOKIE
+  - GLOW_BERRIES
+  - PUFFERFISH
+  - SALMON
+  - SWEET_BERRIES
+  - TROPICAL_FISH
+
+
 # Task: Obtain a group of item. List of item groups to obtain, including:
 # - Description: What is displayed as description for the task
 # - Materials: Materials that count as part of the description's group

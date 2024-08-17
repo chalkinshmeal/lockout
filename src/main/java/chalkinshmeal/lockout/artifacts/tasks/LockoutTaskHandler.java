@@ -28,6 +28,7 @@ import chalkinshmeal.lockout.artifacts.tasks.general.GetSpecificHealthTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.InteractItemTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.JumpTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.KillEntitiesTask;
+import chalkinshmeal.lockout.artifacts.tasks.general.KillEntityWithItemTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.ObtainItemGroupTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.ObtainItemWithStringTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.ObtainItemsTask;
@@ -120,6 +121,7 @@ public class LockoutTaskHandler {
             allTasks.addAll(InteractItemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(JumpTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(KillEntitiesTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
+            allTasks.addAll(KillEntityWithItemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(KillEntityWithStatusEffectTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(KillLeftySkeletonTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(ObtainItemGroupTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
