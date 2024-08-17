@@ -80,6 +80,7 @@ import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.util.Vector;
 
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 
 public class Utils {
     //---------------------------------------------------------------------------------------------
@@ -964,7 +965,10 @@ public class Utils {
 
         for (ItemStack item : items) {
             if (item == null) continue;
-            if (!item.getType().name().toLowerCase().replace('_', ' ').contains(glob)) continue;
+            //System.out.println(item.getType().name().toLowerCase().replace('_', ' '));
+            //if (!item.getType().name().toLowerCase().replace('_', ' ').contains(glob)) continue;
+            System.out.println(Utils.asString(item.displayName()).toLowerCase());
+            if (!Utils.asString(item.displayName()).toLowerCase().contains(glob)) continue;
             materials.add(item.getType());
         }
 
@@ -1057,5 +1061,9 @@ public class Utils {
     public static String stripColor(String string) {
         String COLOR_CODE_REGEX = "§[0-9a-fk-or]";
         return string.replaceAll(COLOR_CODE_REGEX, "");
+    }
+
+    public static String asString(Component component) {
+        return PlainTextComponentSerializer.plainText().serialize(component);
     }
 }

@@ -9,7 +9,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -95,8 +94,6 @@ public class ObtainItemWithStringTask extends LockoutTask {
 
     public void onInventoryClickEvent(InventoryClickEvent event) {
         if (!(event.getWhoClicked() instanceof Player)) return;
-        if (event.getClickedInventory() == null) return;
-        if (event.getClickedInventory().getType() != InventoryType.PLAYER) return;
 
         Player player = (Player) event.getWhoClicked();
         if (event.getCurrentItem() == null) return;
