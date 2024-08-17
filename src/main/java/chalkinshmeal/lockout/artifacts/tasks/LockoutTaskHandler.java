@@ -62,6 +62,7 @@ import chalkinshmeal.lockout.artifacts.tasks.specific.RepairIronGolemTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.TeleportWithAnEnderpearlTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.UseEyeOfEnderTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.UseNametagTask;
+import chalkinshmeal.lockout.artifacts.tasks.specific.UseSpyglassTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.WearFullIronArmorTask;
 import chalkinshmeal.lockout.data.ConfigHandler;
 import chalkinshmeal.lockout.utils.Utils;
@@ -144,6 +145,7 @@ public class LockoutTaskHandler {
             //allTasks.addAll(StayStillTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(UseEyeOfEnderTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(UseNametagTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
+            allTasks.addAll(UseSpyglassTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
 
             // Specific tasks
             //allTasks.add(new WearFullDyedLeatherArmorTask(plugin, configHandler, this, lockoutRewardHandler));
