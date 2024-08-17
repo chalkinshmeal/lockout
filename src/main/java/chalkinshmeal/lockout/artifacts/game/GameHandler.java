@@ -7,16 +7,17 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.GameRule;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import chalkinshmeal.lockout.artifacts.compass.LockoutCompass;
@@ -42,7 +43,6 @@ public class GameHandler {
     private final int gameTime;
 
     // Temporary status
-    private List<Player> frozenPlayers = new ArrayList<>();
     public boolean isActive = false;
     public GameState state = GameState.INACTIVE;
 
@@ -78,10 +78,10 @@ public class GameHandler {
         this.isActive = true;
 
         for (Player player : this.lockoutTeamHandler.getAllPlayers()) {
-            this.frozenPlayers.add(player);
             this.resetPlayerState(player);
             this.lockoutCompass.giveCompass(player);
             this.DisplayCountdownTask(plugin, player, this.queueTime);
+            this.freezePlayer(player, this.queueTime);
         }
 
         this.resetWorldState();
@@ -94,7 +94,6 @@ public class GameHandler {
         this.state = GameState.PLAY;
 
         // Global operations
-        this.frozenPlayers.clear();
         this.countdownBossBar.start();
         this.lockoutTaskHandler.registerListeners();
         this.lockoutScoreboard.init(this.lockoutTeamHandler);
@@ -188,23 +187,6 @@ public class GameHandler {
     //---------------------------------------------------------------------------------------------
     // Listener methods
     //---------------------------------------------------------------------------------------------
-    public void onPlayerMoveEvent(PlayerMoveEvent event) {
-        if (!this.isActive) return;
-        if (!this.frozenPlayers.contains(event.getPlayer())) return;
-
-        Location from = event.getFrom();
-        Location to = event.getTo();
-
-        if (to == null) return;
-        if (from.getX() != to.getX() || from.getY() != to.getY() || from.getZ() != to.getZ()) {
-            // Cancel movement by setting the player's position back to the original location
-            to.setX(from.getX());
-            to.setY(from.getY());
-            to.setZ(from.getZ());
-            event.setTo(to); // This allows the player to still look around
-        }
-    }
-
     public void onEntityDeathEvent(EntityDeathEvent event) {
         if (!this.isActive) return;
         if (!(event.getEntity() instanceof Player)) return;
@@ -241,7 +223,7 @@ public class GameHandler {
         Location teleportLocation = new Location(
             world,
             spawnLocation.getX() + 0.5,
-            world.getHighestBlockYAt(spawnLocation) + 1,
+            spawnLocation.getY() + 0.1,
             spawnLocation.getZ() + 0.5);
         player.teleport(teleportLocation);
     }
@@ -255,6 +237,14 @@ public class GameHandler {
         world.setGameRule(GameRule.KEEP_INVENTORY, true);
         nether.setGameRule(GameRule.KEEP_INVENTORY, true);
         theend.setGameRule(GameRule.KEEP_INVENTORY, true);
+
+        Location location = Bukkit.getWorld("world").getSpawnLocation();
+        location.setY(location.getY() - 1);
+        location.getBlock().setType(Material.BEDROCK);
+    }
+
+    private void freezePlayer(Player player, int seconds) {
+        Utils.giveEffect(player, PotionEffectType.SLOWNESS, seconds, 20);
     }
 
     //---------------------------------------------------------------------------------------------

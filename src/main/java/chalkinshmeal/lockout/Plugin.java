@@ -21,7 +21,6 @@ import chalkinshmeal.lockout.listeners.server.InventoryClickListener;
 import chalkinshmeal.lockout.listeners.server.InventoryDragListener;
 import chalkinshmeal.lockout.listeners.server.PlayerInteractListener;
 import chalkinshmeal.lockout.listeners.server.PlayerJoinListener;
-import chalkinshmeal.lockout.listeners.server.PlayerMoveListener;
 import chalkinshmeal.lockout.utils.cmdframework.command.ParentCommand;
 import chalkinshmeal.lockout.utils.cmdframework.handler.CommandHandler;
 import net.kyori.adventure.text.Component;
@@ -85,6 +84,5 @@ public class Plugin extends JavaPlugin implements Listener {
 		manager.registerEvents(new InventoryDragListener(this.lockoutCompass), this);
 		manager.registerEvents(new PlayerJoinListener(this.lockoutCompass), this);
 		manager.registerEvents(new PlayerInteractListener(this.lockoutCompass), this);
-		manager.registerEvents(new PlayerMoveListener(this.gameHandler), this);
 	}
 }
