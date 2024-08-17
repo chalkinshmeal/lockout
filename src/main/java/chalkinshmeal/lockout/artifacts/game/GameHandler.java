@@ -238,7 +238,11 @@ public class GameHandler {
 
         World world = Bukkit.getWorld("world");
         Location spawnLocation = world.getSpawnLocation();
-        Location teleportLocation = new Location(world, spawnLocation.getX(), world.getHighestBlockYAt(spawnLocation) + 1, spawnLocation.getZ());
+        Location teleportLocation = new Location(
+            world,
+            spawnLocation.getX() + 0.5,
+            world.getHighestBlockYAt(spawnLocation) + 1,
+            spawnLocation.getZ() + 0.5);
         player.teleport(teleportLocation);
     }
 
