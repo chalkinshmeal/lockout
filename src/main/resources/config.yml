@@ -21,28 +21,50 @@ timeLimit: 1200
 activateBlockTask:
   maxTaskCount: 1
   materials:
+  - ACTIVATOR_RAIL
   - COMPARATOR
   - DAYLIGHT_DETECTOR
   - DISPENSER
   - DROPPER
   - HOPPER
   - NOTE_BLOCK
+  - OBSERVER
   - PISTON
+  - POWERED_RAIL
   - REDSTONE_LAMP
   - REPEATER
 
 # Task: Break an item. Possible items to break, and how many to break
 breakItemsTask:
-  maxTaskCount: 2
+  maxTaskCount: 3
   materials:
     ACACIA_LOG: 10
+    ACACIA_LEAVES: 64
+    AMETHYST_BLOCK: 3
     ANDESITE: 32
+    ANDESITE_WALL: 1
+    ARMOR_STAND: 1
+    AZALEA_LEAVES: 64
+    BAMBOO: 10
+    BAMBOO_MOSAIC: 1
+    BASALT: 10
+    BEE_NEST: 2
+    BELL: 1
+    BIG_DRIPLEAF: 1
+    BIRCH_BUTTON: 1
     BIRCH_LOG: 10
+    BLACK_CARPET: 1
     BLACKSTONE: 1
+    BLUE_CONCRETE: 1
     BLUE_ICE: 1
     BOOKSHELF: 5
     BONE_BLOCK: 1
+    BOOKSHELF: 5
+    BRAIN_CORAL: 1
+    BRAIN_CORAL_FAN: 1
+    BREWING_STAND: 1
     BRICKS: 5
+    BROWN_MUSHROOM: 1
     CHISELED_STONE_BRICKS: 1
     CLAY: 10
     COAL_ORE: 10
@@ -53,7 +75,9 @@ breakItemsTask:
     DIAMOND_ORE: 1
     DIRT: 128
     DARK_OAK_LOG: 10
+    DEAD_BUSH: 10
     EMERALD_ORE: 1
+    GLOW_LICHEN: 10
     GLOWSTONE: 5
     GOLD_ORE: 2
     GRASS_BLOCK: 128
@@ -111,9 +135,10 @@ breedEntitiesTask:
 
 # Task: Craft an item. List of possible items to craft
 craftItemTask:
-  maxTaskCount: 2
+  maxTaskCount: 3
   materials:
   - ANVIL
+  - BRUSH
   - BOOKSHELF
   - BOW
   - CLOCK
@@ -127,12 +152,14 @@ craftItemTask:
   - HAY_BLOCK
   - HOPPER
   - IRON_AXE
+  - JACK_O_LANTERN
   - JUKEBOX
   - LEATHER_BOOTS
   - MOSSY_COBBLESTONE
   - NOTE_BLOCK
   - PAINTING
   - PISTON
+  - POLISHED_ANDESITE
   - POWERED_RAIL
   - REDSTONE_TORCH
   - TNT
@@ -197,10 +224,23 @@ eatTask:
   punishmentMinConsumes: 1
   punishmentMaxConsumes: 10
 
-# Task: Eat an item. List of possible items you can eat
+# Task: Eat an item. List of possible items you can eat (Updated to 1.21)
 eatItemTask:
   maxTaskCount: 3
   materials:
+  - APPLE
+  - BAKED_POTATO
+  - BEEF
+  - BEETROOT
+  - BEETROOT_SOUP
+  - BREAD
+  - CARROT
+  - COOKED_CHICKEN
+  - COOKED_COD
+  - COOKED_MUTTON
+  - COOKED_PORKCHOP
+  - COOKED_RABBIT
+  - COOKED_SALMON
   - COOKIE
   - DRIED_KELP
   - GLOW_BERRIES
@@ -213,6 +253,8 @@ eatItemTask:
   - PUFFERFISH
   - PUMPKIN_PIE
   - RABBIT_STEW
+  - ROTTEN_FLESH
+  - SWEET_BERRIES
   - SUSPICIOUS_STEW
   punishmentMaterials:
   - BREAD
@@ -221,6 +263,7 @@ eatItemTask:
 enterBiomeTask:
   maxTaskCount: 2
   biomes:
+    BADLANDS: RED_SAND
     BAMBOO_JUNGLE: BAMBOO
     BASALT_DELTAS: BASALT
     CHERRY_GROVE: CHERRY_SAPLING
@@ -229,14 +272,18 @@ enterBiomeTask:
     DEEP_DARK: SCULK_SENSOR
     DESERT: SAND
     ERODED_BADLANDS: ORANGE_GLAZED_TERRACOTTA
+    FROZEN_PEAKS: ICE
     ICE_SPIKES: PACKED_ICE
     JUNGLE: JUNGLE_SAPLING
     LUSH_CAVES: FLOWERING_AZALEA_LEAVES 
     MEADOW: GRASS_BLOCK
+    MUSHROOM_FIELDS: MYCELIUM
     SNOWY_TAIGA: SNOW_BLOCK
+    STONY_PEAKS: STONE
     SWAMP: VINE
     WARPED_FOREST: WARPED_FUNGUS
   punishmentBiomes:
+    BADLANDS: RED_SAND
     BAMBOO_JUNGLE: BAMBOO
     BASALT_DELTAS: BASALT
     CHERRY_GROVE: CHERRY_SAPLING
@@ -245,15 +292,18 @@ enterBiomeTask:
     DEEP_DARK: SCULK_SENSOR
     DESERT: SAND
     ERODED_BADLANDS: ORANGE_GLAZED_TERRACOTTA
+    FROZEN_PEAKS: ICE
     ICE_SPIKES: PACKED_ICE
     JUNGLE: JUNGLE_SAPLING
     LUSH_CAVES: FLOWERING_AZALEA_LEAVES 
     MEADOW: GRASS_BLOCK
+    MUSHROOM_FIELDS: MYCELIUM
     SNOWY_TAIGA: SNOW_BLOCK
+    STONY_PEAKS: STONE
     SWAMP: VINE
     WARPED_FOREST: WARPED_FUNGUS
 
-# Task: Equip an item. List of possible items to equip
+# Task: Equip an item. List of possible items to equip (Updated to 1.21)
 equipItemTask:
   maxTaskCount: 1
   materials:
@@ -380,16 +430,35 @@ killEntityWithItemTask:
   - VILLAGER
   - WITCH
   - WOLF
-  materials:
+  materials: # Food themed
   - APPLE
+  - BAKED_POTATO
+  - BEEF
   - BEETROOT
-  - COD
+  - BEETROOT_SOUP
+  - BREAD
+  - CARROT
+  - COOKED_CHICKEN
+  - COOKED_COD
+  - COOKED_MUTTON
+  - COOKED_PORKCHOP
+  - COOKED_RABBIT
+  - COOKED_SALMON
   - COOKIE
+  - DRIED_KELP
   - GLOW_BERRIES
+  - GOLDEN_APPLE
+  - GOLDEN_CARROT
+  - HONEY_BOTTLE
+  - MELON_SLICE
+  - MUSHROOM_STEW
+  - POISONOUS_POTATO
   - PUFFERFISH
-  - SALMON
+  - PUMPKIN_PIE
+  - RABBIT_STEW
+  - ROTTEN_FLESH
   - SWEET_BERRIES
-  - TROPICAL_FISH
+  - SUSPICIOUS_STEW
 
 
 # Task: Obtain a group of item. List of item groups to obtain, including:
@@ -409,6 +478,29 @@ obtainItemGroupTask:
       - MELON_SLICE
       - PUMPKIN
       - SWEET_BERRIES
+    BONE:
+      description: "Obtain 4 items that typically drop from Overworld mobs"
+      amount: 4
+      materials:
+      - ARROW
+      - BONE
+      - ENDER_PEARL
+      - GUNPOWDER
+      - PHANTOM_MEMBRANE
+      - ROTTEN_FLESH
+      - SLIME_BALL
+      - SPIDER_EYE
+      - STRING
+    CACTUS:
+      description: "Obtain 3 blocks that hurt you when touched"
+      amount: 3
+      materials:
+      - CACTUS
+      - CAMPFIRE
+      - LAVA_BUCKET
+      - MAGMA_BLOCK
+      - SOUL_CAMPFIRE
+      - WITHER_ROSE
     CHEST:
       description: "Obtain 3 types of items with chests in them"
       amount: 3
@@ -496,6 +588,38 @@ obtainItemGroupTask:
       - GOLDEN_PICKAXE
       - GOLDEN_SHOVEL
       - GOLDEN_SWORD
+    IRON_INGOT:
+      description: "Obtain 6 non-tool, non-armor items made with iron"
+      amount: 6
+      materials:
+      - ACTIVATOR_RAIL
+      - ANVIL
+      - BLAST_FURNACE
+      - BUCKET
+      - CAULDRON
+      - CHAIN
+      - COMPASS
+      - CROSSBOW
+      - DETECTOR_RAIL
+      - FLINT_AND_STEEL
+      - HEAVY_WEIGHTED_PRESSURE_PLATE
+      - HOPPER
+      - IRON_BARS
+      - IRON_BLOCK
+      - IRON_DOOR
+      - IRON_HORSE_ARMOR
+      - IRON_NUGGET
+      - IRON_TRAPDOOR
+      - LANTERN
+      - LIGHTNING_ROD
+      - MINECART
+      - POWERED_RAIL
+      - RAIL
+      - SHEARS
+      - SHIELD
+      - SMITHING_TABLE
+      - SOUL_LANTERN
+      - TRIPWIRE_HOOK
     IRON_PICKAXE:
       description: "Obtain a complete set of iron tools"
       amount: 5
@@ -527,11 +651,53 @@ obtainItemGroupTask:
       materials:
       - ACACIA_LOG
       - BIRCH_LOG
+      - CHERRY_LOG
       - DARK_OAK_LOG
       - JUNGLE_LOG
       - MANGROVE_LOG
       - OAK_LOG
       - SPRUCE_LOG
+    OAK_SAPLING:
+      description: "Obtain 4 types of saplings"
+      amount: 4
+      materials:
+      - ACACIA_SAPLING
+      - BIRCH_SAPLING
+      - CHERRY_SAPLING
+      - DARK_OAK_SAPLING
+      - JUNGLE_SAPLING
+      - MANGROVE_PROPAGULE
+      - OAK_SAPLING
+      - SPRUCE_SAPLING
+    OCHRE_FROGLIGHT:
+      description: "Obtain a froglight"
+      amount: 1
+      materials:
+      - OCHRE_FROGLIGHT
+      - PEARLESCENT_FROGLIGHT
+      - VERDANT_FROGLIGHT
+    POPPY:
+      description: "Obtain 6 types of flowers"
+      amount: 6
+      materials:
+      - ALLIUM
+      - AZURE_BLUET
+      - BLUE_ORCHID
+      - CORNFLOWER
+      - DANDELION
+      - LILAC
+      - LILY_OF_THE_VALLEY
+      - ORANGE_TULIP
+      - OXEYE_DAISY
+      - PEONY
+      - PINK_TULIP
+      - POPPY
+      - RED_TULIP
+      - ROSE_BUSH
+      - SUNFLOWER
+      - TORCHFLOWER
+      - WHITE_TULIP
+      - WITHER_ROSE
     STONE_PICKAXE:
       description: "Obtain a complete set of stone tools"
       amount: 5
@@ -563,6 +729,13 @@ obtainItemGroupTask:
       - SOUL_CAMPFIRE
       - SOUL_LANTERN
       - TORCH
+    SOUL_TORCH:
+      description: "Obtain 3 types of torches"
+      amount: 3
+      materials:
+      - REDSTONE_TORCH
+      - SOUL_TORCH
+      - TORCH
   punishmentMaterials:
     IRON_INGOT:
       description: "Obtain 2 types of ore in its most refined state"
@@ -582,7 +755,7 @@ obtainItemGroupTask:
 
 # Task: Obtain an item. Possible items to obtain and the amount to obtain
 obtainItemsTask:
-  maxTaskCount: 2
+  maxTaskCount: 3
   suddenDeathTaskCount: 5
   materials:
     ACACIA_HANGING_SIGN: 1
@@ -761,6 +934,9 @@ obtainItemWithStringTask:
     STONE:
       string: 'stone'
       amount: 6
+    WHEAT_SEEDS:
+      string: 'seed'
+      amount: 3 
     WHITE_WOOL:
       string: 'wool'
       amount: 5
@@ -807,7 +983,7 @@ placeItemInItemFrameTask:
 
 # Task: Place N items. Possible items to place, and the amount to place
 placeItemsTask:
-  maxTaskCount: 2
+  maxTaskCount: 3
   materials:
     ANDESITE_WALL: 1
     BLACK_STAINED_GLASS: 1
@@ -974,7 +1150,7 @@ shootBlockTask:
   - ANDESITE
   - ANVIL
   - BARREL
-  - BEEHIVE
+  - BEE_NEST
   - BELL
   - BIRCH_FENCE_GATE
   - BLACK_CONCRETE
@@ -1037,7 +1213,7 @@ shootProjectileTask:
 
 # Task: Stand on a block. Possible items to stand on
 standOnBlockTask:
-  maxTaskCount: 2
+  maxTaskCount: 3
   materials:
   - AMETHYST_BLOCK
   - BEDROCK

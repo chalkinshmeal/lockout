@@ -11,6 +11,7 @@ import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
@@ -43,6 +44,7 @@ public class GameHandler {
     // Temporary status
     private List<Player> frozenPlayers = new ArrayList<>();
     public boolean isActive = false;
+    public GameState state = GameState.INACTIVE;
 
     //---------------------------------------------------------------------------------------------
     // Constructor
@@ -68,6 +70,8 @@ public class GameHandler {
     // Game methods
     //---------------------------------------------------------------------------------------------
     public void queue() {
+        this.state = GameState.QUEUE;
+
         // Create task list first, in case there are any problems with the config
         if (!this.lockoutTaskHandler.CreateTaskList()) return;
 
@@ -87,6 +91,8 @@ public class GameHandler {
     }
 
     public void start() {
+        this.state = GameState.PLAY;
+
         // Global operations
         this.frozenPlayers.clear();
         this.countdownBossBar.start();
@@ -168,6 +174,7 @@ public class GameHandler {
 
     public void end() {
         this.isActive = false;
+        this.state = GameState.DONE;
         this.lockoutCompass.SetIsActive(false);
         this.lockoutTaskHandler.unRegisterListeners();
         this.countdownBossBar.stop();
@@ -205,6 +212,12 @@ public class GameHandler {
 
         if (!this.lockoutTeamHandler.getAllPlayers().contains(player)) return;
         for (PotionEffect effect : player.getActivePotionEffects()) player.removePotionEffect(effect.getType());
+    }
+
+    public void onEntityDamageByEntityEvent(EntityDamageByEntityEvent event) {
+        if (this.state != GameState.QUEUE) return;
+
+        event.setCancelled(true);
     }
 
     //---------------------------------------------------------------------------------------------
