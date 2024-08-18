@@ -38,7 +38,7 @@ public class StayStillTask extends LockoutTask {
                            LockoutRewardHandler lockoutRewardHandler, int targetSeconds, boolean isPunishment) {
         super(plugin, configHandler, lockoutTaskHandler, lockoutRewardHandler);
         this.targetSeconds = targetSeconds;
-        this.name = "Stay still (including where you look) for " + this.targetSeconds + " seconds.";
+        this.name = "Stay still for " + this.targetSeconds + " seconds.";
         this.item = new ItemStack(Material.BAKED_POTATO);
         this.isPunishment = isPunishment;
         this.playerLocations = new HashMap<>();
@@ -116,10 +116,9 @@ public class StayStillTask extends LockoutTask {
                 for (Map.Entry<Player, Long> entry : stayTimers.entrySet()) {
                     Player player = entry.getKey();
                     long lastMoveTime = entry.getValue();
-                    System.out.println("Stayed still for: " + (currentTime - lastMoveTime));
 
                     // Check if the player has stayed in the same location for the required time
-                    if (currentTime - lastMoveTime >= targetSeconds) {
+                    if ((currentTime - lastMoveTime) / 1000 >= targetSeconds) {
                         if (player != null) {
                             // Reset the timer to avoid multiple triggers
                             stayTimers.put(player, currentTime);

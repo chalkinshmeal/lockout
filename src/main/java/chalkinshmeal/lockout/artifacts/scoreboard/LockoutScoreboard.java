@@ -1,6 +1,8 @@
 package chalkinshmeal.lockout.artifacts.scoreboard;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
@@ -43,6 +45,18 @@ public class LockoutScoreboard {
                 this.addPlayerToTeam(player, teamName);
             }
         }
+    }
+
+    public int getNumTeams() {
+        return this.scoreboard.getTeams().size();
+    }
+
+    public List<String> getTeamNames() {
+        List<String> teamNames = new ArrayList<>();
+        for (String teamName : this.teamScores.keySet()) {
+            teamNames.add(teamName);
+        }
+        return teamNames;
     }
 
     public void addPlayerToTeam(Player player, String teamName) {

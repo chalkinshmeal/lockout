@@ -320,7 +320,7 @@ public class GameHandler {
                     this.cancel();
                     return;
                 }
-                if (lockoutTaskHandler.areAllTasksDone()) {
+                if (lockoutTaskHandler.areAllTasksDone() || lockoutTaskHandler.doesMercyRuleApply()) {
                     stop();
                     this.cancel();
                     return;

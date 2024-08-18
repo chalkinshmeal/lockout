@@ -144,7 +144,7 @@ public class LockoutTaskHandler {
             allTasks.addAll(SpecificDeathTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(StandOnBlockTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(StandOnCoordinateTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
-            //allTasks.addAll(StayStillTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
+            allTasks.addAll(StayStillTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(UseEyeOfEnderTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(UseNametagTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(UseSpyglassTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
@@ -228,6 +228,13 @@ public class LockoutTaskHandler {
         }
         return true;
     }
+    public boolean doesMercyRuleApply() {
+        for (String teamName : this.lockoutScoreboard.getTeamNames()) {
+            if (this.lockoutScoreboard.getScore(teamName) > this.getMercyRulePointCount()) return true;
+        }
+        return false;
+    }
+
     public boolean areSuddenDeathTasksDone() {
         int minTasksToBeDone = (int) (Math.floor(this.tasks.size() / 2)) + 1;
         int doneTasks = 0;
@@ -237,6 +244,13 @@ public class LockoutTaskHandler {
         }
         return doneTasks >= minTasksToBeDone;
     }
+    // Gets the amount of points needed by the leading team such they are guaranteed to win
+    public int getMercyRulePointCount() {
+        int totalPoints = 0;
+        for (LockoutTask task : this.tasks) { totalPoints += task.value; }
+        return (int) Math.ceil((totalPoints + 1) / 2);
+    }
+
     //---------------------------------------------------------------------------------------------
 	// Task methods
     //---------------------------------------------------------------------------------------------
