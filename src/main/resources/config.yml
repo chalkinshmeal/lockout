@@ -1328,3 +1328,17 @@ stayStillTask:
   maxSeconds: 240
   punishmentMinSeconds: 5
   punishmentMaxSeconds: 20
+
+# Task: Touch a block. Possible items to touch
+touchBlockTask:
+  maxTaskCount: 1
+  materials:
+  - BEDROCK
+  - COBWEB
+  - FIRE
+  - GLOW_LICHEN
+  - KELP
+  - LAVA
+  - WATER
+  punishmentMaterials:
+  - WATER

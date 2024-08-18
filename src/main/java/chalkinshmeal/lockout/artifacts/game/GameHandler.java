@@ -240,7 +240,7 @@ public class GameHandler {
 
         Location location = Bukkit.getWorld("world").getSpawnLocation();
         location.setY(location.getY() - 1);
-        location.getBlock().setType(Material.BEDROCK);
+        location.getBlock().setType(Material.BARRIER);
     }
 
     private void freezePlayer(Player player, int seconds) {

@@ -34,6 +34,7 @@ import chalkinshmeal.lockout.artifacts.tasks.general.ObtainItemGroupTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.ObtainItemWithStringTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.ObtainItemsTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.StayStillTask;
+import chalkinshmeal.lockout.artifacts.tasks.general.TouchBlockTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.PlaceFlowerInPotTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.PlaceItemInItemFrameTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.PlaceItemsTask;
@@ -153,6 +154,7 @@ public class LockoutTaskHandler {
             allTasks.addAll(StandOnBlockTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(StandOnCoordinateTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(StayStillTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
+            allTasks.addAll(TouchBlockTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(UseEyeOfEnderTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(UseNametagTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(UseSpyglassTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
@@ -185,6 +187,7 @@ public class LockoutTaskHandler {
             punishmentTasks.addAll(StayAboveHealthTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             punishmentTasks.addAll(StayAboveHungerTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             punishmentTasks.addAll(StayStillTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
+            punishmentTasks.addAll(TouchBlockTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
         }
         catch (Exception e) {
             this.plugin.getLogger().warning("Could not create task list: " + e.getMessage());
