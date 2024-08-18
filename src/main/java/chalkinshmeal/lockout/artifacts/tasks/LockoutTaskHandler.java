@@ -49,6 +49,7 @@ import chalkinshmeal.lockout.artifacts.tasks.general.StandOnBlockTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.StandOnCoordinateTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.StayAboveHealthTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.BlockArrowWithShieldTask;
+import chalkinshmeal.lockout.artifacts.tasks.specific.BrewPotionTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.CatchFishTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.DrinkMilkToCurePoisonTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.EnchantItemTask;
@@ -103,6 +104,7 @@ public class LockoutTaskHandler {
             // General tasks
             allTasks.addAll(ActivateBlockTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(BreakItemsTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
+            allTasks.addAll(BrewPotionTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(BreedEntitiesTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(BlockArrowWithShieldTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(CatchFishTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
