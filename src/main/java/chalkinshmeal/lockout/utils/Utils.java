@@ -30,6 +30,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.DyeColor;
 import org.bukkit.Location;
@@ -795,7 +796,7 @@ public class Utils {
         if (!(item.getItemMeta() instanceof LeatherArmorMeta)) return false;
         
         LeatherArmorMeta meta = (LeatherArmorMeta) item.getItemMeta();
-        return meta.getColor() != null; // Check if color is set
+        return meta.getColor() != Bukkit.getItemFactory().getDefaultLeatherColor(); // Check if color is set
     }
 
     public static ItemStack setDisplayName(ItemStack item, Component displayName) {

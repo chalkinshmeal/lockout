@@ -1,5 +1,8 @@
 package chalkinshmeal.lockout.artifacts.tasks.specific;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -33,6 +36,13 @@ public class WearFullDyedLeatherArmorTask extends LockoutTask {
 
     public void addListeners() {
 		this.listeners.add(new WearFullDyedLeatherArmorTaskPlayerArmorChangeListener(this));
+    }
+
+    public static List<WearFullDyedLeatherArmorTask> getTasks(JavaPlugin plugin, ConfigHandler configHandler,
+                                                              LockoutTaskHandler lockoutTaskHandler, LockoutRewardHandler lockoutRewardHandler) {
+        List<WearFullDyedLeatherArmorTask> tasks = new ArrayList<>();
+        tasks.add(new WearFullDyedLeatherArmorTask(plugin, configHandler, lockoutTaskHandler, lockoutRewardHandler));
+        return tasks;
     }
 
     //---------------------------------------------------------------------------------------------

@@ -72,6 +72,7 @@ import chalkinshmeal.lockout.artifacts.tasks.specific.TeleportWithAnEnderpearlTa
 import chalkinshmeal.lockout.artifacts.tasks.specific.UseEyeOfEnderTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.UseNametagTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.UseSpyglassTask;
+import chalkinshmeal.lockout.artifacts.tasks.specific.WearFullDyedLeatherArmorTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.WearFullIronArmorTask;
 import chalkinshmeal.lockout.data.ConfigHandler;
 import chalkinshmeal.lockout.utils.Utils;
@@ -142,7 +143,6 @@ public class LockoutTaskHandler {
             allTasks.addAll(PlaceItemInItemFrameTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(PlaceItemsTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(PunchAnEntityWithItemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
-            //allTasks.addAll(ReachVelocityTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(ReceivePotionEffectTypeTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(RepairIronGolemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(RideEntityTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
@@ -161,9 +161,9 @@ public class LockoutTaskHandler {
             allTasks.addAll(UseEyeOfEnderTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(UseNametagTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(UseSpyglassTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
+            allTasks.addAll(WearFullDyedLeatherArmorTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
 
             // Specific tasks
-            //allTasks.add(new WearFullDyedLeatherArmorTask(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.add(new WearFullIronArmorTask(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.add(new TeleportWithAnEnderpearlTask(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.add(new GrowWheatWithBonemealTask(plugin, configHandler, this, lockoutRewardHandler));
