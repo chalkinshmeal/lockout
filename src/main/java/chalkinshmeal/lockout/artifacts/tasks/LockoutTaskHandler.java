@@ -44,6 +44,7 @@ import chalkinshmeal.lockout.artifacts.tasks.general.ShearSheepTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.ShootBlockTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.ShootProjectileTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.SleepInColoredBedTask;
+import chalkinshmeal.lockout.artifacts.tasks.general.SneakOnBlockTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.SpecificDeathTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.StandOnBlockTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.StandOnCoordinateTask;
@@ -145,6 +146,7 @@ public class LockoutTaskHandler {
             allTasks.addAll(ShootBlockTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(ShootProjectileTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(SleepInColoredBedTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
+            allTasks.addAll(SneakOnBlockTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(SpecificDeathTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(StandOnBlockTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(StandOnCoordinateTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));

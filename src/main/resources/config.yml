@@ -1204,49 +1204,20 @@ shootProjectileTask:
   - BOW
   - CROSSBOW
 
-# Task: Stand on a block. Possible items to stand on
-standOnBlockTask:
-  maxTaskCount: 3
-  materials:
-  - AMETHYST_BLOCK
-  - BEDROCK
-  - BEE_NEST
-  - BLACKSTONE
-  - BLAST_FURNACE
-  - BLUE_ICE
-  - CACTUS
-  - CLAY
-  - CRYING_OBSIDIAN
-  - DEEPSLATE_COAL_ORE
-  - DEEPSLATE_COPPER_ORE
-  - DEEPSLATE_GOLD_ORE
-  - DEEPSLATE_IRON_ORE
-  - DIORITE
-  - ICE
-  - IRON_BARS
-  - MUSHROOM_STEM
-  - NETHERRACK
-  - SMALL_DRIPLEAF
-  - SMOOTH_BASALT
-  - SNOW_BLOCK
-  - SOUL_SAND
-  - STRIPPED_BIRCH_LOG
-  - STRIPPED_DARK_OAK_LOG
-  - TUFF
-  punishmentMaterials:
-  - ANDESITE
-  - COAL_BLOCK
-  - COBBLESTONE
-  - DIORITE
-  - DIRT
-  - GRAVEL
-  - SAND
-
-# Task: Stand on coordinate task. Set bounds of possible radius away from spawn location the coordinate is at
-standOnCoordinateTask:
+# Task: Sneak on a block. Possible items to sneak on
+sneakOnBlockTask:
   maxTaskCount: 1
-  minRadius: 100
-  maxRadius: 1000
+  materials:
+  - CAMPFIRE
+  - CACTUS
+  - CRYING_OBSIDIAN
+  - DIAMOND_ORE
+  - MAGMA_BLOCK
+  - POINTED_DRIPSTONE
+  - PRISMARINE
+  - SCULK
+  - SOUL_SAND
+  - SPAWNER
 
 # Task: Die a specific way. Possible DamageCauses to die from
 specificDeathTask:
@@ -1295,6 +1266,50 @@ specificDeathTask:
     PROJECTILE:
       material: ARROW
       explanation: Die to a projectile
+
+# Task: Stand on a block. Possible items to stand on
+standOnBlockTask:
+  maxTaskCount: 3
+  materials:
+  - AMETHYST_BLOCK
+  - BEDROCK
+  - BEE_NEST
+  - BLACKSTONE
+  - BLAST_FURNACE
+  - BLUE_ICE
+  - CACTUS
+  - CLAY
+  - CRYING_OBSIDIAN
+  - DEEPSLATE_COAL_ORE
+  - DEEPSLATE_COPPER_ORE
+  - DEEPSLATE_GOLD_ORE
+  - DEEPSLATE_IRON_ORE
+  - DIORITE
+  - ICE
+  - IRON_BARS
+  - MUSHROOM_STEM
+  - NETHERRACK
+  - SMALL_DRIPLEAF
+  - SMOOTH_BASALT
+  - SNOW_BLOCK
+  - SOUL_SAND
+  - STRIPPED_BIRCH_LOG
+  - STRIPPED_DARK_OAK_LOG
+  - TUFF
+  punishmentMaterials:
+  - ANDESITE
+  - COAL_BLOCK
+  - COBBLESTONE
+  - DIORITE
+  - DIRT
+  - GRAVEL
+  - SAND
+
+# Task: Stand on coordinate task. Set bounds of possible radius away from spawn location the coordinate is at
+standOnCoordinateTask:
+  maxTaskCount: 1
+  minRadius: 100
+  maxRadius: 1000
 
 # Task: Stay above a specific number of health (in half hearts). Randomly chooses target health between minHealth and maxHealth
 stayAboveHealthTask:
