@@ -669,13 +669,6 @@ obtainItemGroupTask:
       - MANGROVE_PROPAGULE
       - OAK_SAPLING
       - SPRUCE_SAPLING
-    OCHRE_FROGLIGHT:
-      description: "Obtain a froglight"
-      amount: 1
-      materials:
-      - OCHRE_FROGLIGHT
-      - PEARLESCENT_FROGLIGHT
-      - VERDANT_FROGLIGHT
     POPPY:
       description: "Obtain 6 types of flowers"
       amount: 6

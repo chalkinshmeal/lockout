@@ -57,6 +57,7 @@ import chalkinshmeal.lockout.artifacts.tasks.specific.EnterNetherTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.GrowWheatWithBonemealTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.KillEntityWithStatusEffectTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.KillLeftySkeletonTask;
+import chalkinshmeal.lockout.artifacts.tasks.specific.LaunchFireworkTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.LightTNTTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.PlaceBookOnLecternTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.RepairIronGolemTask;
@@ -124,6 +125,7 @@ public class LockoutTaskHandler {
             allTasks.addAll(KillEntityWithItemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(KillEntityWithStatusEffectTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(KillLeftySkeletonTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
+            allTasks.addAll(LaunchFireworkTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             allTasks.addAll(ObtainItemGroupTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(ObtainItemWithStringTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false));
             allTasks.addAll(ObtainItemsTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, false, false));
@@ -228,27 +230,13 @@ public class LockoutTaskHandler {
         }
         return true;
     }
-    public boolean doesMercyRuleApply() {
-        for (String teamName : this.lockoutScoreboard.getTeamNames()) {
-            if (this.lockoutScoreboard.getScore(teamName) > this.getMercyRulePointCount()) return true;
-        }
-        return false;
-    }
 
     public boolean areSuddenDeathTasksDone() {
-        int minTasksToBeDone = (int) (Math.floor(this.tasks.size() / 2)) + 1;
-        int doneTasks = 0;
-        for (LockoutTask task : this.tasks) {
-            if (task.isPunishment) continue;
-            if (task.isComplete()) doneTasks += 1;
+        int requiredPoints = (int) Math.ceil(this.tasks.size() / 2);
+        for (String teamName : this.lockoutScoreboard.getTeamNames()) {
+            if (this.lockoutScoreboard.getScore(teamName) >= requiredPoints) return true;
         }
-        return doneTasks >= minTasksToBeDone;
-    }
-    // Gets the amount of points needed by the leading team such they are guaranteed to win
-    public int getMercyRulePointCount() {
-        int totalPoints = 0;
-        for (LockoutTask task : this.tasks) { totalPoints += task.value; }
-        return (int) Math.ceil((totalPoints + 1) / 2);
+        return false;
     }
 
     //---------------------------------------------------------------------------------------------
