@@ -795,7 +795,6 @@ public class Utils {
         if (!(item.getItemMeta() instanceof LeatherArmorMeta)) return false;
         
         LeatherArmorMeta meta = (LeatherArmorMeta) item.getItemMeta();
-        System.out.println("Color of " + item + " : " + meta.getColor());
         return meta.getColor() != null; // Check if color is set
     }
 
@@ -965,9 +964,6 @@ public class Utils {
 
         for (ItemStack item : items) {
             if (item == null) continue;
-            //System.out.println(item.getType().name().toLowerCase().replace('_', ' '));
-            //if (!item.getType().name().toLowerCase().replace('_', ' ').contains(glob)) continue;
-            System.out.println(Utils.asString(item.displayName()).toLowerCase());
             if (!Utils.asString(item.displayName()).toLowerCase().contains(glob)) continue;
             materials.add(item.getType());
         }

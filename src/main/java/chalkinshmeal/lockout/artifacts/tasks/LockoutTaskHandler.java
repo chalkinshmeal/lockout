@@ -22,6 +22,7 @@ import chalkinshmeal.lockout.artifacts.tasks.general.DieTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.EatItemTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.EatTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.EnterBiomeTask;
+import chalkinshmeal.lockout.artifacts.tasks.general.EquipArmorTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.EquipItemTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.GetExpLevelTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.GetSpecificHealthTask;
@@ -170,6 +171,7 @@ public class LockoutTaskHandler {
             punishmentTasks.addAll(EatTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
             punishmentTasks.addAll(EatItemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
             punishmentTasks.addAll(EnterBiomeTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
+            punishmentTasks.addAll(EquipArmorTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             punishmentTasks.addAll(GetExpLevelTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
             punishmentTasks.addAll(KillEntitiesTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
             punishmentTasks.addAll(JumpTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
