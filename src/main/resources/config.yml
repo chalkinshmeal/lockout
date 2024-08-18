@@ -1213,6 +1213,32 @@ shootProjectileTask:
   - BOW
   - CROSSBOW
 
+# Task: Smelt N items. Possible items to smelt
+smeltItemsTask:
+  maxTaskCount: 1
+  materials:
+    BEEF: 10
+    BRICK: 64
+    CHARCOAL: 10
+    COOKED_COD: 10
+    COOKED_CHICKEN: 10
+    COOKED_MUTTON: 10
+    COOKED_PORKCHOP: 10
+    COOKED_RABBIT: 10
+    COOKED_SALMON: 10
+    COPPER_INGOT: 20
+    DRIED_KELP: 64
+    GLASS: 32
+    GOLD_INGOT: 10
+    GREEN_DYE: 1
+    IRON_INGOT: 64
+    SMOOTH_BASALT: 10
+    SMOOTH_QUARTZ: 1
+    SMOOTH_SANDSTONE: 32
+    SMOOTH_STONE: 64
+    STONE: 64
+
+
 # Task: Sneak on a block. Possible items to sneak on
 sneakOnBlockTask:
   maxTaskCount: 1
