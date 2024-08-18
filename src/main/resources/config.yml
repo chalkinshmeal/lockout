@@ -1,7 +1,6 @@
 #--------------------------------------------------------------------------------------------------
 # Global Settings
 #--------------------------------------------------------------------------------------------------
-
 # The number of tasks in a Lockout challenge
 taskCount: 27
 
@@ -9,10 +8,10 @@ taskCount: 27
 punishmentCount: 3
 
 # The number of seconds players are frozen before starting a game
-queueTime: 5
+queueTime: 120
 
 # The number of seconds to countdown for a game before sudden death
-timeLimit: 1200
+timeLimit: 2700
 
 #--------------------------------------------------------------------------------------------------
 # Task-Specific Settings
