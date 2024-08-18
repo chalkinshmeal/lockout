@@ -50,6 +50,7 @@ import chalkinshmeal.lockout.artifacts.tasks.general.SpecificDeathTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.StandOnBlockTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.StandOnCoordinateTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.StayAboveHealthTask;
+import chalkinshmeal.lockout.artifacts.tasks.general.StayAboveHungerTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.BlockArrowWithShieldTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.BrewPotionTask;
 import chalkinshmeal.lockout.artifacts.tasks.specific.CatchFishTask;
@@ -182,6 +183,7 @@ public class LockoutTaskHandler {
             punishmentTasks.addAll(SpecificDeathTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
             punishmentTasks.addAll(StandOnBlockTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
             punishmentTasks.addAll(StayAboveHealthTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
+            punishmentTasks.addAll(StayAboveHungerTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
             punishmentTasks.addAll(StayStillTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
         }
         catch (Exception e) {

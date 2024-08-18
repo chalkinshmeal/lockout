@@ -1316,6 +1316,11 @@ stayAboveHealthTask:
   minHealth: 4
   maxHealth: 16
 
+# Task: Stay above a specific number of hunger (in half hunger thingies). Randomly chooses target hunger between minHunger and maxHunger
+stayAboveHungerTask:
+  minHunger: 6
+  maxHunger: 10
+
 # Task: Stay still for N seconds. Min and max range of seconds for this given task
 stayStillTask:
   maxTaskCount: 1
