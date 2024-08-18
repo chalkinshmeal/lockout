@@ -329,6 +329,15 @@ getSpecificHealthTask:
   minHealth: 1
   maxHealth: 10
 
+# Task: Hold an item. List of possible items to hold
+holdItemTask:
+  maxTaskCount: 1
+  punishmentMaterials:
+  - COAL
+  - COBBLESTONE
+  - DIRT
+  - IRON_INGOT
+
 # Task: Interact with an item. List of possible items to interact with
 interactItemTask:
   maxTaskCount: 2

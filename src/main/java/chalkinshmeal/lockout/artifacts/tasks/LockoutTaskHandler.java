@@ -26,6 +26,7 @@ import chalkinshmeal.lockout.artifacts.tasks.general.EquipArmorTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.EquipItemTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.GetExpLevelTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.GetSpecificHealthTask;
+import chalkinshmeal.lockout.artifacts.tasks.general.HoldItemTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.InteractItemTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.JumpTask;
 import chalkinshmeal.lockout.artifacts.tasks.general.KillEntitiesTask;
@@ -168,26 +169,27 @@ public class LockoutTaskHandler {
             allTasks.add(new DrinkMilkToCurePoisonTask(plugin, configHandler, this, lockoutRewardHandler));
 
             // Punishment tasks
-            punishmentTasks.addAll(BreakItemsTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
-            punishmentTasks.addAll(CraftItemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
-            punishmentTasks.addAll(DieTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
-            punishmentTasks.addAll(EatTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
-            punishmentTasks.addAll(EatItemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
-            punishmentTasks.addAll(EnterBiomeTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
-            punishmentTasks.addAll(EquipArmorTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
-            punishmentTasks.addAll(GetExpLevelTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
-            punishmentTasks.addAll(KillEntitiesTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
-            punishmentTasks.addAll(JumpTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
-            punishmentTasks.addAll(ObtainItemsTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true, false));
-            punishmentTasks.addAll(ObtainItemGroupTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
-            punishmentTasks.addAll(ObtainItemWithStringTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
-            punishmentTasks.addAll(PlaceItemsTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
-            punishmentTasks.addAll(SpecificDeathTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
-            punishmentTasks.addAll(StandOnBlockTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
-            punishmentTasks.addAll(StayAboveHealthTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
-            punishmentTasks.addAll(StayAboveHungerTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
-            punishmentTasks.addAll(StayStillTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
-            punishmentTasks.addAll(TouchBlockTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
+            //punishmentTasks.addAll(BreakItemsTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
+            //punishmentTasks.addAll(CraftItemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
+            //punishmentTasks.addAll(DieTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
+            //punishmentTasks.addAll(EatTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
+            //punishmentTasks.addAll(EatItemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
+            //punishmentTasks.addAll(EnterBiomeTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
+            //punishmentTasks.addAll(EquipArmorTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
+            //punishmentTasks.addAll(GetExpLevelTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
+            punishmentTasks.addAll(HoldItemTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
+            //punishmentTasks.addAll(KillEntitiesTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
+            //punishmentTasks.addAll(JumpTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
+            //punishmentTasks.addAll(ObtainItemsTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true, false));
+            //punishmentTasks.addAll(ObtainItemGroupTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
+            //punishmentTasks.addAll(ObtainItemWithStringTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
+            //punishmentTasks.addAll(PlaceItemsTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
+            //punishmentTasks.addAll(SpecificDeathTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
+            //punishmentTasks.addAll(StandOnBlockTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
+            //punishmentTasks.addAll(StayAboveHealthTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
+            //punishmentTasks.addAll(StayAboveHungerTask.getTasks(plugin, configHandler, this, lockoutRewardHandler));
+            //punishmentTasks.addAll(StayStillTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
+            //punishmentTasks.addAll(TouchBlockTask.getTasks(plugin, configHandler, this, lockoutRewardHandler, true));
         }
         catch (Exception e) {
             this.plugin.getLogger().warning("Could not create task list: " + e.getMessage());
