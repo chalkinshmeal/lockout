@@ -168,6 +168,7 @@ public class GameHandler {
             this.lockoutScoreboard.setScore(this.lockoutTeamHandler.getTeamName(player), 0);
             this.resetPlayerState(player);
             this.lockoutCompass.giveCompass(player);
+            player.setBedSpawnLocation(null, true);
         }
     }
 
