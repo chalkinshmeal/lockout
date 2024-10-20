@@ -1,6 +1,7 @@
 package chalkinshmeal.lockout.artifacts.rewards.types;
 
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffectType;
 
 import chalkinshmeal.lockout.artifacts.rewards.LockoutReward;
@@ -14,8 +15,8 @@ public class PotionEffectReward extends LockoutReward {
     //---------------------------------------------------------------------------------------------
     // Constructor
     //---------------------------------------------------------------------------------------------
-    public PotionEffectReward(PotionEffectType type, int duration, int level) {
-        super();
+    public PotionEffectReward(JavaPlugin plugin, PotionEffectType type, int duration, int level) {
+        super(plugin);
         this.type = type;
         this.duration = duration;
         this.level = level;

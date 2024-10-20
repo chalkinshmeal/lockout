@@ -2,13 +2,13 @@
 # Global Settings
 #--------------------------------------------------------------------------------------------------
 # The number of tasks in a Lockout challenge
-taskCount: 27
+taskCount: 54
 
 # The number of tasks that will be punishments in a Lockout challenge
-punishmentCount: 3
+punishmentCount: 5
 
 # The number of seconds players are frozen before starting a game
-queueTime: 120
+queueTime: 5
 
 # The number of seconds to countdown for a game before sudden death
 timeLimit: 2700
@@ -1255,9 +1255,6 @@ sneakOnBlockTask:
 specificDeathTask:
   maxTaskCount: 2 
   damageCauses:
-    BLOCK_EXPLOSION:
-      material: TNT
-      explanation: Die from a block's explosion
     CAMPFIRE:
       material: CAMPFIRE
       explanation: Die by burning in a campfire

@@ -1,14 +1,16 @@
 package chalkinshmeal.lockout.artifacts.rewards.punishments;
 
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
+
 import chalkinshmeal.lockout.artifacts.rewards.LockoutReward;
 
 public class BlowUpPunishment extends LockoutReward {
     //---------------------------------------------------------------------------------------------
     // Constructor
     //---------------------------------------------------------------------------------------------
-    public BlowUpPunishment() {
-        super();
+    public BlowUpPunishment(JavaPlugin plugin) {
+        super(plugin);
         this.description = "Blow up";
     }
 
