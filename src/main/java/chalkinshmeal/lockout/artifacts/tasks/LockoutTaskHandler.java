@@ -272,6 +272,7 @@ public class LockoutTaskHandler {
         }
 
         this.lockoutCompass.updateTasksInventory(this);
+        System.out.println("Task completed: " + task.name + ", Value: " + task.value);
         this.lockoutScoreboard.addScore(completedPlayer, task.value);
     }
 

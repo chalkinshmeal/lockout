@@ -43,6 +43,12 @@ public class LockoutRewardHandler {
         this.punishments.add(new BlowUpPunishment());
         this.punishments.add(new BlowUpPunishment());
         this.punishments.add(new BlowUpPunishment());
+        this.punishments.add(new BlowUpPunishment());
+        this.punishments.add(new BlowUpPunishment());
+        this.punishments.add(new BlowUpPunishment());
+        this.punishments.add(new BlowUpPunishment());
+        this.punishments.add(new BlowUpPunishment());
+        this.punishments.add(new BlowUpPunishment());
         //this.punishments.add(new BlowUpPunishment());
         //this.punishments.add(new PotionEffectReward(PotionEffectType.SLOWNESS, 120, 2));
         //this.punishments.add(new PotionEffectReward(PotionEffectType.BLINDNESS, 120, 1));

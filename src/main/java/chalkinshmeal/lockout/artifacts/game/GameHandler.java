@@ -180,6 +180,7 @@ public class GameHandler {
 
         for (Player player : this.lockoutTeamHandler.getAllPlayers()) {
             this.lockoutScoreboard.hideFromPlayer(player);
+            for (PotionEffect effect : player.getActivePotionEffects()) player.removePotionEffect(effect.getType());
             player.sendMessage(Component.text("Lockout game ended.", NamedTextColor.GOLD));
         }
     }

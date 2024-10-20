@@ -42,9 +42,12 @@ public class LockoutTeamHandler {
     public HashSet<Player> getTeamPlayers(int teamIndex) { return new ArrayList<>(this.teams.values()).get(teamIndex); }
     public List<String> getTeamNames() { return new ArrayList<>(this.teams.keySet()); }
     public String getTeamName(Player player) {
+        System.out.println("[LockoutTeamHandler::getTeamName] Fetching team name for player " + player);
         for (String teamName : this.teams.keySet()) {
+            System.out.println("- " + teamName);
             if (this.teams.get(teamName).contains(player)) return teamName;
         }
+        System.out.println("COULDN'T FIND");
         return null;
     }
     public String getTeamName(int teamIndex) {

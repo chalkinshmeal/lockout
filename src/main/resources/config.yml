@@ -355,8 +355,8 @@ interactItemTask:
 # Task: Jump N times. Range of how many jumps to jump
 jumpTask:
   maxTaskCount: 1
-  minJumps: 100
-  maxJumps: 100
+  minJumps: 1000
+  maxJumps: 1000
   minPunishmentJumps: 50
   maxPunishmentJumps: 50
 
@@ -866,81 +866,81 @@ obtainItemsTask:
 obtainItemWithStringTask:
   maxTaskCount: 1
   materials:
-    #BLACK_WOOL:
-    #  string: 'black'
-    #  amount: 4
-    #BOOK:
-    #  string: 'book'
-    #  amount: 2
-    #BRAIN_CORAL:
-    #  string: 'coral'
-    #  amount: 2
-    #BRICK:
-    #  string: 'brick'
-    #  amount: 3
-    #CARROT:
-    #  string: 'carrot'
-    #  amount: 2
-    #COBBLESTONE:
-    #  string: 'cobblestone'
-    #  amount: 4
-    #DEEPSLATE:
-    #  string: 'deepslate'
-    #  amount: 4
-    #DIAMOND_BOOTS:
-    #  string: 'boots'
-    #  amount: 2
-    #DIAMOND_CHESTPLATE:
-    #  string: 'chestplate'
-    #  amount: 2
-    #DIAMOND_HELMET:
-    #  string: 'helmet'
-    #  amount: 2
-    #DIAMOND_LEGGINGS:
-    #  string: 'leggings'
-    #  amount: 2
-    #DIAMOND_SWORD:
-    #  string: 'sword'
-    #  amount: 4
-    #DIRT:
-    #  string: 'dirt'
-    #  amount: 2
-    #FIRE_CHARGE:
-    #  string: 'fire'
-    #  amount: 2
-    #GLOWSTONE:
-    #  string: 'glow'
-    #  amount: 2
+    BLACK_WOOL:
+      string: 'black'
+      amount: 4
+    BOOK:
+      string: 'book'
+      amount: 2
+    BRAIN_CORAL:
+      string: 'coral'
+      amount: 2
+    BRICK:
+      string: 'brick'
+      amount: 3
+    CARROT:
+      string: 'carrot'
+      amount: 2
+    COBBLESTONE:
+      string: 'cobblestone'
+      amount: 4
+    DEEPSLATE:
+      string: 'deepslate'
+      amount: 4
+    DIAMOND_BOOTS:
+      string: 'boots'
+      amount: 2
+    DIAMOND_CHESTPLATE:
+      string: 'chestplate'
+      amount: 2
+    DIAMOND_HELMET:
+      string: 'helmet'
+      amount: 2
+    DIAMOND_LEGGINGS:
+      string: 'leggings'
+      amount: 2
+    DIAMOND_SWORD:
+      string: 'sword'
+      amount: 4
+    DIRT:
+      string: 'dirt'
+      amount: 2
+    FIRE_CHARGE:
+      string: 'fire'
+      amount: 2
+    GLOWSTONE:
+      string: 'glow'
+      amount: 2
     NETHERITE_BLOCK:
       string: 'block of'
       amount: 3
-    #OAK_LEAVES:
-    #  string: 'leaves'
-    #  amount: 3
-    #OAK_PRESSURE_PLATE:
-    #  string: 'plate'
-    #  amount: 4
-    #RED_DYE:
-    #  string: 'red'
-    #  amount: 3
-    #SAND:
-    #  string: 'sand'
-    #  amount: 4
-    #SNOWBALL:
-    #  string: 'ball'
-    #  amount: 1
-    #STICK:
-    #  string: 'stick'
-    #  amount: 2
-    #STONE:
-    #  string: 'stone'
-    #  amount: 6
-    #WHEAT_SEEDS:
-    #  string: 'seed'
-    #  amount: 3 
-    #WHITE_WOOL:
-    #  string: 'wool'
-    #  amount: 5
+    OAK_LEAVES:
+      string: 'leaves'
+      amount: 3
+    OAK_PRESSURE_PLATE:
+      string: 'plate'
+      amount: 4
+    RED_DYE:
+      string: 'red'
+      amount: 3
+    SAND:
+      string: 'sand'
+      amount: 4
+    SNOWBALL:
+      string: 'ball'
+      amount: 1
+    STICK:
+      string: 'stick'
+      amount: 2
+    STONE:
+      string: 'stone'
+      amount: 6
+    WHEAT_SEEDS:
+      string: 'seed'
+      amount: 3 
+    WHITE_WOOL:
+      string: 'wool'
+      amount: 5
   punishmentMaterials:
     DIRT:
       string: 'dirt'
