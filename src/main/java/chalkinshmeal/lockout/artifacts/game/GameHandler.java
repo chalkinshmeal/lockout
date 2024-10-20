@@ -76,12 +76,15 @@ public class GameHandler {
         if (!this.lockoutTaskHandler.CreateTaskList()) return;
 
         this.isActive = true;
+        this.lockoutScoreboard.init(this.lockoutTeamHandler);
 
         for (Player player : this.lockoutTeamHandler.getAllPlayers()) {
             this.resetPlayerState(player);
             this.lockoutCompass.giveCompass(player);
             this.DisplayCountdownTask(plugin, player, this.queueTime);
             this.freezePlayer(player, this.queueTime);
+            this.lockoutScoreboard.setScore(this.lockoutTeamHandler.getTeamName(player), 0);
+            this.lockoutScoreboard.showToPlayer(player);
         }
 
         this.resetWorldState();
@@ -96,15 +99,12 @@ public class GameHandler {
         // Global operations
         this.countdownBossBar.start();
         this.lockoutTaskHandler.registerListeners();
-        this.lockoutScoreboard.init(this.lockoutTeamHandler);
         this.checkAllTasksDoneTask(plugin, lockoutTaskHandler);
         this.delayStopTask(this.plugin, this, this.gameTime);
 
         // Per-player operations
         for (Player player : this.lockoutTeamHandler.getAllPlayers()) {
             player.sendMessage(Component.text("Lockout game starting.", NamedTextColor.GOLD));
-            this.lockoutScoreboard.setScore(this.lockoutTeamHandler.getTeamName(player), 0);
-            this.lockoutScoreboard.showToPlayer(player);
         }
     }
 
@@ -137,7 +137,7 @@ public class GameHandler {
                 Component.empty(), // No subtitle
                 Title.Times.of(java.time.Duration.ZERO, java.time.Duration.ofSeconds(5), java.time.Duration.ofSeconds(1))
             ));
-            if (this.lockoutTeamHandler.getTeamPlayers(winningTeams.get(0)).contains(player)) {
+            if (this.lockoutTeamHandler.getTeamPlayers(winningTeams.get(0)).contains(player.getUniqueId())) {
                 Utils.playSound(player, Sound.ITEM_GOAT_HORN_SOUND_1);
             }
             else {
