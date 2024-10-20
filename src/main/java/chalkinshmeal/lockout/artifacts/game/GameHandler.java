@@ -17,7 +17,6 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import chalkinshmeal.lockout.artifacts.compass.LockoutCompass;
@@ -82,7 +81,6 @@ public class GameHandler {
             this.resetPlayerState(player);
             this.lockoutCompass.giveCompass(player);
             this.DisplayCountdownTask(plugin, player, this.queueTime);
-            this.freezePlayer(player, this.queueTime);
             this.lockoutScoreboard.setScore(this.lockoutTeamHandler.getTeamName(player), 0);
             this.lockoutScoreboard.showToPlayer(player);
         }
@@ -101,6 +99,7 @@ public class GameHandler {
         this.lockoutTaskHandler.registerListeners();
         this.checkAllTasksDoneTask(plugin, lockoutTaskHandler);
         this.delayStopTask(this.plugin, this, this.gameTime);
+        this.destroySpawnCage();
 
         // Per-player operations
         for (Player player : this.lockoutTeamHandler.getAllPlayers()) {
@@ -190,9 +189,14 @@ public class GameHandler {
     // Listener methods
     //---------------------------------------------------------------------------------------------
     public void onEntityDeathEvent(EntityDeathEvent event) {
-        if (!this.isActive) return;
         if (!(event.getEntity() instanceof Player)) return;
         Player player = (Player) event.getEntity();
+        if (!this.isActive) {
+            System.out.println("Teleporting to: " + Bukkit.getWorld("world").getSpawnLocation());
+            this.delayTeleportTask(this.plugin, this, player, Bukkit.getWorld("world").getSpawnLocation());
+            event.setCancelled(true);
+            return;
+        }
 
         if (!this.lockoutTeamHandler.getAllPlayers().contains(player)) return;
         for (PotionEffect effect : player.getActivePotionEffects()) player.removePotionEffect(effect.getType());
@@ -239,14 +243,68 @@ public class GameHandler {
         world.setGameRule(GameRule.KEEP_INVENTORY, true);
         nether.setGameRule(GameRule.KEEP_INVENTORY, true);
         theend.setGameRule(GameRule.KEEP_INVENTORY, true);
-
-        Location location = Bukkit.getWorld("world").getSpawnLocation();
-        location.setY(location.getY() - 1);
-        location.getBlock().setType(Material.BARRIER);
     }
 
-    private void freezePlayer(Player player, int seconds) {
-        Utils.giveEffect(player, PotionEffectType.SLOWNESS, seconds, 20);
+    public void createSpawnCage()
+    {
+        Location location = Bukkit.getWorld("world").getSpawnLocation();
+        this.createHollowCube(location);
+    }
+
+    public void destroySpawnCage()
+    {
+        Location location = Bukkit.getWorld("world").getSpawnLocation();
+        this.destroyHollowCube(location);
+    }
+
+    // Method to create a 5x5 hollow cube of obsidian centered around the given location
+    public void createHollowCube(Location center) {
+        World world = center.getWorld();
+        int startX = center.getBlockX() - 2;  // Adjust to make it centered
+        int startY = center.getBlockY() - 1;
+        int startZ = center.getBlockZ() - 2;
+
+        // Loop through a 5x5x5 area
+        for (int x = startX; x < startX + 5; x++) {
+            for (int y = startY; y < startY + 5; y++) {
+                for (int z = startZ; z < startZ + 5; z++) {
+                    boolean isEdge = (x == startX || x == startX + 4 || 
+                                      y == startY || y == startY + 4 || 
+                                      z == startZ || z == startZ + 4);
+
+                    // Only place obsidian on the edges, leaving the inside hollow
+                    if (isEdge) {
+                        world.getBlockAt(x, y, z).setType(Material.BEDROCK);
+                    }
+                    else {
+                        world.getBlockAt(x, y, z).setType(Material.AIR);
+                    }
+                }
+            }
+        }
+    }
+
+    public void destroyHollowCube(Location center) {
+        World world = center.getWorld();
+        int startX = center.getBlockX() - 2;  // Adjust to make it centered
+        int startY = center.getBlockY() - 1;
+        int startZ = center.getBlockZ() - 2;
+
+        // Loop through a 5x5x5 area
+        for (int x = startX; x < startX + 5; x++) {
+            for (int y = startY; y < startY + 5; y++) {
+                for (int z = startZ; z < startZ + 5; z++) {
+                    boolean isEdge = (x == startX || x == startX + 4 || 
+                                      y == startY || y == startY + 4 || 
+                                      z == startZ || z == startZ + 4);
+
+                    // Only place obsidian on the edges, leaving the inside hollow
+                    if (isEdge) {
+                        world.getBlockAt(x, y, z).setType(Material.AIR);
+                    }
+                }
+            }
+        }
     }
 
     //---------------------------------------------------------------------------------------------
@@ -274,6 +332,17 @@ public class GameHandler {
                     return;
                 }
                 gameHandler.stop();
+            }
+        }.runTaskLater(plugin, delayTicks);
+    }
+
+    private void delayTeleportTask(JavaPlugin plugin, GameHandler gameHandler, Player player, Location location) {
+        int delayTicks = 1;
+ 
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                player.teleport(location);
             }
         }.runTaskLater(plugin, delayTicks);
     }

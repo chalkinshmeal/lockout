@@ -56,6 +56,9 @@ public class Plugin extends JavaPlugin implements Listener {
             .append(Component.text("Lockout successfully loaded", NamedTextColor.GOLD))
             .build();
 		this.getServer().getConsoleSender().sendMessage(welcomeMsg);
+
+        // Create spawn cage
+        this.gameHandler.createSpawnCage();
 	}
 
 	/** Register all commands within the /command directory */

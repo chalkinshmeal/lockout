@@ -1,5 +1,6 @@
 package chalkinshmeal.lockout.listeners.server;
 
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -25,6 +26,9 @@ public class PlayerJoinListener implements Listener {
         this.lockoutCompass.giveCompass(event.getPlayer());
         if (this.gameHandler.isActive) {
             this.lockoutScoreboard.showToPlayer(event.getPlayer());
+        }
+        else {
+            event.getPlayer().teleport(Bukkit.getWorld("world").getSpawnLocation());
         }
     }
 }
