@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import chalkinshmeal.lockout.artifacts.team.LockoutTeamHandler;
@@ -43,8 +44,13 @@ public class TeamCommand extends ArgCommand {
         Material material;
         try {
             material = Material.valueOf(argValues.get(1).get());
+            ItemStack item = new ItemStack(material);
         }
         catch (Exception e) {
+            player.sendMessage(Component.text("Invalid material provided: '" + argValues.get(1).get() + "'", NamedTextColor.RED));
+            return;
+        }
+        if (material.equals(Material.AIR)) {
             player.sendMessage(Component.text("Invalid material provided: '" + argValues.get(1).get() + "'", NamedTextColor.RED));
             return;
         }
