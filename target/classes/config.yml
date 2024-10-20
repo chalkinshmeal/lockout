@@ -42,7 +42,6 @@ breakItemsTask:
     AMETHYST_BLOCK: 3
     ANDESITE: 32
     ANDESITE_WALL: 1
-    ARMOR_STAND: 1
     AZALEA_LEAVES: 64
     BAMBOO: 10
     BAMBOO_MOSAIC: 1
@@ -315,7 +314,6 @@ equipItemTask:
   - LEATHER_CHESTPLATE
   - LEATHER_LEGGINGS
   - LEATHER_BOOTS
-  - PUMPKIN
 
 # Task: Get a certain EXP level. Is a random level, up to the max level specified here
 getExpLevelTask:
