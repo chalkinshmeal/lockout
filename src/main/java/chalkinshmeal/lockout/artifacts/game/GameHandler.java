@@ -175,12 +175,12 @@ public class GameHandler {
     public void end() {
         this.isActive = false;
         this.state = GameState.DONE;
-        this.lockoutCompass.SetIsActive(false);
+        //this.lockoutCompass.SetIsActive(false);
         this.lockoutTaskHandler.unRegisterListeners();
         this.countdownBossBar.stop();
 
         for (Player player : this.lockoutTeamHandler.getAllPlayers()) {
-            this.lockoutScoreboard.hideFromPlayer(player);
+            //this.lockoutScoreboard.hideFromPlayer(player);
             for (PotionEffect effect : player.getActivePotionEffects()) player.removePotionEffect(effect.getType());
             player.sendMessage(Component.text("Lockout game ended.", NamedTextColor.GOLD));
         }
