@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
@@ -19,13 +21,16 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 
 public class LockoutScoreboard {
+    private final JavaPlugin plugin;
     private final Scoreboard scoreboard;
     private final Objective objective;
     private final Map<String, Score> teamScores;
     private LockoutTeamHandler lockoutTeamHandler;
 
     @SuppressWarnings("deprecation")
-    public LockoutScoreboard() {
+    public LockoutScoreboard(JavaPlugin plugin) {
+        this.plugin = plugin;
+
         ScoreboardManager manager = Bukkit.getScoreboardManager();
         if (manager == null) {
             throw new IllegalStateException("ScoreboardManager is not available");
@@ -41,8 +46,8 @@ public class LockoutScoreboard {
         this.lockoutTeamHandler = lockoutTeamHandler;
 
         for (String teamName : this.lockoutTeamHandler.getTeamNames()) {
-            for (Player player : this.lockoutTeamHandler.getTeamPlayers(teamName)) {
-                this.addPlayerToTeam(player, teamName);
+            for (UUID uuid : this.lockoutTeamHandler.getTeamPlayers(teamName)) {
+                this.addPlayerToTeam(this.plugin.getServer().getPlayer(uuid), teamName);
             }
         }
     }

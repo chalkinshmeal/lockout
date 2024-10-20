@@ -41,8 +41,8 @@ public class Plugin extends JavaPlugin implements Listener {
 		super.onEnable();
 		this.cmdHandler = new CommandHandler(this);
         this.configHandler = new ConfigHandler(this);
-        this.lockoutTeamHandler = new LockoutTeamHandler();
-        this.lockoutScoreboard = new LockoutScoreboard();
+        this.lockoutTeamHandler = new LockoutTeamHandler(this);
+        this.lockoutScoreboard = new LockoutScoreboard(this);
         this.lockoutCompass = new LockoutCompass(this.configHandler, this.lockoutTeamHandler);
         this.lockoutTaskHandler = new LockoutTaskHandler(this, this.configHandler, this.lockoutCompass, this.lockoutScoreboard);
         this.gameHandler = new GameHandler(this, this.configHandler, this.lockoutCompass, this.lockoutTaskHandler, this.lockoutScoreboard, this.lockoutTeamHandler);
@@ -82,7 +82,7 @@ public class Plugin extends JavaPlugin implements Listener {
 		manager.registerEvents(new EntityDeathListener(this.gameHandler), this);
 		manager.registerEvents(new InventoryClickListener(this.lockoutCompass), this);
 		manager.registerEvents(new InventoryDragListener(this.lockoutCompass), this);
-		manager.registerEvents(new PlayerJoinListener(this.lockoutCompass), this);
+		manager.registerEvents(new PlayerJoinListener(this.lockoutCompass, this.lockoutScoreboard), this);
 		manager.registerEvents(new PlayerInteractListener(this.lockoutCompass), this);
 	}
 }
