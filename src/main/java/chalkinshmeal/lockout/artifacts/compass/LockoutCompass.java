@@ -123,6 +123,8 @@ public class LockoutCompass {
 
         event.setCancelled(true);
 
+        if (this.isActive) return;
+
         // Change team of player
         Player player = (Player) event.getWhoClicked();
         this.lockoutTeamHandler.removePlayer(player);
